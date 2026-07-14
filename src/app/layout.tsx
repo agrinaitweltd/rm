@@ -5,6 +5,7 @@ import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import SiteBehaviors from "@/components/SiteBehaviors";
+import Analytics from "@/components/Analytics";
 import { site } from "@/lib/site";
 
 // Ported stylesheets from the original theme, in the original cascade order.
@@ -201,6 +202,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <SiteBehaviors />
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

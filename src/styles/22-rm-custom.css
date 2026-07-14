@@ -492,13 +492,13 @@ body:has(#post-6274) #ast-mobile-popup .menu-link:hover {
     animation: none !important;
   }
 }
+/* ---- Dark theme: black where the design was white, but the green /
+   yellow brand bands and photo sections keep their colour; header stays white. ---- */
 
-/* ---- Site-wide dark background: turn white/default surfaces black while
-   preserving image sections and coloured brand bands. ---- */
+/* Page shell + previously-white surfaces -> black */
 html,
 body,
 #page,
-.site,
 .site-content,
 .ast-container,
 .content-area,
@@ -506,12 +506,62 @@ body,
 .ast-article-single,
 .entry-content,
 .entry-content > .elementor,
-.elementor-section-wrap,
-.elementor-widget-container,
-.e-con-inner {
-  background-color: #000000;
+#colophon {
+  background-color: #000 !important;
 }
 
+/* Text light so it reads on black (coloured bands already read white) */
+body,
+.entry-content,
+.elementor-widget-text-editor,
+.elementor-widget-text-editor p,
+.jet-unfold__content,
+.jet-unfold__content p,
+.elementor-icon-list-text,
+.e-n-accordion-item-title-text,
+#colophon,
+#colophon p,
+#colophon .widget-title,
+#colophon .textwidget,
+#colophon .menu-link,
+.ast-footer-copyright p {
+  color: #f4f4f4 !important;
+}
+
+.elementor-heading-title,
+.elementor-icon-box-title,
+.elementor-icon-box-title span {
+  color: #f5f5f5 !important;
+}
+
+/* White card panels -> black (hero cards, jobs, chain header/quality, team) */
+.elementor-5298 .elementor-element.elementor-element-a94310a,
+.elementor-5298 .elementor-element.elementor-element-8bdf647,
+.elementor-5558 .elementor-element.elementor-element-47e3004,
+.elementor-5558 .elementor-element.elementor-element-4642815,
+.elementor-6274 .elementor-element.elementor-element-4007056,
+.elementor-5719 .elementor-element.elementor-element-2e21e8d,
+.elementor-5719 .elementor-element.elementor-element-8915c7c,
+.jet-team-member__inner,
+.rm-cookie-banner {
+  background-color: #000 !important;
+}
+
+.jet-team-member__inner,
+.rm-cookie-banner {
+  border: 1px solid rgba(122, 168, 45, 0.35);
+}
+
+.rm-cookie-banner,
+.rm-cookie-banner h3 {
+  color: #f4f4f4;
+}
+
+.rm-cookie-pref span {
+  color: #cfcfcf;
+}
+
+/* ---- Header + mobile drawer stay white so the menu is always visible ---- */
 #masthead,
 #masthead .main-header-bar,
 #masthead .ast-primary-header-bar,
@@ -521,53 +571,21 @@ body,
 .ast-mobile-popup-drawer .ast-mobile-popup-inner,
 .ast-mobile-popup-content,
 .ast-builder-menu-mobile .main-navigation {
-  background-color: #000000 !important;
+  background-color: #fff !important;
 }
 
-body,
-.entry-content,
-.elementor-widget-text-editor,
-.elementor-widget-text-editor p,
-.jet-unfold__content,
-.elementor-icon-list-text,
-.e-n-accordion-item-title-text {
-  color: #f4f4f4;
+/* Mobile off-canvas menu: larger, clearly visible links on the white drawer */
+#ast-mobile-popup .menu-link,
+.ast-mobile-popup-content .menu-link {
+  font-size: 2rem;
+  padding: 1.2rem 0;
 }
-
-.elementor-heading-title,
-.elementor-icon-box-title,
-.elementor-icon-box-title span {
-  color: inherit;
-}
-
-.elementor-element:not(.elementor-motion-effects-element-type-background):not(.elementor-element-7de2776):not(.elementor-element-afb9648):not(.elementor-element-ae43cae):not(.elementor-element-49b7770):not(.elementor-element-d61f23c),
-.elementor-element > .elementor-widget-container {
-  background-color: transparent;
-}
-
-.elementor-5298 .elementor-element.elementor-element-a94310a:not(.elementor-motion-effects-element-type-background),
-.elementor-5298 .elementor-element.elementor-element-8bdf647:not(.elementor-motion-effects-element-type-background),
-.elementor-5628 .elementor-element:not(.elementor-motion-effects-element-type-background),
-.elementor-5558 .elementor-element.elementor-element-4642815:not(.elementor-motion-effects-element-type-background),
-.elementor-6274 .elementor-element.elementor-element-4007056:not(.elementor-motion-effects-element-type-background),
-.elementor-7156 .elementor-element.elementor-element-bd91fe4:not(.elementor-motion-effects-element-type-background) {
-  background-color: #000000 !important;
-}
-
-.elementor-6274 .jet-team-member__inner,
-.elementor-7156 .jet-team-member__inner,
-.rm-cookie-banner {
-  background-color: #000000 !important;
-  border: 1px solid rgba(122, 168, 45, 0.35);
-}
-
-.rm-cookie-banner {
-  color: #f4f4f4;
-}
-
-.rm-cookie-pref span {
-  color: #cfcfcf;
-}
+#ast-mobile-popup .menu-item:nth-child(1) .menu-link { color: #4f8d36; }
+#ast-mobile-popup .menu-item:nth-child(2) .menu-link { color: #f6a200; }
+#ast-mobile-popup .menu-item:nth-child(3) .menu-link { color: #7aa82d; }
+#ast-mobile-popup .menu-item:nth-child(4) .menu-link { color: #eda20b; }
+#ast-mobile-popup .menu-link:hover { color: #1e1e1e; }
+#menu-toggle-close .ast-close-svg { color: #1e1e1e; }
 
 .rm-cookie-prefs {
   border-top: 1px solid var(--e-global-color-astglobalcolor6, #e3e3e3);
@@ -591,7 +609,7 @@ body,
 
 .rm-cookie-pref span {
   font-size: 1.3rem;
-  color: #575756;
+  color: #cfcfcf;
 }
 
 .rm-cookie-pref input[type="checkbox"] {
@@ -608,4 +626,98 @@ body,
     bottom: 10px;
     padding: 2rem;
   }
+}
+
+/* ---- "King Of Mangoes" hero tagline ---- */
+.rm-hero-tagline {
+  text-align: center;
+  width: 100%;
+  margin: 0.5rem 0 1.5rem;
+}
+.rm-hero-tagline .elementor-heading-title {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: #f6a200 !important;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  line-height: 1.1;
+}
+
+/* ---- Products: "coming soon" cards ---- */
+.rm-soon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  width: 100%;
+  padding: 1rem 0 2rem;
+}
+.rm-soon-card {
+  position: relative;
+  width: 26rem;
+  max-width: 90%;
+  background: linear-gradient(160deg, rgba(79, 141, 54, 0.18), rgba(246, 162, 0, 0.12));
+  border: 1px solid rgba(122, 168, 45, 0.4);
+  border-radius: 18px;
+  padding: 2.6rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+.rm-soon-badge {
+  display: inline-block;
+  background: #f6a200;
+  color: #1e1e1e;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.4rem;
+  border-radius: 30px;
+  margin-bottom: 1.4rem;
+}
+.rm-soon-card h3 {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: #f5f5f5;
+  font-size: 2.4rem;
+  margin: 0 0 0.6rem;
+}
+.rm-soon-card p {
+  color: #cfcfcf;
+  font-size: 1.5rem;
+  margin: 0;
+}
+.rm-soon-emoji {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+/* ---- Contact team card: show details without needing hover ---- */
+.elementor-6274 .jet-team-member__cover {
+  position: relative !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  background: transparent !important;
+  padding: 1.6rem 1rem 0 !important;
+}
+.elementor-6274 .jet-team-member__cover::before {
+  display: none !important;
+}
+.elementor-6274 .jet-team-member--cover-hover .jet-team-member__image {
+  display: flex;
+  flex-direction: column;
+}
+.elementor-6274 .jet-team-member__figure {
+  order: -1;
+}
+.elementor-6274 .jet-team-member__name-first,
+.elementor-6274 .jet-team-member__position span,
+.elementor-6274 .jet-team-member__desc,
+.elementor-6274 .jet-team-member__desc a {
+  color: #f5f5f5 !important;
+}
+.elementor-6274 .jet-team-member__desc a:hover {
+  color: #7aa82d !important;
 }

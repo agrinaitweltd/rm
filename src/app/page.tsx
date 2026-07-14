@@ -77,10 +77,21 @@ export default function HomePage() {
             <div className="elementor-widget-container">
               <img
                 decoding="async"
+                fetchPriority="high"
                 src="/rm-mangoes-hero-logo.png"
                 title="RM Mangoes"
                 alt="RM Mangoes — From Pakistani Farms to Scottish & Irish Doorsteps"
               />
+            </div>
+          </div>
+          <div
+            className="elementor-element rm-hero-tagline elementor-widget elementor-widget-heading elementor-invisible"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":250}'
+            data-element_type="widget"
+            data-widget_type="heading.default"
+          >
+            <div className="elementor-widget-container">
+              <h2 className="elementor-heading-title elementor-size-default">{site.tagline}</h2>
             </div>
           </div>
           <div

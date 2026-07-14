@@ -1,7 +1,11 @@
 export const site = {
   name: "RM Mangoes",
   slogan: "From Pakistani Farms to Scottish & Irish Doorsteps",
+  tagline: "King Of Mangoes",
   url: "https://rmmangoes.co.uk",
+  // Add your Google Analytics 4 Measurement ID (e.g. "G-XXXXXXXXXX") to
+  // enable analytics — or set NEXT_PUBLIC_GA_ID in the environment.
+  gaId: process.env.NEXT_PUBLIC_GA_ID || "",
   email: "info@rmmangoes.co.uk",
   phoneDisplay: "+44 0788080890",
   phoneTel: "+44788080890",

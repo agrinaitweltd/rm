@@ -31,7 +31,7 @@ export default function QuoteBand({
           data-widget_type="image.default"
         >
           <div className="elementor-widget-container">
-            <img decoding="async" width={10} height={10} src={mark} className="attachment-full size-full" alt="" />
+            <img decoding="async" loading="lazy" width={10} height={10} src={mark} className="attachment-full size-full" alt="" />
           </div>
         </div>
         <div

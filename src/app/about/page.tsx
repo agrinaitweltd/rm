@@ -371,7 +371,7 @@ export default function AboutPage() {
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
-              <img decoding="async" src="/heart.png" alt="" />
+              <img decoding="async" loading="lazy" src="/heart.png" alt="" />
             </div>
           </div>
           <div
@@ -583,7 +583,7 @@ export default function AboutPage() {
                   className="uael-video__play"
                   data-src="https://player.vimeo.com/video/857579952?loop=1&title=0&portrait=0&byline=0&muted=0&autopause=0"
                 >
-                  <img decoding="async" className="uael-video__thumb" src="/video-thumb.png" alt="" />
+                  <img decoding="async" loading="lazy" className="uael-video__thumb" src="/video-thumb.png" alt="" />
                   <div className="uael-video__play-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="72" height="72" aria-hidden="true">
                       <path
@@ -614,7 +614,7 @@ export default function AboutPage() {
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
-              <img decoding="async" src="/Team.png" alt="" />
+              <img decoding="async" loading="lazy" src="/Team.png" alt="" />
             </div>
           </div>
           <Heading anim="fadeInUp" id="1509635" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Want to be part of our team?'`} />

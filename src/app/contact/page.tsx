@@ -156,7 +156,7 @@ export default function ContactPage() {
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
-              <img decoding="async" width={187} height={127} src="/rm-contact-bubbles.png" alt="" />
+              <img decoding="async" loading="lazy" width={187} height={127} src="/rm-contact-bubbles.png" alt="" />
             </div>
           </div>
           <div

@@ -186,6 +186,47 @@ export default function ProductsPage() {
         </div>
       </div>
 
+      {/* Coming soon */}
+      <div
+        className="elementor-element e-flex e-con-boxed e-con e-parent"
+        data-element_type="container"
+      >
+        <div className="e-con-inner">
+          <div
+            className="elementor-element elementor-widget elementor-widget-heading elementor-invisible"
+            data-settings='{"_animation":"fadeInUp"}'
+            data-element_type="widget"
+            data-widget_type="heading.default"
+          >
+            <div className="elementor-widget-container">
+              <h2 className="elementor-heading-title elementor-size-default">More coming soon</h2>
+            </div>
+          </div>
+          <div className="rm-soon-grid">
+            <div
+              className="rm-soon-card elementor-invisible"
+              data-settings='{"_animation":"zoomIn"}'
+              data-element_type="widget"
+            >
+              <div className="rm-soon-emoji" aria-hidden="true">🥭🥤</div>
+              <span className="rm-soon-badge">Coming soon</span>
+              <h3>Mango&nbsp;•••••</h3>
+              <p>A brand-new mango treat is on its way. Watch this space!</p>
+            </div>
+            <div
+              className="rm-soon-card elementor-invisible"
+              data-settings='{"_animation":"zoomIn","_animation_delay":150}'
+              data-element_type="widget"
+            >
+              <div className="rm-soon-emoji" aria-hidden="true">✨</div>
+              <span className="rm-soon-badge">Coming soon</span>
+              <h3>New products</h3>
+              <p>More delicious Pakistani mango products are on the way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Quote + order CTA */}
       <div
         className="elementor-element elementor-element-a641416 e-flex e-con-boxed e-con e-parent"
