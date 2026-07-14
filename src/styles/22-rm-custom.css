@@ -709,6 +709,22 @@ body,
   color: #1e1e1e !important;
 }
 
+/* Services section on chain page - black text */
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e {
+  color: #1e1e1e !important;
+}
+
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e p,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h1,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h2,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h3,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h4,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h5,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h6,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e span {
+  color: #1e1e1e !important;
+}
+
 /* Team member card and cookie banner keep dark background */
 .jet-team-member__inner,
 .rm-cookie-banner {
