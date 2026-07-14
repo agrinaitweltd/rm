@@ -574,16 +574,52 @@ body,
   background-color: #fff !important;
 }
 
-/* Mobile off-canvas menu: larger, clearly visible links on the white drawer */
+/* Mobile off-canvas menu: give the drawer a comfortable width */
+.ast-mobile-popup-drawer.ast-mobile-popup-right .ast-mobile-popup-inner,
+#ast-mobile-popup .ast-mobile-popup-inner {
+  width: min(360px, 86vw) !important;
+  max-width: 86vw !important;
+}
+
+/* Mobile off-canvas menu: breathing room so text never touches the edges */
+#ast-mobile-popup .ast-mobile-popup-content {
+  padding: 1rem 2.4rem 3rem !important;
+}
+#ast-mobile-popup .ast-mobile-popup-header {
+  padding: 1.6rem 2.4rem 0.5rem !important;
+}
+#ast-mobile-popup .main-navigation,
+#ast-mobile-popup .ast-builder-menu-mobile,
+#ast-mobile-popup .main-header-bar-navigation {
+  width: 100%;
+}
+#ast-mobile-popup .main-header-menu,
+#ast-mobile-popup #ast-hf-mobile-menu {
+  width: 100%;
+}
+#ast-mobile-popup .menu-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+#ast-mobile-popup .menu-item:last-child {
+  border-bottom: none;
+}
 #ast-mobile-popup .menu-link,
 .ast-mobile-popup-content .menu-link {
-  font-size: 2rem;
-  padding: 1.2rem 0;
+  font-size: 1.9rem;
+  line-height: 1.4 !important;
+  padding: 1.3rem 0.4rem !important;
+  display: block;
 }
-#ast-mobile-popup .menu-item:nth-child(1) .menu-link { color: #4f8d36; }
-#ast-mobile-popup .menu-item:nth-child(2) .menu-link { color: #f6a200; }
-#ast-mobile-popup .menu-item:nth-child(3) .menu-link { color: #7aa82d; }
-#ast-mobile-popup .menu-item:nth-child(4) .menu-link { color: #eda20b; }
+/* sub-menu links indented a little, slightly smaller */
+#ast-mobile-popup .sub-menu .menu-link {
+  font-size: 1.6rem;
+  padding: 1rem 0.4rem 1rem 1.8rem !important;
+  opacity: 0.9;
+}
+#ast-mobile-popup .menu-item:nth-child(1) > .menu-link { color: #4f8d36; }
+#ast-mobile-popup .menu-item:nth-child(2) > .menu-link { color: #f6a200; }
+#ast-mobile-popup .menu-item:nth-child(3) > .menu-link { color: #7aa82d; }
+#ast-mobile-popup .menu-item:nth-child(4) > .menu-link { color: #eda20b; }
 #ast-mobile-popup .menu-link:hover { color: #1e1e1e; }
 #menu-toggle-close .ast-close-svg { color: #1e1e1e; }
 
