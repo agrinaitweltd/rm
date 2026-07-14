@@ -8,12 +8,6 @@ type Consent = {
   marketing: boolean;
 };
 
-const STORAGE_KEY = "rm-cookie-consent";
-
-function saveConsent(consent: Consent) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...consent, date: new Date().toISOString() }));
-}
-
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [showPrefs, setShowPrefs] = useState(false);
@@ -21,13 +15,13 @@ export default function CookieConsent() {
   const [marketing, setMarketing] = useState(true);
 
   useEffect(() => {
-    if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
+    setVisible(true);
   }, []);
 
   if (!visible) return null;
 
   const close = (consent: Consent) => {
-    saveConsent(consent);
+    void consent;
     setVisible(false);
   };
 
