@@ -328,8 +328,12 @@ body,
 body:has(#post-6274) {
   --ast-global-color-1: #4f8d36;
   --e-global-color-astglobalcolor1: #4f8d36;
+  --e-global-color-aa6b7b4: #4f8d36;
   --e-global-color-ea041e3: #4f8d36;
   --e-global-color-9aae043: #7aa82d;
+  --e-global-color-b173d6d: #7aa82d;
+  --e-global-color-3d2acf8: #7aa82d;
+  --e-global-color-9df8b21: #4f8d36;
   --e-global-color-eb1c112: #7aa82d;
   --e-global-color-96e82b3: #4f8d36;
 }
@@ -357,8 +361,28 @@ body:has(#post-6274) #ast-mobile-popup .menu-link:hover {
   color: #2f6f22 !important;
 }
 
-.post-6274 .elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover::before {
+.post-6274 .elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover::before,
+.post-6274 .elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover:before {
   background-color: rgba(79, 141, 54, 0.9) !important;
+}
+
+.elementor-6274 .elementor-element.elementor-element-7de2776:not(.elementor-motion-effects-element-type-background),
+.elementor-6274 .elementor-element.elementor-element-7de2776 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-color: #4f8d36 !important;
+}
+
+.elementor-6274 .elementor-element.elementor-element-bd79b6d > .elementor-shape-top .elementor-shape-fill,
+.elementor-6274 .elementor-element.elementor-element-bd79b6d > .e-con-inner > .elementor-shape-top .elementor-shape-fill {
+  fill: #4f8d36 !important;
+}
+
+.elementor-6274 .elementor-element.elementor-element-0790abe.elementor-view-default .elementor-icon,
+.elementor-6274 .elementor-element.elementor-element-dd9bfd3.elementor-view-default .elementor-icon,
+.elementor-6274 .elementor-element.elementor-element-0790abe .elementor-icon-box-title,
+.elementor-6274 .elementor-element.elementor-element-dd9bfd3 .elementor-icon-box-title,
+.elementor-6274 .elementor-widget-n-accordion {
+  color: #4f8d36 !important;
+  fill: #4f8d36 !important;
 }
 
 .elementor-6274 .elementor-element.elementor-element-b23117b:not(.elementor-motion-effects-element-type-background),
@@ -467,6 +491,82 @@ body:has(#post-6274) #ast-mobile-popup .menu-link:hover {
   .rm-hotspot svg {
     animation: none !important;
   }
+}
+
+/* ---- Site-wide dark background: turn white/default surfaces black while
+   preserving image sections and coloured brand bands. ---- */
+html,
+body,
+#page,
+.site,
+.site-content,
+.ast-container,
+.content-area,
+.site-main,
+.ast-article-single,
+.entry-content,
+.entry-content > .elementor,
+.elementor-section-wrap,
+.elementor-widget-container,
+.e-con-inner {
+  background-color: #000000;
+}
+
+#masthead,
+#masthead .main-header-bar,
+#masthead .ast-primary-header-bar,
+#ast-desktop-header,
+#ast-mobile-header,
+#ast-mobile-header .main-header-bar,
+.ast-mobile-popup-drawer .ast-mobile-popup-inner,
+.ast-mobile-popup-content,
+.ast-builder-menu-mobile .main-navigation {
+  background-color: #000000 !important;
+}
+
+body,
+.entry-content,
+.elementor-widget-text-editor,
+.elementor-widget-text-editor p,
+.jet-unfold__content,
+.elementor-icon-list-text,
+.e-n-accordion-item-title-text {
+  color: #f4f4f4;
+}
+
+.elementor-heading-title,
+.elementor-icon-box-title,
+.elementor-icon-box-title span {
+  color: inherit;
+}
+
+.elementor-element:not(.elementor-motion-effects-element-type-background):not(.elementor-element-7de2776):not(.elementor-element-afb9648):not(.elementor-element-ae43cae):not(.elementor-element-49b7770):not(.elementor-element-d61f23c),
+.elementor-element > .elementor-widget-container {
+  background-color: transparent;
+}
+
+.elementor-5298 .elementor-element.elementor-element-a94310a:not(.elementor-motion-effects-element-type-background),
+.elementor-5298 .elementor-element.elementor-element-8bdf647:not(.elementor-motion-effects-element-type-background),
+.elementor-5628 .elementor-element:not(.elementor-motion-effects-element-type-background),
+.elementor-5558 .elementor-element.elementor-element-4642815:not(.elementor-motion-effects-element-type-background),
+.elementor-6274 .elementor-element.elementor-element-4007056:not(.elementor-motion-effects-element-type-background),
+.elementor-7156 .elementor-element.elementor-element-bd91fe4:not(.elementor-motion-effects-element-type-background) {
+  background-color: #000000 !important;
+}
+
+.elementor-6274 .jet-team-member__inner,
+.elementor-7156 .jet-team-member__inner,
+.rm-cookie-banner {
+  background-color: #000000 !important;
+  border: 1px solid rgba(122, 168, 45, 0.35);
+}
+
+.rm-cookie-banner {
+  color: #f4f4f4;
+}
+
+.rm-cookie-pref span {
+  color: #cfcfcf;
 }
 
 .rm-cookie-prefs {

@@ -242,7 +242,7 @@ export default function ContactPage() {
                               id="loop-7156"
                               dangerouslySetInnerHTML={{
                                 __html:
-                                  '.elementor-7156 .elementor-element.elementor-element-bd91fe4{--display:flex;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover:before{background-color:#F3A0B4E3;border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__inner{border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__image{border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__figure{border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__name .jet-team-member__name-first{color:var( --e-global-color-641d433 );font-family:"Avenir-Black", Sans-serif;font-size:2rem;line-height:1em;word-spacing:0em;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__name .jet-team-member__name-last{color:var( --e-global-color-641d433 );font-size:2rem;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__name{padding:20px 10px 0px 10px;margin:0px 0px 0px 0px;text-align:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__position{color:var( --e-global-color-641d433 );font-family:"Avenir-Black", Sans-serif;font-size:1.6rem;margin:0px 0px -20px 0px;align-self:center;text-align:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__desc{color:var( --e-global-color-641d433 );font-size:1.6rem;padding:15px 0px 0px 0px;align-self:center;text-align:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__socials{align-self:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__button-container{justify-content:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e  .jet-team-member__button{font-size:1.3rem;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__button{padding:0px 40px 25px 40px;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover{justify-content:center;}@media(min-width:768px){.elementor-7156 .elementor-element.elementor-element-bd91fe4{--content-width:100%;}}',
+                                  '.elementor-7156 .elementor-element.elementor-element-bd91fe4{--display:flex;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover:before{background-color:#4F8D36E6;border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__inner{border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__image{border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__figure{border-radius:50% 50% 50% 50%;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__name .jet-team-member__name-first{color:var( --e-global-color-641d433 );font-family:"Avenir-Black", Sans-serif;font-size:2rem;line-height:1em;word-spacing:0em;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__name .jet-team-member__name-last{color:var( --e-global-color-641d433 );font-size:2rem;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__name{padding:20px 10px 0px 10px;margin:0px 0px 0px 0px;text-align:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__position{color:var( --e-global-color-641d433 );font-family:"Avenir-Black", Sans-serif;font-size:1.6rem;margin:0px 0px -20px 0px;align-self:center;text-align:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__desc{color:var( --e-global-color-641d433 );font-size:1.6rem;padding:15px 0px 0px 0px;align-self:center;text-align:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__socials{align-self:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__button-container{justify-content:center;}.elementor-7156 .elementor-element.elementor-element-39fab7e  .jet-team-member__button{font-size:1.3rem;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__button{padding:0px 40px 25px 40px;}.elementor-7156 .elementor-element.elementor-element-39fab7e .jet-team-member__cover{justify-content:center;}@media(min-width:768px){.elementor-7156 .elementor-element.elementor-element-bd91fe4{--content-width:100%;}}',
                               }}
                             />
                             <div
@@ -272,10 +272,10 @@ export default function ContactPage() {
                                             <div className="jet-team-member__image">
                                               <div className="jet-team-member__cover">
                                                 <p className="jet-team-member__name">
-                                                  <span className="jet-team-member__name-first">RM Mangoes</span>
+                                                  <span className="jet-team-member__name-first">Mani Javid</span>
                                                 </p>
                                                 <div className="jet-team-member__position">
-                                                  <span>Founder</span>
+                                                  <span>Founder &amp; Director</span>
                                                 </div>
                                                 <p className="jet-team-member__desc">
                                                   <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
@@ -288,9 +288,9 @@ export default function ContactPage() {
                                                   decoding="async"
                                                   width={600}
                                                   height={600}
-                                                  src="/team-avatar.png"
+                                                  src="/mani.png"
                                                   className="jet-team-member__img-tag"
-                                                  alt="RM Mangoes founder"
+                                                  alt="Mani Javid"
                                                 />
                                               </figure>
                                             </div>

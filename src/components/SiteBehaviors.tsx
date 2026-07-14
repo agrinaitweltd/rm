@@ -50,10 +50,11 @@ function initUnfolds(cleanups: Array<() => void>) {
 }
 
 function initEntranceAnimations(cleanups: Array<() => void>) {
-  const pending = new Set(document.querySelectorAll<HTMLElement>(".elementor-invisible[data-settings]"));
-  if (!pending.size) return;
+  const elements = Array.from(document.querySelectorAll<HTMLElement>(".elementor-invisible[data-settings], [data-settings].animated"));
+  if (!elements.length) return;
 
-  const reveal = (el: HTMLElement) => {
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const getAnimation = (el: HTMLElement) => {
     let animation = "fadeIn";
     let delay = 0;
     try {
@@ -63,33 +64,40 @@ function initEntranceAnimations(cleanups: Array<() => void>) {
     } catch {
       /* keep defaults */
     }
-    setTimeout(() => {
+    return { animation, delay };
+  };
+
+  const reveal = (el: HTMLElement, animation: string, delay: number) => {
+    window.setTimeout(() => {
       el.classList.remove("elementor-invisible");
+      el.classList.remove(animation);
+      void el.offsetWidth;
       el.classList.add("animated", animation);
     }, delay);
   };
 
-  const check = () => {
-    const threshold = window.innerHeight * 0.92;
-    pending.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < threshold && rect.bottom > 0) {
-        pending.delete(el);
-        reveal(el);
-      }
-    });
-    if (!pending.size) detach();
-  };
+  if (motionQuery.matches) {
+    elements.forEach((el) => el.classList.remove("elementor-invisible"));
+    return;
+  }
 
-  const onScroll = () => check();
-  const detach = () => {
-    window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("resize", onScroll);
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  check();
-  cleanups.push(detach);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target as HTMLElement;
+        const { animation, delay } = getAnimation(el);
+        if (entry.isIntersecting) {
+          reveal(el, animation, delay);
+        } else {
+          el.classList.remove("animated", animation);
+          el.classList.add("elementor-invisible");
+        }
+      });
+    },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+  );
+  elements.forEach((el) => observer.observe(el));
+  cleanups.push(() => observer.disconnect());
 }
 
 function initTabs(cleanups: Array<() => void>) {
