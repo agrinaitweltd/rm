@@ -13,6 +13,12 @@ body,
   --e-global-color-astglobalcolor1: #f6a200;
   /* Elementor kit purples -> greens */
   --e-global-color-6e74cf7: #4f8d36;
+  --e-global-color-c245f53: #4f8d36;
+  --e-global-color-9aae043: #7aa82d;
+  --e-global-color-ea041e3: #f6a200;
+  --e-global-color-b173d6d: #7aa82d;
+  --e-global-color-9ed9224: #eda20b;
+  --e-global-color-8f9a61a: #7aa82d;
 }
 
 /* About quote band: static heart mark sized like the original lottie container */
@@ -47,7 +53,7 @@ body,
 }
 
 .site-below-footer-wrap .widget_custom_html .textwidget a:hover {
-  color: var(--e-global-color-astglobalcolor0, #65326e);
+  color: var(--e-global-color-astglobalcolor0, #4f8d36);
 }
 
 /* ---- Sticky header: the menu scrolls with the site (all devices) ---- */
@@ -206,7 +212,7 @@ body,
 
 .rm-cookie-banner h3 {
   font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
-  color: var(--e-global-color-astglobalcolor0, #65326e);
+  color: var(--e-global-color-astglobalcolor0, #4f8d36);
   font-size: 2rem;
   margin: 0 0 0.8rem;
 }
@@ -238,11 +244,11 @@ body,
 }
 
 .rm-cookie-btn--accept:hover {
-  background-color: var(--e-global-color-astglobalcolor0, #65326e);
+  background-color: var(--e-global-color-astglobalcolor0, #4f8d36);
 }
 
 .rm-cookie-btn--reject {
-  background-color: var(--e-global-color-astglobalcolor0, #65326e);
+  background-color: var(--e-global-color-astglobalcolor0, #4f8d36);
 }
 
 .rm-cookie-btn--reject:hover {
@@ -251,9 +257,116 @@ body,
 
 .rm-cookie-btn--manage {
   background: none;
-  color: var(--e-global-color-astglobalcolor0, #65326e);
+  color: var(--e-global-color-astglobalcolor0, #4f8d36);
   text-decoration: underline;
   padding: 1rem 0.6rem;
+}
+
+/* ---- The Chain services image: keep the original Elementor block sizing,
+   but let the replacement image come from public/services.png. ---- */
+.elementor-5719 .elementor-element.elementor-element-6559f95:not(.elementor-motion-effects-element-type-background),
+.elementor-5719 .elementor-element.elementor-element-6559f95 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("/services.png") !important;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* ---- Extra mobile motion and polish for the chain page. ---- */
+@keyframes rmFloatY {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes rmSoftPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(246, 162, 0, 0);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 24px rgba(246, 162, 0, 0.28);
+  }
+}
+
+@keyframes rmMobileShine {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+@media (max-width: 767px) {
+  .animated {
+    animation-duration: 0.9s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .elementor-5719 .elementor-widget-image img,
+  .elementor-5719 .elementor-icon,
+  .rm-hotspot {
+    will-change: transform;
+  }
+
+  .elementor-5719 .elementor-element-10d658f img,
+  .elementor-5719 .elementor-element-d1dd519 img,
+  .elementor-5719 .elementor-element-0a01020 img,
+  .elementor-5719 .elementor-element-6af9cf2 img,
+  .elementor-5719 .elementor-element-f6ef43a img,
+  .elementor-5719 .elementor-element-00c03d3 img {
+    animation: rmFloatY 4.5s ease-in-out infinite;
+  }
+
+  .elementor-5719 .elementor-element-6af9cf2 img,
+  .elementor-5719 .elementor-element-00c03d3 img {
+    animation-delay: 0.8s;
+  }
+
+  .elementor-5719 .elementor-icon,
+  .rm-hotspot svg {
+    animation: rmSoftPulse 3.6s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .elementor-5719 .elementor-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .elementor-5719 .elementor-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 42%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: rmMobileShine 3.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .elementor-5719 .elementor-icon-list-item {
+    transition: transform 260ms ease, color 260ms ease;
+  }
+
+  .elementor-5719 .elementor-icon-list-item:active {
+    transform: translateX(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elementor-5719 .elementor-widget-image img,
+  .elementor-5719 .elementor-icon,
+  .elementor-5719 .elementor-button::after,
+  .rm-hotspot svg {
+    animation: none !important;
+  }
 }
 
 .rm-cookie-prefs {

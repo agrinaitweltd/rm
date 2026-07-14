@@ -106,14 +106,14 @@ const StatIcon = ({ name }: { name: string }) => {
     );
   return (
     <svg xmlns="http://www.w3.org/2000/svg" data-name="Laag 1" viewBox="0 0 66 47.8">
-      <polygon fill="#ea580c" strokeWidth={0} points="41.2 47.8 15.4 39.4 15.4 8.6 41.2 17 41.2 47.8"></polygon>
-      <polygon fill="#da306c" strokeWidth={0} points="41.2 17.2 15.4 8.8 39.6 0 66 8.6 41.2 17.2"></polygon>
+      <polygon fill="#4f8d36" strokeWidth={0} points="41.2 47.8 15.4 39.4 15.4 8.6 41.2 17 41.2 47.8"></polygon>
+      <polygon fill="#7aa82d" strokeWidth={0} points="41.2 17.2 15.4 8.8 39.6 0 66 8.6 41.2 17.2"></polygon>
       <polygon fill="#f6a200" strokeWidth={0} points="66 39.4 41.2 47.8 41.2 17.1 66 8.6 66 39.4"></polygon>
       <path fill="#f6a200" strokeWidth={0} d="m26.8,4.7c3.9,1.4,15.1,5.4,24.8,8.9l5-1.7c-13.1-4.7-20.6-7.4-24.9-8.9l-4.9,1.7Z"></path>
-      <rect fill="#6d2f71" strokeWidth={0} y="16.7" width="21.5" height="3.3"></rect>
-      <rect fill="#6d2f71" strokeWidth={0} x="4.6" y="24" width="21.5" height="3.3"></rect>
-      <rect fill="#6d2f71" strokeWidth={0} x="1.3" y="31.3" width="21.5" height="3.3"></rect>
-      <polygon fill="#da306c" strokeWidth={0} points="53.6 38.2 45.8 40.8 45.8 34.3 53.6 31.7 53.6 38.2"></polygon>
+      <rect fill="#2f6f22" strokeWidth={0} y="16.7" width="21.5" height="3.3"></rect>
+      <rect fill="#2f6f22" strokeWidth={0} x="4.6" y="24" width="21.5" height="3.3"></rect>
+      <rect fill="#2f6f22" strokeWidth={0} x="1.3" y="31.3" width="21.5" height="3.3"></rect>
+      <polygon fill="#f6a200" strokeWidth={0} points="53.6 38.2 45.8 40.8 45.8 34.3 53.6 31.7 53.6 38.2"></polygon>
     </svg>
   );
 };
