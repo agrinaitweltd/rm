@@ -725,6 +725,21 @@ body,
   color: #1e1e1e !important;
 }
 
+/* About page - specific text sections to black */
+.elementor-5558 .elementor-element.elementor-element-cb12385,
+.elementor-5558 .elementor-element.elementor-element-3519f37 {
+  color: #1e1e1e !important;
+}
+
+.elementor-5558 .elementor-element.elementor-element-cb12385 p,
+.elementor-5558 .elementor-element.elementor-element-3519f37 p,
+.elementor-5558 .elementor-element.elementor-element-3519f37 h2,
+.elementor-5558 .elementor-element.elementor-element-b38e755 p,
+.elementor-5558 .elementor-element.elementor-element-bcfdf42 p,
+.elementor-5558 .elementor-element.elementor-element-5d65511 h2 {
+  color: #1e1e1e !important;
+}
+
 /* Team member card and cookie banner keep dark background */
 .jet-team-member__inner,
 .rm-cookie-banner {
