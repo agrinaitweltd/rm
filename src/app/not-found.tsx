@@ -1,27 +1,49 @@
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
+import Link from "next/link";
+import PageShell from "@/components/PageShell";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[70vh] items-center justify-center px-5 pt-[var(--header-h)]">
-      <div className="text-center">
-        <p className="text-7xl font-black text-brand-600 sm:text-8xl">404</p>
-        <h1 className="mt-4 text-2xl font-bold text-ink sm:text-3xl">
-          This page has gone off to the orchard
-        </h1>
-        <p className="mx-auto mt-3 max-w-md text-muted">
-          We couldn&apos;t find what you were looking for — but our premium
-          Pakistani mangoes are still right here.
-        </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button href="/" size="lg">
-            <Icon name="arrow" size={20} className="rotate-180" /> Back Home
-          </Button>
-          <Button href="/products" variant="outline" size="lg">
-            View Mango Boxes
-          </Button>
+    <PageShell postId={5298}>
+      <div
+        className="elementor-element elementor-element-d6049e6 e-flex e-con-boxed e-con e-parent"
+        data-id="d6049e6"
+        data-element_type="container"
+      >
+        <div className="e-con-inner">
+          <div
+            className="elementor-element elementor-element-a94310a e-con-full e-flex e-con e-child"
+            data-id="a94310a"
+            data-element_type="container"
+          >
+            <div
+              className="elementor-element elementor-element-9664a1d elementor-widget elementor-widget-heading"
+              data-id="9664a1d"
+              data-element_type="widget"
+              data-widget_type="heading.default"
+            >
+              <div className="elementor-widget-container">
+                <h1 className="elementor-heading-title elementor-size-default">Page not found</h1>
+              </div>
+            </div>
+            <div
+              className="elementor-element elementor-element-205af03 elementor-widget elementor-widget-text-editor"
+              data-id="205af03"
+              data-element_type="widget"
+              data-widget_type="text-editor.default"
+            >
+              <div className="elementor-widget-container">
+                <p>
+                  <strong>Sorry, we couldn&rsquo;t find that page.</strong>
+                </p>
+                <p>
+                  Head back to the <Link href="/">home page</Link> or browse{" "}
+                  <Link href="/products">our mangoes</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </PageShell>
   );
 }

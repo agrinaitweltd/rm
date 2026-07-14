@@ -1,0 +1,29 @@
+.site-primary-footer-inner-wrap h3.widget-title {
+    font-size: 1.15rem;
+}
+
+/* = Font root size = */
+html {
+    font-size: 10px;
+}
+body {
+    font-size: 1.7rem;
+}
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+.ast-theme-transparent-header .main-header-menu .menu-link {
+    outline: none;
+}
+
+/* No horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  overflow: hidden;
+}

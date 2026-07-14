@@ -1,0 +1,179 @@
+/* RM Mangoes — small additions on top of the ported theme CSS.
+   Only used for: the static quote-band mark on the About page and the
+   GDPR cookie consent popup (styled with the site's existing palette). */
+
+/* About quote band: static heart mark sized like the original lottie container */
+.elementor-element-8961678 img {
+  width: 6rem;
+}
+
+/* ---- Sourcing map hotspot pins (replaces the uael-hotspot JS tooltips) ---- */
+.uael-hotspot {
+  position: relative;
+}
+
+.uael-hotspot > img {
+  width: 100%;
+  height: auto;
+}
+
+.rm-hotspot {
+  position: absolute;
+  width: 26px;
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+}
+
+.rm-hotspot svg {
+  display: block;
+  width: 100%;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+.rm-hotspot-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 350ms ease;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.rm-hotspot:hover .rm-hotspot-tooltip,
+.rm-hotspot:focus .rm-hotspot-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 767px) {
+  .rm-hotspot {
+    width: 18px;
+  }
+
+  .rm-hotspot-tooltip {
+    white-space: normal;
+    width: 160px;
+    text-align: center;
+  }
+}
+
+/* ---- Cookie consent ---- */
+.rm-cookie-banner {
+  position: fixed;
+  z-index: 99999;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  margin: 0 auto;
+  max-width: 680px;
+  background: var(--e-global-color-astglobalcolor4, #fff);
+  color: var(--e-global-color-astglobalcolor2, #1e1e1e);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(30, 30, 30, 0.25);
+  padding: 2.4rem 2.8rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.rm-cookie-banner h3 {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: var(--e-global-color-astglobalcolor0, #65326e);
+  font-size: 2rem;
+  margin: 0 0 0.8rem;
+}
+
+.rm-cookie-banner p {
+  margin: 0 0 1.6rem;
+}
+
+.rm-cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.rm-cookie-btn {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 30px;
+  padding: 1rem 2.4rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #fff;
+}
+
+.rm-cookie-btn--accept {
+  background-color: var(--e-global-color-8f9a61a, #7aa82d);
+}
+
+.rm-cookie-btn--accept:hover {
+  background-color: var(--e-global-color-astglobalcolor0, #65326e);
+}
+
+.rm-cookie-btn--reject {
+  background-color: var(--e-global-color-astglobalcolor0, #65326e);
+}
+
+.rm-cookie-btn--reject:hover {
+  background-color: var(--e-global-color-8f9a61a, #7aa82d);
+}
+
+.rm-cookie-btn--manage {
+  background: none;
+  color: var(--e-global-color-astglobalcolor0, #65326e);
+  text-decoration: underline;
+  padding: 1rem 0.6rem;
+}
+
+.rm-cookie-prefs {
+  border-top: 1px solid var(--e-global-color-astglobalcolor6, #e3e3e3);
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+}
+
+.rm-cookie-pref {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 0.6rem 0;
+}
+
+.rm-cookie-pref strong {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  display: block;
+  font-size: 1.4rem;
+}
+
+.rm-cookie-pref span {
+  font-size: 1.3rem;
+  color: #575756;
+}
+
+.rm-cookie-pref input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--e-global-color-8f9a61a, #7aa82d);
+  flex: none;
+}
+
+@media (max-width: 544px) {
+  .rm-cookie-banner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 2rem;
+  }
+}

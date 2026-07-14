@@ -1,0 +1,47 @@
+img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }
+
+
+@font-face {
+	font-family: 'Avenir-Light';
+	font-weight: 400;
+	src: url('/fonts/Avenir-Light-07.woff2') format('woff2'),
+		url('/fonts/Avenir-Light-07.woff') format('woff'),
+		url('/fonts/Avenir-Light-07.ttf') format('truetype'),
+		url('/fonts/Avenir-Light-07.otf') format('OpenType');
+}
+@font-face {
+	font-family: 'Avenir-Medium';
+	font-weight: 400;
+	src: url('/fonts/Avenir-Medium-09.woff2') format('woff2'),
+		url('/fonts/Avenir-Medium-09.woff') format('woff'),
+		url('/fonts/Avenir-Medium-09.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Avenir-Black';
+	font-weight: 400;
+	src: url('/fonts/Avenir-Black-03.woff2') format('woff2'),
+		url('/fonts/Avenir-Black-03.woff') format('woff'),
+		url('/fonts/Avenir-Black-03.ttf') format('truetype'),
+		url('/fonts/Avenir-Black-03.otf') format('OpenType');
+}
+@font-face {
+	font-family: 'Filson Pro Regular';
+	font-weight: 400;
+	src: url('/fonts/FilsonPro-Book-1.woff2') format('woff2'),
+		url('/fonts/FilsonPro-Book-1.woff') format('woff'),
+		url('/fonts/FilsonPro-Book-1.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Filson Pro Book';
+	font-weight: 400;
+	src: url('/fonts/FilsonPro-Book.woff2') format('woff2'),
+		url('/fonts/FilsonPro-Book.woff') format('woff'),
+		url('/fonts/FilsonPro-Book.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Filson Pro black';
+	font-weight: 400;
+	src: url('/fonts/FilsonPro-Black.woff2') format('woff2'),
+		url('/fonts/FilsonPro-Black.woff') format('woff'),
+		url('/fonts/FilsonPro-Black.ttf') format('truetype');
+}

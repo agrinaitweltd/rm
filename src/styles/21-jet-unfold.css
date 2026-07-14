@@ -1,0 +1,9 @@
+/* jet-unfold base styles (extracted from jet-tricks-frontend.css v1.5.7) */
+.jet-unfold{-webkit-transition:all 300ms ease;transition:all 300ms ease}
+.jet-unfold__mask{overflow:hidden;position:relative}
+.jet-unfold__separator{position:absolute;display:block;width:100%;height:30px;bottom:0;opacity:0;-webkit-transition:opacity 100ms ease;transition:opacity 100ms ease;pointer-events:none}
+.jet-unfold__trigger{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-flow:column;flex-flow:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-top:30px;display:none}
+.jet-unfold__button{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#6ec1e4;cursor:pointer}
+.jet-unfold__button.elementor-button{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row nowrap;flex-flow:row nowrap}
+.jet-unfold__button:not(:empty){gap:5px}
+.jet-unfold-state .jet-unfold__separator{opacity:0}

@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
-import { navLinks, site } from "@/config/site";
+import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-  return navLinks.map((link) => ({
-    url: `${site.url}${link.href === "/" ? "" : link.href}`,
-    lastModified: now,
-    changeFrequency: link.href === "/" ? "weekly" : "monthly",
-    priority: link.href === "/" ? 1 : 0.8,
-  }));
+  const lastModified = new Date();
+  return [
+    { url: `${site.url}/`, lastModified, changeFrequency: "monthly", priority: 1 },
+    { url: `${site.url}/products`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${site.url}/the-chain`, lastModified, changeFrequency: "yearly", priority: 0.7 },
+    { url: `${site.url}/about`, lastModified, changeFrequency: "yearly", priority: 0.7 },
+    { url: `${site.url}/contact`, lastModified, changeFrequency: "yearly", priority: 0.8 },
+  ];
 }

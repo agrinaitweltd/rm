@@ -1,137 +1,59 @@
-# RM Mangoes 🥭
+# RM Mangoes
 
-Premium Pakistani mangoes, delivered across Scotland.
-**From Pakistani Farms to Scottish Doorsteps.**
+Premium Pakistani mangoes, delivered throughout Scotland & Ireland.
+**From Pakistani Farms to Scottish & Irish Doorsteps.**
 
-A modern, production-ready marketing site built with **Next.js (App Router) +
-React + TypeScript + Tailwind CSS v4**, optimised for deployment on **Vercel**.
-
----
-
-## Tech stack
-
-| Area        | Choice                                   |
-| ----------- | ---------------------------------------- |
-| Framework   | Next.js 16 (App Router, Turbopack)       |
-| Language    | TypeScript (strict)                      |
-| UI          | React 19                                 |
-| Styling     | Tailwind CSS v4 (CSS-first `@theme`)     |
-| Fonts       | Poppins + Mulish via `next/font` (self-hosted, no external requests) |
-| Images      | `next/image` (AVIF/WebP, lazy-loaded)    |
-| Deploy      | Vercel (zero config)                     |
-
----
+Next.js + React + TypeScript (App Router). Faithful rebrand of the original
+Olympic Fruit design — same layout, typography, colours and effects, with
+RM Mangoes branding and content.
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev     # http://localhost:3000
+npm run build   # production build (Vercel-ready)
 ```
 
-Other scripts:
+## Pages
 
-```bash
-npm run build      # production build
-npm run start      # run the production build locally
-npm run lint       # ESLint
-npm run typecheck  # TypeScript, no emit
-```
+| Route        | Purpose                                                              |
+| ------------ | -------------------------------------------------------------------- |
+| `/`          | Home — hero, intro, quick links                                       |
+| `/products`  | Premium Pakistani Mangoes — boxes & prices                            |
+| `/the-chain` | The chain — consumer, growers, quality, varieties, logistics, clients |
+| `/about`     | About RM Mangoes — story, network, history, mission, values, jobs     |
+| `/contact`   | Contact — phone, WhatsApp, email, TikTok, team                        |
 
----
+The history timeline milestones (2023–2026) and the team profile are
+placeholders — regenerate or replace `timeline-horizontal.png`,
+`timeline-vertical.png` and `team-avatar.png` with the real story.
 
-## Project structure
+## Project layout
 
-```
-public/
-  images/            # ← all editable images live here (see below)
-  icon-512.png       # PWA icon
-src/
-  app/
-    layout.tsx       # root layout, metadata, fonts, global chrome
-    page.tsx         # home
-    about/           # About page
-    products/        # Products & pricing
-    gallery/         # Gallery
-    contact/         # Contact & order form
-    api/contact/     # order-form endpoint (ready for email integration)
-    robots.ts        # /robots.txt
-    sitemap.ts       # /sitemap.xml
-    manifest.ts      # /manifest.webmanifest
-    icon.svg         # favicon
-  components/
-    layout/          # Navbar, Footer
-    sections/        # Hero, Pricing, Gallery, Testimonials, FAQ, …
-    ui/              # Button, Icon, Reveal, SectionHeading, …
-    CookieConsent.tsx
-    WhatsAppButton.tsx
-  config/
-    site.ts          # ← single source of truth for all content
-  lib/
-    links.ts         # tel:/mailto:/WhatsApp/TikTok links
-```
+- `src/app/` — App Router pages, metadata, sitemap and robots.
+- `src/components/` — Header, Footer, MobileNav, PageShell, QuoteBand,
+  CookieConsent (GDPR popup) and SiteBehaviors (read-more toggles).
+- `src/styles/` — the original theme CSS, ported in cascade order
+  (`01-…` to `22-…`). `22-rm-custom.css` is the only new stylesheet.
+- `src/lib/site.ts` — contact details, links and product data. **Edit
+  prices or contact details here.**
+- `public/` — every image lives flat in this folder (replace freely, keep
+  the filenames). Fonts in `public/fonts`, theme scripts in `public/js`.
 
----
+## Replacing images
 
-## Editing content
+Drop your own files over these placeholders (same names):
 
-Almost everything is driven from **`src/config/site.ts`** — company details,
-contact info, navigation, products & pricing, features, testimonials, FAQs and
-image paths. Update it in one place and it flows through the whole site.
+- `logo-2.png`, `logo-2-70x61.png` — header logo
+- `rm-mangoes-hero-logo.png` — hero logo + slogan
+- `mango-box-small.png`, `mango-box-medium.png`, `mango-box-large.png` — product photos
+- `site-bgr.jpg`, `about-hero.jpg`, `products-hero.jpg`, `contact-hero.jpg` — background photos
+- `og.png` — social sharing image
 
-### Images
+The home-page hero currently uses the original background video (Vimeo).
+Change the video id in `src/app/page.tsx` when you have your own footage.
 
-All editable images live in **`public/images/`** and are referenced by path
-from `src/config/site.ts` (never hard-coded in components).
+## Deployment
 
-To swap an image, just drop a replacement file with the **same filename** into
-`public/images/` — no code changes required:
-
-```
-public/images/hero.jpg        public/images/gallery-1.jpg … gallery-6.jpg
-public/images/about.jpg       public/images/product.jpg
-public/images/banner.jpg      public/images/og.jpg   (social share image)
-```
-
-The files currently in the folder are branded placeholders — replace them with
-real photography when ready.
-
----
-
-## Contact form / email integration
-
-The order form posts to `POST /api/contact`, which validates the submission and
-(currently) logs it server-side. To start receiving orders by email, add an
-email provider and complete the marked `TODO` in
-`src/app/api/contact/route.ts`, then set the environment variables from
-`.env.example` (e.g. `RESEND_API_KEY`, `ORDER_INBOX`).
-
-Until then, customers can order instantly via the floating **WhatsApp** button,
-**click-to-call** and **email** links throughout the site.
-
----
-
-## Deploying to Vercel
-
-1. Push this repository to GitHub.
-2. In Vercel, **Add New → Project** and import the repo.
-3. Framework preset is auto-detected as **Next.js** — no configuration needed.
-4. (Optional) add any environment variables from `.env.example`.
-5. Deploy.
-
-`npm run build`, `npm run lint` and `npm run typecheck` all pass cleanly.
-
----
-
-## SEO & performance
-
-- Per-page metadata, Open Graph & Twitter cards, canonical URLs
-- `robots.txt`, `sitemap.xml`, web manifest, favicon
-- Structured data (LocalBusiness + Product JSON-LD)
-- Optimised, lazy-loaded images (AVIF/WebP)
-- Self-hosted fonts, no render-blocking external requests
-- Fully responsive, no horizontal scroll, `prefers-reduced-motion` support
-
----
-
-Made &amp; Designed by [Kavo Technologies](https://www.kavotech.uk).
+Deploys to Vercel with zero configuration.
