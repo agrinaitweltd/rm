@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     description: "From Pakistani Farms to Scottish & Irish Doorsteps.",
     images: ["/og.png"],
   },
-  icons: { icon: "/icon-fav.svg" },
+  icons: { icon: "/icon-fav.png" },
 };
 
 export const viewport: Viewport = {

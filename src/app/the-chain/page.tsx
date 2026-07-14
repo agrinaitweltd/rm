@@ -58,11 +58,11 @@ const consumerSlides = [
 ];
 
 const varieties = [
-  { id: "66f5692", imageId: "87f2460", headingId: "47dff6d", boxed: false, icon: "/assortiment-sindhri.svg", name: "sindhri" },
-  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/assortiment-chaunsa.svg", name: "chaunsa" },
-  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/assortiment-anwar-ratol.svg", name: "anwar ratol" },
-  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/assortiment-langra.svg", name: "langra" },
-  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/assortiment-dusehri.svg", name: "dusehri" },
+  { id: "66f5692", imageId: "87f2460", headingId: "47dff6d", boxed: false, icon: "/assortiment-sindhri.png", name: "sindhri" },
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/assortiment-chaunsa.png", name: "chaunsa" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/assortiment-anwar-ratol.png", name: "anwar ratol" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/assortiment-langra.png", name: "langra" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/assortiment-dusehri.png", name: "dusehri" },
 ];
 
 const stats = [
@@ -690,7 +690,7 @@ export default function TheChainPage() {
             >
               <div className="elementor-widget-container">
                 <Link href="/products">
-                  <img loading="lazy" decoding="async" width={841} height={595} src="/rm-logo.svg" alt="RM Mangoes" />
+                  <img loading="lazy" decoding="async" width={841} height={595} src="/logo-2.png" alt="RM Mangoes" />
                 </Link>
               </div>
             </div>

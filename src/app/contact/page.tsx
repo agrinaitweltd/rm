@@ -149,9 +149,10 @@ export default function ContactPage() {
       >
         <div className="e-con-inner">
           <div
-            className="elementor-element elementor-element-b9a630c elementor-widget elementor-widget-image"
+            className="elementor-element elementor-element-b9a630c elementor-widget elementor-widget-image elementor-invisible"
             data-id="b9a630c"
             data-element_type="widget"
+            data-settings='{"_animation":"zoomIn"}'
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
@@ -189,9 +190,10 @@ export default function ContactPage() {
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-d3a545e elementor-widget__width-initial elementor-widget elementor-widget-n-accordion"
+              className="elementor-element elementor-element-d3a545e elementor-widget__width-initial elementor-widget elementor-widget-n-accordion elementor-invisible"
               data-id="d3a545e"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp"}'
               data-widget_type="nested-accordion.default"
             >
               <div className="elementor-widget-container">

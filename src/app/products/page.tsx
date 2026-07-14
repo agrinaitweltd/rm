@@ -212,9 +212,10 @@ export default function ProductsPage() {
             </div>
           </div>
           <div
-            className="elementor-element elementor-element-9c38f20 elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button"
+            className="elementor-element elementor-element-9c38f20 elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button elementor-invisible"
             data-id="9c38f20"
             data-element_type="widget"
+            data-settings='{"_animation":"zoomIn","_animation_delay":200}'
             data-widget_type="button.default"
           >
             <div className="elementor-widget-container">

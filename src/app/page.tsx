@@ -19,7 +19,7 @@ const quickLinks = [
     headingId: "a45f8d3",
     textId: "576a505",
     href: "/products",
-    icon: "/icon-mangoes.svg",
+    icon: "/icon-mangoes.png",
     title: "Our mangoes",
     text: "Discover our premium Pakistani mango boxes",
   },
@@ -29,7 +29,7 @@ const quickLinks = [
     headingId: "ab1d227",
     textId: "fec333a",
     href: "/about",
-    icon: "/icon-story.svg",
+    icon: "/icon-story.png",
     title: "Our story",
     text: "Learn more about RM Mangoes",
   },
@@ -39,7 +39,7 @@ const quickLinks = [
     headingId: "d30cca8",
     textId: "be548a8",
     href: "/contact",
-    icon: "/Team.svg",
+    icon: "/Team.png",
     title: "Contact us",
     text: "Get in touch with our team directly",
   },
@@ -50,7 +50,7 @@ const quickLinks = [
     textId: "d61f936",
     href: site.whatsapp,
     external: true,
-    icon: "/icon-whatsapp.svg",
+    icon: "/icon-whatsapp.png",
     title: "Order on WhatsApp",
     text: "Message us to order your mango box",
   },
@@ -84,9 +84,10 @@ export default function HomePage() {
             </div>
           </div>
           <div
-            className="elementor-element elementor-element-7aa4e51c elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button"
+            className="elementor-element elementor-element-7aa4e51c elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button elementor-invisible"
             data-id="7aa4e51c"
             data-element_type="widget"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":400}'
             data-widget_type="button.default"
           >
             <div className="elementor-widget-container">

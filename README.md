@@ -48,6 +48,9 @@ Drop your own files over these placeholders (same names):
 - `logo-2.png`, `logo-2-70x61.png` — header logo
 - `rm-mangoes-hero-logo.png` — hero logo + slogan
 - `mango-box-small.png`, `mango-box-medium.png`, `mango-box-large.png` — product photos
+- `icon-mangoes.png`, `icon-story.png`, `icon-whatsapp.png`, `Team.png` — home quick-link icons
+- `assortiment-*.png` — mango variety icons (The Chain)
+- `hero-poster.png` — hero image (shown before/between video plays)
 - `site-bgr.jpg`, `about-hero.jpg`, `products-hero.jpg`, `contact-hero.jpg` — background photos
 - `og.png` — social sharing image
 

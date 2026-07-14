@@ -303,7 +303,7 @@ export default function AboutPage() {
           </Text>
           <Button id="92d67d7" cls="elementor-align-center" text="See how our chain works" href="/the-chain" anim="fadeInUp" delay={200} />
           <div
-            className="elementor-element elementor-element-5426b57 elementor-hidden-tablet elementor-hidden-mobile elementor-arrows-position-inside elementor-widget elementor-widget-n-carousel"
+            className="elementor-element elementor-element-5426b57 elementor-hidden-tablet elementor-hidden-mobile elementor-arrows-position-inside elementor-widget elementor-widget-n-carousel elementor-invisible"
             data-id="5426b57"
             data-element_type="widget"
             data-settings='{"slides_to_show":"5","image_spacing_custom":{"unit":"px","size":30,"sizes":[]},"slides_to_show_tablet":"3","slides_to_show_mobile":"1","speed":500,"arrows":"yes"}'
@@ -370,7 +370,7 @@ export default function AboutPage() {
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
-              <img decoding="async" src="/heart.svg" alt="" />
+              <img decoding="async" src="/heart.png" alt="" />
             </div>
           </div>
           <div
@@ -612,7 +612,7 @@ export default function AboutPage() {
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
-              <img decoding="async" src="/Team.svg" alt="" />
+              <img decoding="async" src="/Team.png" alt="" />
             </div>
           </div>
           <Heading id="1509635" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Want to be part of our team?'`} />

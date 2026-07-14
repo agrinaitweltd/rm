@@ -19,11 +19,8 @@ body {
     outline: none;
 }
 
-/* No horizontal scrolling */
+/* No horizontal scrolling ("clip" instead of "hidden" so the sticky
+   mobile header keeps working) */
 html, body {
-  overflow-x: hidden;
-}
-
-body {
-  overflow: hidden;
+  overflow-x: clip;
 }

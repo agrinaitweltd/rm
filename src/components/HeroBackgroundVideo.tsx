@@ -52,7 +52,8 @@ export default function HeroBackgroundVideo() {
 
   return (
     <div className="elementor-background-video-container">
-      <img className="rm-hero-media" src={POSTER_SRC} alt="" />
+      {/* poster and video are never shown at the same time */}
+      <img className="rm-hero-media rm-hero-poster" src={POSTER_SRC} alt="" style={{ opacity: showVideo ? 0 : 1 }} />
       {available && (
         <video
           ref={videoRef}

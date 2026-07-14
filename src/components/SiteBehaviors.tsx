@@ -81,7 +81,7 @@ function initEntranceAnimations(cleanups: Array<() => void>) {
     if (!pending.size) detach();
   };
 
-  const onScroll = () => requestAnimationFrame(check);
+  const onScroll = () => check();
   const detach = () => {
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("resize", onScroll);
