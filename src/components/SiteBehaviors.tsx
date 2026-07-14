@@ -50,33 +50,46 @@ function initUnfolds(cleanups: Array<() => void>) {
 }
 
 function initEntranceAnimations(cleanups: Array<() => void>) {
-  const elements = document.querySelectorAll<HTMLElement>(".elementor-invisible[data-settings]");
-  if (!elements.length) return;
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target as HTMLElement;
-        observer.unobserve(el);
-        let animation = "fadeIn";
-        let delay = 0;
-        try {
-          const settings = JSON.parse(el.dataset.settings || "{}");
-          animation = settings._animation || animation;
-          delay = settings._animation_delay || 0;
-        } catch {
-          /* keep defaults */
-        }
-        setTimeout(() => {
-          el.classList.remove("elementor-invisible");
-          el.classList.add("animated", animation);
-        }, delay);
-      });
-    },
-    { threshold: 0.1 }
-  );
-  elements.forEach((el) => observer.observe(el));
-  cleanups.push(() => observer.disconnect());
+  const pending = new Set(document.querySelectorAll<HTMLElement>(".elementor-invisible[data-settings]"));
+  if (!pending.size) return;
+
+  const reveal = (el: HTMLElement) => {
+    let animation = "fadeIn";
+    let delay = 0;
+    try {
+      const settings = JSON.parse(el.dataset.settings || "{}");
+      animation = settings._animation || animation;
+      delay = settings._animation_delay || 0;
+    } catch {
+      /* keep defaults */
+    }
+    setTimeout(() => {
+      el.classList.remove("elementor-invisible");
+      el.classList.add("animated", animation);
+    }, delay);
+  };
+
+  const check = () => {
+    const threshold = window.innerHeight * 0.92;
+    pending.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < threshold && rect.bottom > 0) {
+        pending.delete(el);
+        reveal(el);
+      }
+    });
+    if (!pending.size) detach();
+  };
+
+  const onScroll = () => requestAnimationFrame(check);
+  const detach = () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  check();
+  cleanups.push(detach);
 }
 
 function initTabs(cleanups: Array<() => void>) {

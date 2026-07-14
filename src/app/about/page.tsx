@@ -226,16 +226,16 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-          </div>
           <div
             className="elementor-element elementor-element-66c1570 e-con-full e-flex e-con e-child"
             data-id="66c1570"
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-e08fe80 elementor-widget__width-initial elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-e08fe80 elementor-widget__width-initial elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="e08fe80"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp"}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -247,9 +247,10 @@ export default function AboutPage() {
               </div>
             </div>
             <div
-              className="elementor-element elementor-element-d52562a elementor-widget__width-initial elementor-widget-tablet__width-inherit elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-d52562a elementor-widget__width-initial elementor-widget-tablet__width-inherit elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="d52562a"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp","_animation_delay":200}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -278,6 +279,7 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
@@ -290,8 +292,8 @@ export default function AboutPage() {
       >
         <div className="e-con-inner">
           <ShapeBottom />
-          <Image id="81a4337" cls="" src="/rm-network.png" alt="The RM Mangoes network" width={1024} height={301} />
-          <Text id="cb12385" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit">
+          <Image id="81a4337" cls="" anim="zoomIn" src="/rm-network.png" alt="The RM Mangoes network" width={1024} height={301} />
+          <Text id="cb12385" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" anim="fadeInUp">
             <p>
               RM Mangoes is more than a webshop — it is a small chain of trusted partners working as one team. Our
               growers in Pakistan, our air-freight partners and our own delivery network in Scotland and Ireland each
@@ -299,7 +301,7 @@ export default function AboutPage() {
               matters most: bringing you the very best mangoes of the season.
             </p>
           </Text>
-          <Button id="92d67d7" cls="elementor-align-center" text="See how our chain works" href="/the-chain" />
+          <Button id="92d67d7" cls="elementor-align-center" text="See how our chain works" href="/the-chain" anim="fadeInUp" delay={200} />
           <div
             className="elementor-element elementor-element-5426b57 elementor-hidden-tablet elementor-hidden-mobile elementor-arrows-position-inside elementor-widget elementor-widget-n-carousel"
             data-id="5426b57"
@@ -343,7 +345,7 @@ export default function AboutPage() {
         id="history"
       >
         <div className="e-con-inner">
-          <Image id="117b220" cls="elementor-hidden-mobile" src="/timeline-horizontal.png" alt="RM Mangoes history timeline" />
+          <Image id="117b220" cls="elementor-hidden-mobile" anim="fadeIn" src="/timeline-horizontal.png" alt="RM Mangoes history timeline" />
           <Image
             id="d510240"
             cls="elementor-widget-tablet__width-initial elementor-hidden-desktop elementor-hidden-tablet"
@@ -412,9 +414,10 @@ export default function AboutPage() {
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-b38e755 elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-b38e755 elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="b38e755"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp"}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -425,9 +428,10 @@ export default function AboutPage() {
               </div>
             </div>
             <div
-              className="elementor-element elementor-element-bcfdf42 elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-bcfdf42 elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="bcfdf42"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp","_animation_delay":200}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -441,9 +445,10 @@ export default function AboutPage() {
             </div>
           </div>
           <div
-            className="elementor-element elementor-element-5d65511 elementor-widget__width-initial elementor-widget-tablet__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading"
+            className="elementor-element elementor-element-5d65511 elementor-widget__width-initial elementor-widget-tablet__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading elementor-invisible"
             data-id="5d65511"
             data-element_type="widget"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":300}'
             data-widget_type="heading.default"
           >
             <div className="elementor-widget-container">
@@ -476,9 +481,10 @@ export default function AboutPage() {
           {values.map((value) => (
             <a
               key={value.cardId}
-              className={`elementor-element elementor-element-${value.cardId} e-con-full e-flex e-con e-child`}
+              className={`elementor-element elementor-element-${value.cardId} e-con-full e-flex e-con e-child elementor-invisible`}
               data-id={value.cardId}
               data-element_type="container"
+              data-settings={`{"_animation":"zoomIn","_animation_delay":${values.indexOf(value) * 120}}`}
             >
               <div
                 className={`elementor-element elementor-element-${value.imageId} elementor-widget elementor-widget-image`}
@@ -562,9 +568,10 @@ export default function AboutPage() {
         id="brandmovie"
       >
         <div
-          className="elementor-element elementor-element-b720e49 elementor-widget-mobile__width-inherit uael-aspect-ratio-16_9 elementor-widget elementor-widget-uael-video"
+          className="elementor-element elementor-element-b720e49 elementor-widget-mobile__width-inherit uael-aspect-ratio-16_9 elementor-widget elementor-widget-uael-video elementor-invisible"
           data-id="b720e49"
           data-element_type="widget"
+          data-settings='{"_animation":"zoomIn"}'
           data-widget_type="uael-video.default"
         >
           <div className="elementor-widget-container">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import QuoteBand from "@/components/QuoteBand";
+import HeroBackgroundVideo from "@/components/HeroBackgroundVideo";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -65,29 +66,12 @@ export default function HomePage() {
         data-element_type="container"
       >
         <div className="e-con-inner">
-          <div className="elementor-background-video-container">
-            <iframe
-              className="elementor-background-video-embed"
-              src="https://player.vimeo.com/video/914694254?muted=1&autoplay=1&loop=1&background=1"
-              allow="autoplay; fullscreen"
-              title="Background video"
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                minWidth: "100%",
-                minHeight: "100%",
-                aspectRatio: "16 / 9",
-                border: 0,
-                pointerEvents: "none",
-              }}
-            />
-          </div>
+          <HeroBackgroundVideo />
           <div
-            className="elementor-element elementor-element-7df00b4 elementor-widget__width-initial elementor-widget elementor-widget-image"
+            className="elementor-element elementor-element-7df00b4 elementor-widget__width-initial elementor-widget elementor-widget-image elementor-invisible"
             data-id="7df00b4"
             data-element_type="widget"
+            data-settings='{"_animation":"zoomIn"}'
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
@@ -131,9 +115,10 @@ export default function HomePage() {
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-9664a1d elementor-widget elementor-widget-heading"
+              className="elementor-element elementor-element-9664a1d elementor-widget elementor-widget-heading elementor-invisible"
               data-id="9664a1d"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp"}'
               data-widget_type="heading.default"
             >
               <div className="elementor-widget-container">
@@ -141,9 +126,10 @@ export default function HomePage() {
               </div>
             </div>
             <div
-              className="elementor-element elementor-element-205af03 elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-205af03 elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="205af03"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp","_animation_delay":200}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -168,9 +154,10 @@ export default function HomePage() {
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-a535741 elementor-widget elementor-widget-heading"
+              className="elementor-element elementor-element-a535741 elementor-widget elementor-widget-heading elementor-invisible"
               data-id="a535741"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInLeft","_animation_delay":300}'
               data-widget_type="heading.default"
             >
               <div className="elementor-widget-container">
@@ -228,13 +215,14 @@ export default function HomePage() {
               <path className="elementor-shape-fill" d="M350,10L340,0h20L350,10z"></path>
             </svg>
           </div>
-          {quickLinks.map((card) =>
+          {quickLinks.map((card, i) =>
             card.external ? (
               <a
                 key={card.id}
-                className={`elementor-element elementor-element-${card.id} e-con-full e-flex e-con e-child`}
+                className={`elementor-element elementor-element-${card.id} e-con-full e-flex e-con e-child elementor-invisible`}
                 data-id={card.id}
                 data-element_type="container"
+                data-settings={`{"_animation":"zoomIn","_animation_delay":${i * 150}}`}
                 href={card.href}
                 target="_blank"
                 rel="noopener"
@@ -244,9 +232,10 @@ export default function HomePage() {
             ) : (
               <Link
                 key={card.id}
-                className={`elementor-element elementor-element-${card.id} e-con-full e-flex e-con e-child`}
+                className={`elementor-element elementor-element-${card.id} e-con-full e-flex e-con e-child elementor-invisible`}
                 data-id={card.id}
                 data-element_type="container"
+                data-settings={`{"_animation":"zoomIn","_animation_delay":${i * 150}}`}
                 href={card.href}
               >
                 <QuickLinkInner card={card} />

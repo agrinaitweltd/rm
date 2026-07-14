@@ -1,8 +1,21 @@
 /**
  * Small helpers that emit the exact Elementor markup patterns used across
  * the site, so the ported theme CSS applies unchanged.
+ *
+ * Pass `anim` (e.g. "fadeInUp", "zoomIn") and an optional `delay` (ms) to
+ * give a widget an entrance animation — SiteBehaviors reveals it on scroll.
  */
 import Link from "next/link";
+
+type AnimProps = { anim?: string; delay?: number };
+
+/** class suffix + data-settings for an entrance animation */
+export function animAttrs({ anim, delay }: AnimProps) {
+  if (!anim) return { cls: "", attrs: {} as Record<string, string> };
+  const settings: Record<string, unknown> = { _animation: anim };
+  if (delay) settings._animation_delay = delay;
+  return { cls: " elementor-invisible", attrs: { "data-settings": JSON.stringify(settings) } };
+}
 
 export const ShapeTop = () => (
   <div className="elementor-shape elementor-shape-top" aria-hidden="true" data-negative="false">
@@ -25,18 +38,22 @@ export const Heading = ({
   text,
   tag = "h2",
   cls = "elementor-widget__width-inherit",
+  anim,
+  delay,
 }: {
   id: string;
   text: string;
   tag?: "h1" | "h2" | "h3" | "p";
   cls?: string;
-}) => {
+} & AnimProps) => {
   const Tag = tag;
+  const a = animAttrs({ anim, delay });
   return (
     <div
-      className={`elementor-element elementor-element-${id} ${cls} elementor-widget elementor-widget-heading`}
+      className={`elementor-element elementor-element-${id} ${cls} elementor-widget elementor-widget-heading${a.cls}`}
       data-id={id}
       data-element_type="widget"
+      {...a.attrs}
       data-widget_type="heading.default"
     >
       <div className="elementor-widget-container">
@@ -46,16 +63,30 @@ export const Heading = ({
   );
 };
 
-export const Text = ({ id, cls = "", children }: { id: string; cls?: string; children: React.ReactNode }) => (
-  <div
-    className={`elementor-element elementor-element-${id} ${cls} elementor-widget elementor-widget-text-editor`}
-    data-id={id}
-    data-element_type="widget"
-    data-widget_type="text-editor.default"
-  >
-    <div className="elementor-widget-container">{children}</div>
-  </div>
-);
+export const Text = ({
+  id,
+  cls = "",
+  children,
+  anim,
+  delay,
+}: {
+  id: string;
+  cls?: string;
+  children: React.ReactNode;
+} & AnimProps) => {
+  const a = animAttrs({ anim, delay });
+  return (
+    <div
+      className={`elementor-element elementor-element-${id} ${cls} elementor-widget elementor-widget-text-editor${a.cls}`}
+      data-id={id}
+      data-element_type="widget"
+      {...a.attrs}
+      data-widget_type="text-editor.default"
+    >
+      <div className="elementor-widget-container">{children}</div>
+    </div>
+  );
+};
 
 export const Button = ({
   id,
@@ -63,38 +94,44 @@ export const Button = ({
   href,
   external,
   cls = "",
+  anim,
+  delay,
 }: {
   id: string;
   text: string;
   href: string;
   external?: boolean;
   cls?: string;
-}) => (
-  <div
-    className={`elementor-element elementor-element-${id} ${cls} elementor-widget elementor-widget-button`}
-    data-id={id}
-    data-element_type="widget"
-    data-widget_type="button.default"
-  >
-    <div className="elementor-widget-container">
-      <div className="elementor-button-wrapper">
-        {external ? (
-          <a className="elementor-button elementor-button-link elementor-size-sm" href={href} target="_blank" rel="noopener">
-            <span className="elementor-button-content-wrapper">
-              <span className="elementor-button-text">{text}</span>
-            </span>
-          </a>
-        ) : (
-          <Link className="elementor-button elementor-button-link elementor-size-sm" href={href}>
-            <span className="elementor-button-content-wrapper">
-              <span className="elementor-button-text">{text}</span>
-            </span>
-          </Link>
-        )}
+} & AnimProps) => {
+  const a = animAttrs({ anim, delay });
+  return (
+    <div
+      className={`elementor-element elementor-element-${id} ${cls} elementor-widget elementor-widget-button${a.cls}`}
+      data-id={id}
+      data-element_type="widget"
+      {...a.attrs}
+      data-widget_type="button.default"
+    >
+      <div className="elementor-widget-container">
+        <div className="elementor-button-wrapper">
+          {external ? (
+            <a className="elementor-button elementor-button-link elementor-size-sm" href={href} target="_blank" rel="noopener">
+              <span className="elementor-button-content-wrapper">
+                <span className="elementor-button-text">{text}</span>
+              </span>
+            </a>
+          ) : (
+            <Link className="elementor-button elementor-button-link elementor-size-sm" href={href}>
+              <span className="elementor-button-content-wrapper">
+                <span className="elementor-button-text">{text}</span>
+              </span>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Image = ({
   id,
@@ -106,6 +143,8 @@ export const Image = ({
   hoverScale,
   href,
   external,
+  anim,
+  delay,
 }: {
   id: string;
   src: string;
@@ -116,16 +155,21 @@ export const Image = ({
   hoverScale?: boolean;
   href?: string;
   external?: boolean;
-}) => {
+} & AnimProps) => {
   const img = <img decoding="async" src={src} alt={alt} width={width} height={height} loading="lazy" />;
+  // hover-scale and entrance animation share the data-settings attribute
+  const settings: Record<string, unknown> = {};
+  if (hoverScale) settings._transform_scale_effect_hover = { unit: "px", size: 1.1, sizes: [] };
+  if (anim) {
+    settings._animation = anim;
+    if (delay) settings._animation_delay = delay;
+  }
   return (
     <div
-      className={`elementor-element elementor-element-${id}${hoverScale ? " e-transform" : ""} ${cls} elementor-widget elementor-widget-image`}
+      className={`elementor-element elementor-element-${id}${hoverScale ? " e-transform" : ""} ${cls} elementor-widget elementor-widget-image${anim ? " elementor-invisible" : ""}`}
       data-id={id}
       data-element_type="widget"
-      {...(hoverScale
-        ? { "data-settings": '{"_transform_scale_effect_hover":{"unit":"px","size":1.1,"sizes":[]}}' }
-        : {})}
+      {...(Object.keys(settings).length ? { "data-settings": JSON.stringify(settings) } : {})}
       data-widget_type="image.default"
     >
       <div className="elementor-widget-container">

@@ -54,9 +54,10 @@ export default function ProductsPage() {
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-a22ba7c elementor-widget__width-inherit elementor-widget elementor-widget-heading"
+              className="elementor-element elementor-element-a22ba7c elementor-widget__width-inherit elementor-widget elementor-widget-heading elementor-invisible"
               data-id="a22ba7c"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp"}'
               data-widget_type="heading.default"
             >
               <div className="elementor-widget-container">
@@ -69,9 +70,10 @@ export default function ProductsPage() {
               data-element_type="container"
             >
               <div
-                className="elementor-element elementor-element-e62afd2 elementor-widget-tablet__width-inherit elementor-widget elementor-widget-text-editor"
+                className="elementor-element elementor-element-e62afd2 elementor-widget-tablet__width-inherit elementor-widget elementor-widget-text-editor elementor-invisible"
                 data-id="e62afd2"
                 data-element_type="widget"
+                data-settings='{"_animation":"fadeInUp","_animation_delay":150}'
                 data-widget_type="text-editor.default"
               >
                 <div className="elementor-widget-container">
@@ -89,9 +91,10 @@ export default function ProductsPage() {
               data-element_type="container"
             >
               <div
-                className="elementor-element elementor-element-16fd266 elementor-widget__width-initial elementor-widget-tablet__width-inherit elementor-widget elementor-widget-text-editor"
+                className="elementor-element elementor-element-16fd266 elementor-widget__width-initial elementor-widget-tablet__width-inherit elementor-widget elementor-widget-text-editor elementor-invisible"
                 data-id="16fd266"
                 data-element_type="widget"
+                data-settings='{"_animation":"fadeInUp","_animation_delay":300}'
                 data-widget_type="text-editor.default"
               >
                 <div className="elementor-widget-container">
@@ -132,9 +135,10 @@ export default function ProductsPage() {
             return (
               <a
                 key={ids.id}
-                className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child`}
+                className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child elementor-invisible`}
                 data-id={ids.id}
                 data-element_type="container"
+                data-settings={`{"_animation":"zoomIn","_animation_delay":${(i % 3) * 150}}`}
                 href={site.whatsappOrder(product.order)}
                 target="_blank"
                 rel="noopener"
@@ -195,9 +199,10 @@ export default function ProductsPage() {
             </svg>
           </div>
           <div
-            className="elementor-element elementor-element-cb46c55 elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading"
+            className="elementor-element elementor-element-cb46c55 elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading elementor-invisible"
             data-id="cb46c55"
             data-element_type="widget"
+            data-settings='{"_animation":"fadeInUp"}'
             data-widget_type="heading.default"
           >
             <div className="elementor-widget-container">

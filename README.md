@@ -51,8 +51,13 @@ Drop your own files over these placeholders (same names):
 - `site-bgr.jpg`, `about-hero.jpg`, `products-hero.jpg`, `contact-hero.jpg` — background photos
 - `og.png` — social sharing image
 
-The home-page hero currently uses the original background video (Vimeo).
-Change the video id in `src/app/page.tsx` when you have your own footage.
+### Hero video
+
+The home-page hero plays a local video: drop your footage into
+**`public/hero.mp4`** (no code changes needed). The hero shows
+`public/hero-poster.png` for 2 seconds, then plays the video, returns to
+the poster when it ends, and repeats. If `hero.mp4` is missing, the
+poster image simply stays.
 
 ## Deployment
 

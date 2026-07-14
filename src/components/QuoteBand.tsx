@@ -24,9 +24,10 @@ export default function QuoteBand({
     >
       <div className="e-con-inner">
         <div
-          className={`elementor-element elementor-element-${imageId} elementor-widget elementor-widget-image`}
+          className={`elementor-element elementor-element-${imageId} elementor-widget elementor-widget-image elementor-invisible`}
           data-id={imageId}
           data-element_type="widget"
+          data-settings='{"_animation":"zoomIn"}'
           data-widget_type="image.default"
         >
           <div className="elementor-widget-container">
@@ -34,9 +35,10 @@ export default function QuoteBand({
           </div>
         </div>
         <div
-          className={`elementor-element elementor-element-${headingId} elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading`}
+          className={`elementor-element elementor-element-${headingId} elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading elementor-invisible`}
           data-id={headingId}
           data-element_type="widget"
+          data-settings='{"_animation":"fadeInUp","_animation_delay":150}'
           data-widget_type="heading.default"
         >
           <div className="elementor-widget-container">

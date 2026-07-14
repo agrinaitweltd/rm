@@ -65,21 +65,6 @@ const varieties = [
   { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/assortiment-dusehri.svg", name: "dusehri" },
 ];
 
-const qualityCards = [
-  {
-    image: "/quality-handpicked.png",
-    text: "Every mango is hand-picked at the orchard and hand-inspected again before it goes into your box. Only fruit that meets our standard travels on.",
-  },
-  {
-    image: "/quality-airfreight.png",
-    text: "Our mangoes are air-freighted from Pakistan within days of picking, so they arrive at their peak of ripeness and flavour.",
-  },
-  {
-    image: "/quality-temperature.png",
-    text: "From orchard to doorstep the fruit is kept in controlled conditions, protecting the delicate aroma and sweetness of every mango.",
-  },
-];
-
 const stats = [
   { id: "fe8bb24", title: "TEMPERATURE CONTROLLED", icon: "warehouse" },
   { id: "8a6a11b", title: "HAND-PACKED BOXES", icon: "pallets" },
@@ -147,15 +132,15 @@ export default function TheChainPage() {
         <div className="e-con-inner">
           <div className="elementor-element elementor-element-2e21e8d e-con-full e-flex e-con e-child" data-id="2e21e8d" data-element_type="container">
             <IconBoxTitle mobileId="7584585" desktopId="58c01c0" title="The Chain" />
-          </div>
-          <div className="elementor-element elementor-element-a00ad91 e-con-full e-flex e-con e-child" data-id="a00ad91" data-element_type="container">
-            <Text id="bcc9bc8" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit">
-              <p>
-                Our chain runs from mango orchards in Pakistan straight to doorsteps across Scotland and Ireland. We
-                keep it short, personal and fresh — because a great mango is a team effort. We grow together with our
-                partners by building trust and sharing our knowledge and inspiration.
-              </p>
-            </Text>
+            <div className="elementor-element elementor-element-a00ad91 e-con-full e-flex e-con e-child" data-id="a00ad91" data-element_type="container">
+              <Text id="bcc9bc8" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit" anim="fadeInUp">
+                <p>
+                  Our chain runs from mango orchards in Pakistan straight to doorsteps across Scotland and Ireland. We
+                  keep it short, personal and fresh — because a great mango is a team effort. We grow together with our
+                  partners by building trust and sharing our knowledge and inspiration.
+                </p>
+              </Text>
+            </div>
           </div>
           <div className="elementor-element elementor-element-ab80e56 e-con-full e-flex e-con e-child" data-id="ab80e56" data-element_type="container">
             <Image id="51c29a1" cls="elementor-widget__width-inherit" src="/chain-icon.svg" width={77} height={79} />
@@ -171,7 +156,7 @@ export default function TheChainPage() {
         id="consumer"
       >
         <div className="e-con-inner">
-          <Image id="10d658f" cls="" src="/chain.svg" width={16} height={15} />
+          <Image id="10d658f" cls="" anim="zoomIn" src="/chain.svg" width={16} height={15} />
           <Heading
             id="68eaf23"
             cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit"
@@ -189,11 +174,11 @@ export default function TheChainPage() {
         <div className="e-con-inner">
           <ShapeTop />
           <div className="elementor-element elementor-element-38761d4 e-con-full e-flex e-con e-child" data-id="38761d4" data-element_type="container">
-            <Heading id="a899057" text="The consumer" />
-            <Text id="c5971ca">
+            <Heading id="a899057" text="The consumer" anim="fadeInUp" />
+            <Text id="c5971ca" anim="fadeInUp" delay={150}>
               <p>We believe everyone deserves to taste a real Pakistani mango. We have made delivering that experience our mission.</p>
             </Text>
-            <Text id="a09c28b">
+            <Text id="a09c28b" anim="fadeInUp" delay={300}>
               <p>
                 That starts with understanding you, the mango lover. We listen closely to our customers across Scotland
                 and Ireland — which varieties you love, when you want them and how you enjoy them. That is how we keep
@@ -236,7 +221,7 @@ export default function TheChainPage() {
         id="partners"
       >
         <div className="e-con-inner">
-          <Image id="5ea96b0" cls="" src="/sourcing.svg" width={84} height={99} />
+          <Image id="5ea96b0" cls="" anim="zoomIn" src="/sourcing.svg" width={84} height={99} />
           <Heading id="cc5f43d" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget-tablet__width-initial" text={`'Be part of our`} />
           <Heading id="c53f0e5" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`meaningful relationships'`} />
           <Heading id="3d76f9e" tag="p" cls="elementor-widget-mobile__width-initial" text={`Let's grow together`} />
@@ -251,12 +236,12 @@ export default function TheChainPage() {
       >
         <div className="e-con-inner">
           <ShapeTop />
-          <Heading id="b5bc73c" text="Sourcing partners" />
+          <Heading id="b5bc73c" text="Sourcing partners" anim="fadeInUp" />
           <div className="elementor-element elementor-element-cd4f0de e-con-full e-flex e-con e-child" data-id="cd4f0de" data-element_type="container">
-            <Text id="f1a61f1">
+            <Text id="f1a61f1" anim="fadeInUp" delay={150}>
               <p>We are proud of our long-standing partners in Pakistan. They are passionate, innovative growers who value quality as much as we do.</p>
             </Text>
-            <Text id="2fac50d">
+            <Text id="2fac50d" anim="fadeInUp" delay={300}>
               <p>
                 Partnerships with our growers are vital to us. We learn from each other and grow together — season after
                 season, from the famous orchards of Sindh and Punjab to your doorstep.
@@ -277,7 +262,7 @@ export default function TheChainPage() {
         data-element_type="container"
       >
         <div className="e-con-inner">
-          <Heading id="68546cf8" text="Sourcing map" />
+          <Heading id="68546cf8" text="Sourcing map" anim="fadeInUp" />
           <div className="elementor-element elementor-element-6d0d2dd e-flex e-con-boxed e-con e-child" data-id="6d0d2dd" data-element_type="container">
             <div className="e-con-inner">
               <div
@@ -385,55 +370,38 @@ export default function TheChainPage() {
         <div className="e-con-inner">
           <div className="elementor-element elementor-element-8915c7c e-con-full e-flex e-con e-child" data-id="8915c7c" data-element_type="container">
             <IconBoxTitle mobileId="3d8ac1e" desktopId="0dfbaf7" title="Quality & Certificates" />
-          </div>
-          <div className="elementor-element elementor-element-fd2a219 e-con-full e-flex e-con e-child" data-id="fd2a219" data-element_type="container">
-            <Text id="5c13f95" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit">
-              <p>
-                Together with our growers, we set the highest standards of quality for all our mangoes. That is why you
-                can be sure of consistently premium fruit from RM Mangoes.
-              </p>
-            </Text>
-            <Text id="66dc3d8" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit">
-              <p>
-                Every batch is checked at the orchard, on arrival in the UK and again before packing. If a mango
-                wouldn&rsquo;t make our own family proud, it doesn&rsquo;t go in your box.
-              </p>
-            </Text>
-          </div>
-          <Heading id="6925c46" tag="h3" text="Our quality promise:" />
-          <div
-            className="elementor-element elementor-element-24150e3 elementor-arrows-position-inside elementor-widget elementor-widget-loop-carousel"
-            data-id="24150e3"
-            data-element_type="widget"
-            data-settings='{"slides_to_show":"3","slides_to_show_tablet":"2","slides_to_show_mobile":"1","slides_to_scroll":"1","speed":500,"arrows":"yes","image_spacing_custom":{"unit":"px","size":10,"sizes":[]}}'
-            data-widget_type="loop-carousel.post"
-          >
-            <div className="elementor-widget-container">
-              <div className="swiper elementor-loop-container elementor-grid" role="list" dir="ltr">
-                <div className="swiper-wrapper" aria-live="polite">
-                  {qualityCards.map((card, i) => (
-                    <div
-                      key={i}
-                      data-elementor-type="loop-item"
-                      data-elementor-id="8385"
-                      className="elementor elementor-8385 swiper-slide e-loop-item ast-article-single"
-                      role="group"
-                      aria-roledescription="slide"
-                    >
-                      <div className="elementor-element elementor-element-4e1fea6 e-con-full e-flex e-con e-parent" data-id="4e1fea6" data-element_type="container">
-                        <div className="elementor-element elementor-element-5c019dd e-con-full e-flex e-con e-child" data-id="5c019dd" data-element_type="container">
-                          <Image id="cb51798" src={card.image} width={557} height={553} />
-                          <Text id="6ef4782">{card.text}</Text>
-                        </div>
-                        <div className="elementor-element elementor-element-12f4610 e-con-full e-flex e-con e-child" data-id="12f4610" data-element_type="container">
-                          <Button id="c76123c" cls="elementor-align-justify elementor-widget-mobile__width-inherit" text="ask us anything" href={site.whatsapp} external />
-                        </div>
-                      </div>
-                    </div>
+            <div className="elementor-element elementor-element-fd2a219 e-con-full e-flex e-con e-child" data-id="fd2a219" data-element_type="container">
+              <Text id="5c13f95" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit" anim="fadeInUp">
+                <p>
+                  Together with our growers, we set the highest standards of quality for all our mangoes. Every batch
+                  is checked at the orchard, on arrival in the UK and again before packing — so you can be sure of
+                  consistently premium fruit from RM Mangoes.
+                </p>
+              </Text>
+            </div>
+            <Heading id="6925c46" tag="h3" text="Our registrations:" anim="fadeInUp" />
+            <div
+              className="elementor-element elementor-element-24150e3 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list elementor-invisible"
+              data-id="24150e3"
+              data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp","_animation_delay":200}'
+              data-widget_type="icon-list.default"
+            >
+              <div className="elementor-widget-container">
+                <ul className="elementor-icon-list-items">
+                  {["Registered with HMRC", "Registered UK food business", "Fully insured deliveries"].map((text, i) => (
+                    <li key={i} className="elementor-icon-list-item">
+                      <span className="elementor-icon-list-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" data-name="Laag 1" viewBox="0 0 20 20">
+                          <path fill="#619b26" strokeWidth={0} d="m10,3c3.86,0,7,3.14,7,7s-3.14,7-7,7-7-3.14-7-7,3.14-7,7-7M10,0C4.48,0,0,4.48,0,10s4.48,10,10,10,10-4.48,10-10S15.52,0,10,0h0Z"></path>
+                          <circle fill="#619b26" strokeWidth={0} cx="10" cy="10" r="10"></circle>
+                        </svg>
+                      </span>
+                      <span className="elementor-icon-list-text">{text}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-              <SwiperArrows />
             </div>
           </div>
         </div>
@@ -447,7 +415,7 @@ export default function TheChainPage() {
         id="products"
       >
         <div className="e-con-inner">
-          <Image id="d1dd519" cls="" src="/assortiment_1.svg" />
+          <Image id="d1dd519" cls="" anim="zoomIn" src="/assortiment_1.svg" />
           <Heading id="61f6b2c" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Let's show you a part of our specialism'`} />
         </div>
       </div>
@@ -461,7 +429,7 @@ export default function TheChainPage() {
         <div className="e-con-inner">
           <ShapeTop />
           <div className="elementor-element elementor-element-c8ccd36 e-con-full e-flex e-con e-child" data-id="c8ccd36" data-element_type="container">
-            <Heading id="3171c71" text="Our product range" />
+            <Heading id="3171c71" text="Our product range" anim="fadeInUp" />
             <Text id="17c051d">
               <p>
                 We specialise in one thing and do it brilliantly: premium Pakistani mangoes. Throughout the season we
@@ -512,7 +480,7 @@ export default function TheChainPage() {
         id="logistics"
       >
         <div className="e-con-inner">
-          <Image id="0a01020" cls="" src="/Logistic_2.svg" />
+          <Image id="0a01020" cls="" anim="zoomIn" src="/Logistic_2.svg" />
           <Heading id="f46608a" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Part of a`} />
           <Heading id="3d26bd2" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`powerful connection'`} />
         </div>
@@ -527,14 +495,14 @@ export default function TheChainPage() {
         <div className="e-con-inner">
           <ShapeTop />
           <div className="elementor-element elementor-element-482e025 e-con-full e-flex e-con e-child" data-id="482e025" data-element_type="container">
-            <Heading id="1ae0223" text="Our logistics" />
-            <Text id="86aa2ba">
+            <Heading id="1ae0223" text="Our logistics" anim="fadeInUp" />
+            <Text id="86aa2ba" anim="fadeInUp" delay={150}>
               <p>
                 Every box travels in temperature-controlled conditions from Pakistan to our hub in Scotland. From there
                 our own delivery network takes over, so your mangoes arrive fresh, fast and in perfect condition.
               </p>
             </Text>
-            <Text id="ece14ce">
+            <Text id="ece14ce" anim="fadeInUp" delay={300}>
               <p>
                 Because we manage the whole journey ourselves, we always know exactly where your order is and can
                 respond quickly. Besides doorstep delivery, we also handle bulk orders for shops and restaurants.
@@ -542,7 +510,7 @@ export default function TheChainPage() {
             </Text>
           </div>
           <div className="elementor-element elementor-element-82c647d e-con-full e-flex e-con e-child" data-id="82c647d" data-element_type="container">
-            <Image id="7c61707" cls="elementor-widget__width-inherit elementor-widget-tablet__width-initial" src="/rm-delivery-logo.png" alt="RM Delivery" />
+            <Image id="7c61707" cls="elementor-widget__width-inherit elementor-widget-tablet__width-initial" anim="zoomIn" src="/rm-delivery-logo.png" alt="RM Delivery" />
           </div>
         </div>
       </div>
@@ -555,7 +523,7 @@ export default function TheChainPage() {
       >
         <div className="e-con-inner">
           <div className="elementor-element elementor-element-209b062 e-con-full e-flex e-con e-child" data-id="209b062" data-element_type="container">
-            <Heading id="d479e3e" text="Services" />
+            <Heading id="d479e3e" text="Services" anim="fadeInUp" />
             <div
               className="elementor-element elementor-element-94ae115 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
               data-id="94ae115"
@@ -591,9 +559,10 @@ export default function TheChainPage() {
             {stats.map((stat) => (
               <div
                 key={stat.id}
-                className={`elementor-element elementor-element-${stat.id} elementor-view-stacked elementor-position-inline-start elementor-widget__width-initial elementor-widget-mobile__width-initial elementor-tablet-position-block-start elementor-shape-circle elementor-mobile-position-block-start elementor-widget elementor-widget-icon-box`}
+                className={`elementor-element elementor-element-${stat.id} elementor-view-stacked elementor-position-inline-start elementor-widget__width-initial elementor-widget-mobile__width-initial elementor-tablet-position-block-start elementor-shape-circle elementor-mobile-position-block-start elementor-widget elementor-widget-icon-box elementor-invisible`}
                 data-id={stat.id}
                 data-element_type="widget"
+                data-settings={`{"_animation":"zoomIn","_animation_delay":${stats.indexOf(stat) * 150}}`}
                 data-widget_type="icon-box.default"
               >
                 <div className="elementor-widget-container">
@@ -690,15 +659,15 @@ export default function TheChainPage() {
         data-element_type="container"
       >
         <div className="e-con-inner">
-          <Heading id="25b4cef" text="Our clients" />
+          <Heading id="25b4cef" text="Our clients" anim="fadeInUp" />
           <div className="elementor-element elementor-element-236eca9 e-con-full e-flex e-con e-child" data-id="236eca9" data-element_type="container">
-            <Text id="51414ca">
+            <Text id="51414ca" anim="fadeInUp" delay={150}>
               <p>
                 Our customers are located across Scotland and Ireland — families, fruit lovers, local shops and
                 restaurants who all share a taste for real Pakistani mangoes.
               </p>
             </Text>
-            <Text id="6dcd8c7">
+            <Text id="6dcd8c7" anim="fadeInUp" delay={300}>
               <p>
                 We&rsquo;re proud of everyone we deliver to. Quality, honest prices and friendly service are what our
                 customers value us for, box after box, season after season.

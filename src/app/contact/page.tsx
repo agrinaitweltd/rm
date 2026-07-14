@@ -70,16 +70,16 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-          </div>
           <div
             className="elementor-element elementor-element-3cc7548 e-con-full e-flex e-con e-child"
             data-id="3cc7548"
             data-element_type="container"
           >
             <div
-              className="elementor-element elementor-element-82777aa elementor-widget__width-initial elementor-widget-tablet__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-82777aa elementor-widget__width-initial elementor-widget-tablet__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="82777aa"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp"}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -93,9 +93,10 @@ export default function ContactPage() {
               </div>
             </div>
             <div
-              className="elementor-element elementor-element-340d89c elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+              className="elementor-element elementor-element-340d89c elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list elementor-invisible"
               data-id="340d89c"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp","_animation_delay":150}'
               data-widget_type="icon-list.default"
             >
               <div className="elementor-widget-container">
@@ -119,9 +120,10 @@ export default function ContactPage() {
               </div>
             </div>
             <div
-              className="elementor-element elementor-element-654824b elementor-widget__width-initial elementor-widget-tablet__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor"
+              className="elementor-element elementor-element-654824b elementor-widget__width-initial elementor-widget-tablet__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor elementor-invisible"
               data-id="654824b"
               data-element_type="widget"
+              data-settings='{"_animation":"fadeInUp","_animation_delay":300}'
               data-widget_type="text-editor.default"
             >
               <div className="elementor-widget-container">
@@ -133,6 +135,7 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
