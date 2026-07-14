@@ -21,12 +21,16 @@ body,
 }
 
 /* ---- Home hero background media (poster image + local video cycle) ---- */
+/* `!important` beats the theme's `img { height: auto }` reset, which
+   otherwise leaves the poster image at its 16:9 height (gap on mobile). */
+.elementor-background-video-container img.rm-hero-media,
 .rm-hero-media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
 }
 
 .rm-hero-poster,
@@ -83,6 +87,33 @@ body,
    background photo behind the video slot — hide it) ---- */
 .elementor-5298 .elementor-element.elementor-element-12736e2:not(.elementor-motion-effects-element-type-background) {
   background: none;
+}
+
+/* ---- Product cards: the original rounded the small round fruit
+   thumbnails and showed a grey circle on hover. Our box photos are wide,
+   so show them naturally (no circular crop, no grey backdrop). ---- */
+.elementor-element-9e8beb7 .elementor-widget-image .elementor-widget-container,
+.elementor-element-9e8beb7 .elementor-widget-image:hover .elementor-widget-container {
+  background-image: none !important;
+  border-radius: 0 !important;
+}
+
+.elementor-element-9e8beb7 .elementor-widget-image img {
+  width: 24rem !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  object-fit: contain;
+}
+
+/* ---- Footer social icons: brand green, recognisable glyphs ---- */
+#colophon .elementor-icon {
+  color: #4f8d36;
+  transition: color 0.2s, transform 0.2s;
+}
+
+#colophon .elementor-icon:hover {
+  color: #f6a200;
+  transform: translateY(-2px);
 }
 
 /* ---- Footer copyright: credit link inherits the copyright style ---- */

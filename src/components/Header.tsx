@@ -9,12 +9,10 @@ function SiteLogo() {
           <img
             width={70}
             height={61}
-            src="/logo-2-70x61.png"
+            src="/logo-2.png"
             className="custom-logo"
             alt="RM Mangoes"
             decoding="async"
-            srcSet="/logo-2-70x61.png 70w, /logo-2.png 189w"
-            sizes="(max-width: 70px) 100vw, 70px"
           />
         </Link>
       </span>
