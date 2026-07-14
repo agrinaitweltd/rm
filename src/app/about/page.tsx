@@ -364,9 +364,10 @@ export default function AboutPage() {
       >
         <div className="e-con-inner">
           <div
-            className="elementor-element elementor-element-8961678 elementor-align-center elementor-widget elementor-widget-image"
+            className="elementor-element elementor-element-8961678 elementor-align-center elementor-widget elementor-widget-image elementor-invisible"
             data-id="8961678"
             data-element_type="widget"
+            data-settings='{"_animation":"zoomIn"}'
             data-widget_type="image.default"
           >
             <div className="elementor-widget-container">
@@ -374,9 +375,10 @@ export default function AboutPage() {
             </div>
           </div>
           <div
-            className="elementor-element elementor-element-0f537bc elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading"
+            className="elementor-element elementor-element-0f537bc elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading elementor-invisible"
             data-id="0f537bc"
             data-element_type="widget"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":150}'
             data-widget_type="heading.default"
           >
             <div className="elementor-widget-container">
@@ -553,10 +555,10 @@ export default function AboutPage() {
         data-element_type="container"
       >
         <div className="e-con-inner">
-          <Image id="5c0c68c" cls="" src="/3.svg" width={24} height={23} />
-          <Heading id="885fdf5" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Be part of`} />
-          <Heading id="51467f6" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`the mango journey'`} />
-          <Heading id="26b7336" tag="p" cls="" text="We proudly present our story!" />
+          <Image id="5c0c68c" cls="" anim="zoomIn" src="/3.svg" width={24} height={23} />
+          <Heading anim="fadeInUp" id="885fdf5" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Be part of`} />
+          <Heading anim="fadeInUp" delay={150} id="51467f6" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`the mango journey'`} />
+          <Heading anim="fadeInUp" delay={300} id="26b7336" tag="p" cls="" text="We proudly present our story!" />
         </div>
       </div>
 
@@ -615,7 +617,7 @@ export default function AboutPage() {
               <img decoding="async" src="/Team.png" alt="" />
             </div>
           </div>
-          <Heading id="1509635" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Want to be part of our team?'`} />
+          <Heading anim="fadeInUp" id="1509635" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Want to be part of our team?'`} />
         </div>
       </div>
 

@@ -158,6 +158,7 @@ export default function TheChainPage() {
         <div className="e-con-inner">
           <Image id="10d658f" cls="" anim="zoomIn" src="/chain.svg" width={16} height={15} />
           <Heading
+            anim="fadeInUp"
             id="68eaf23"
             cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit"
             text={`'Let's share a part of our inspiration'`}
@@ -222,9 +223,9 @@ export default function TheChainPage() {
       >
         <div className="e-con-inner">
           <Image id="5ea96b0" cls="" anim="zoomIn" src="/sourcing.svg" width={84} height={99} />
-          <Heading id="cc5f43d" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget-tablet__width-initial" text={`'Be part of our`} />
-          <Heading id="c53f0e5" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`meaningful relationships'`} />
-          <Heading id="3d76f9e" tag="p" cls="elementor-widget-mobile__width-initial" text={`Let's grow together`} />
+          <Heading anim="fadeInUp" id="cc5f43d" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget-tablet__width-initial" text={`'Be part of our`} />
+          <Heading anim="fadeInUp" delay={150} id="c53f0e5" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`meaningful relationships'`} />
+          <Heading anim="fadeInUp" delay={300} id="3d76f9e" tag="p" cls="elementor-widget-mobile__width-initial" text={`Let's grow together`} />
         </div>
       </div>
 
@@ -416,7 +417,7 @@ export default function TheChainPage() {
       >
         <div className="e-con-inner">
           <Image id="d1dd519" cls="" anim="zoomIn" src="/assortiment_1.svg" />
-          <Heading id="61f6b2c" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Let's show you a part of our specialism'`} />
+          <Heading anim="fadeInUp" id="61f6b2c" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Let's show you a part of our specialism'`} />
         </div>
       </div>
 
@@ -481,8 +482,8 @@ export default function TheChainPage() {
       >
         <div className="e-con-inner">
           <Image id="0a01020" cls="" anim="zoomIn" src="/Logistic_2.svg" />
-          <Heading id="f46608a" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Part of a`} />
-          <Heading id="3d26bd2" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`powerful connection'`} />
+          <Heading anim="fadeInUp" id="f46608a" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`'Part of a`} />
+          <Heading anim="fadeInUp" delay={150} id="3d26bd2" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text={`powerful connection'`} />
         </div>
       </div>
 
@@ -638,7 +639,7 @@ export default function TheChainPage() {
               </h2>
             </div>
           </div>
-          <Heading id="0c32e73" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text="By sharing the king of fruits together" />
+          <Heading anim="fadeInUp" delay={200} id="0c32e73" tag="p" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" text="By sharing the king of fruits together" />
         </div>
       </div>
 

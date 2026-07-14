@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const VIDEO_SRC = "/hero.mp4"; // drop your own video into public/hero.mp4
 const POSTER_SRC = "/hero-poster.png"; // shown before/between video plays
-const POSTER_SECONDS = 2;
+const POSTER_SECONDS = 5;
 
 /**
  * Background media for the home hero: the poster image shows for a couple

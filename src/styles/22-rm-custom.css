@@ -46,17 +46,53 @@ body,
   color: var(--e-global-color-astglobalcolor0, #65326e);
 }
 
-/* ---- Sticky header on mobile: the menu scrolls with the site ---- */
-@media (max-width: 921px) {
-  #masthead {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-  }
+/* ---- Sticky header: the menu scrolls with the site (all devices) ---- */
+#masthead {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 
-  #masthead .main-header-bar {
-    background-color: #ffffff;
-  }
+#masthead .main-header-bar {
+  background-color: #ffffff;
+}
+
+/* ---- Colourful top-level menu items (brand palette) ---- */
+.main-header-menu > .menu-item:nth-child(1) > .menu-link {
+  color: #4f8d36;
+}
+
+.main-header-menu > .menu-item:nth-child(2) > .menu-link {
+  color: #f6a200;
+}
+
+.main-header-menu > .menu-item:nth-child(3) > .menu-link {
+  color: #7aa82d;
+}
+
+.main-header-menu > .menu-item:nth-child(4) > .menu-link {
+  color: #eda20b;
+}
+
+.main-header-menu > .menu-item > .menu-link:hover,
+.main-header-menu > .menu-item.current-menu-item > .menu-link {
+  color: #1e1e1e;
+}
+
+/* ---- Home hero: only the poster/video shows (the theme put a CSS
+   background photo behind the video slot — hide it) ---- */
+.elementor-5298 .elementor-element.elementor-element-12736e2:not(.elementor-motion-effects-element-type-background) {
+  background: none;
+}
+
+/* ---- Footer copyright: credit link inherits the copyright style ---- */
+.ast-footer-copyright a {
+  color: #716f6f;
+  text-decoration: none;
+}
+
+.ast-footer-copyright a:hover {
+  color: var(--e-global-color-astglobalcolor0, #4f8d36);
 }
 
 /* ---- Sourcing map hotspot pins (replaces the uael-hotspot JS tooltips) ---- */

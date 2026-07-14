@@ -160,9 +160,10 @@ export default function ContactPage() {
             </div>
           </div>
           <div
-            className="elementor-element elementor-element-3b182bc elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading"
+            className="elementor-element elementor-element-3b182bc elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-widget elementor-widget-heading elementor-invisible"
             data-id="3b182bc"
             data-element_type="widget"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":150}'
             data-widget_type="heading.default"
           >
             <div className="elementor-widget-container">
