@@ -91,6 +91,14 @@ export default function HomePage() {
             data-widget_type="heading.default"
           >
             <div className="elementor-widget-container">
+              <img
+                className="rm-home-hero-mark"
+                src="/logo4.png"
+                alt=""
+                width={492}
+                height={492}
+                decoding="async"
+              />
               <h2 className="elementor-heading-title elementor-size-default">{site.tagline}</h2>
             </div>
           </div>

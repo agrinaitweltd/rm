@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCart, formatGBP } from "./CartProvider";
+import { DELIVERY_FEE_PENCE } from "@/lib/site";
 
 // Floating cart button + slide-in drawer, rendered site-wide from the layout.
 // Styling lives in styles/32-cart.css and reuses the brand palette/fonts.
@@ -103,9 +104,17 @@ export default function CartWidget() {
 
         {lines.length > 0 && (
           <div className="rm-cart-footer">
+            <div className="rm-cart-subtotal">
+              <span>Subtotal</span>
+              <span>{formatGBP(totalPence)}</span>
+            </div>
+            <div className="rm-cart-subtotal">
+              <span>Delivery</span>
+              <span>{formatGBP(DELIVERY_FEE_PENCE)}</span>
+            </div>
             <div className="rm-cart-total">
               <span>Total</span>
-              <span>{formatGBP(totalPence)}</span>
+              <span>{formatGBP(totalPence + DELIVERY_FEE_PENCE)}</span>
             </div>
             <button type="button" className="rm-cart-checkout" onClick={handleCheckout}>
               Checkout

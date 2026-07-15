@@ -1279,10 +1279,29 @@ body,
   color: #7aa82d;
 }
 
-/* ---- Chain hero: small brand mark above the title ---- */
-.rm-chain-hero-logo {
-  width: 56px;
+/* ---- Home hero: small brand mark above the tagline ---- */
+.rm-home-hero-mark {
+  display: block;
+  width: 64px;
   height: auto;
-  align-self: flex-start;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
+}
+
+/* ---- Mobile: kill sideways wobble. Animated/oversized elements poke past
+   the viewport; `clip` prevents horizontal scrolling WITHOUT creating a new
+   scroll container, so the sticky header keeps working (overflow:hidden
+   would break position:sticky). ---- */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* ---- Mobile header: larger logo ---- */
+@media (max-width: 921px) {
+  #ast-mobile-header .custom-logo {
+    width: 92px !important;
+    height: auto !important;
+    max-width: none;
+  }
 }

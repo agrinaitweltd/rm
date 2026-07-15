@@ -46,3 +46,7 @@ export const products: Product[] = [
 // Server-side lookup for authoritative pricing (used by the checkout API).
 export const productById = (id: string): Product | undefined =>
   products.find((p) => p.id === id);
+
+// Flat delivery charge per order, in pence. Applied on top of the item total
+// by the payment API and shown as its own line in the cart and checkout.
+export const DELIVERY_FEE_PENCE = 500;

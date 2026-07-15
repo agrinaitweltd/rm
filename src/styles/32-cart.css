@@ -200,29 +200,41 @@
   grid-area: qty;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0;
+  background: rgba(122, 168, 45, 0.12);
+  border: 1px solid rgba(122, 168, 45, 0.45);
+  border-radius: 30px;
+  padding: 0.2rem;
 }
 .rm-cart-qty button {
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(122, 168, 45, 0.5);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
   background: transparent;
-  color: #7aa82d;
-  border-radius: 8px;
-  font-size: 1.6rem;
+  color: #acca38;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.15s;
 }
 .rm-cart-qty button:hover {
   background-color: #4f8d36;
   color: #fff;
 }
+.rm-cart-qty button:active {
+  transform: scale(0.92);
+}
 .rm-cart-qty span {
-  min-width: 24px;
+  min-width: 28px;
   text-align: center;
   color: #f4f4f4;
-  font-size: 1.5rem;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.45rem;
 }
 .rm-cart-remove {
   grid-area: remove;
@@ -244,6 +256,14 @@
   padding: 1.8rem 2.2rem 2.2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+.rm-cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #cfcfcf;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
 .rm-cart-total {
   display: flex;
   justify-content: space-between;
@@ -251,7 +271,9 @@
   font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
   color: #f4f4f4;
   font-size: 1.8rem;
-  margin-bottom: 1.4rem;
+  margin: 0.8rem 0 1.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 .rm-cart-checkout {
   width: 100%;
@@ -345,6 +367,21 @@
   }
 }
 
+/* ---- reCAPTCHA badge (bottom-right) must stay visible under the cart
+   button. On pages that load reCAPTCHA (contact/wholesale form), lift the
+   cart button clear of the badge's ~60px-tall slot. ---- */
+body:has(.grecaptcha-badge) .rm-cart-fab {
+  bottom: 84px;
+}
+.grecaptcha-badge {
+  z-index: 9997 !important;
+}
+@media (max-width: 544px) {
+  body:has(.grecaptcha-badge) .rm-cart-fab {
+    bottom: 78px;
+  }
+}
+
 /* ---- On-site checkout page (Stripe Payment Element) ---- */
 .rm-checkout-page {
   max-width: 96rem;
@@ -419,13 +456,25 @@
   color: #f6a200;
   font-size: 1.45rem;
 }
+.rm-checkout-summary-sub {
+  display: flex;
+  justify-content: space-between;
+  color: #cfcfcf;
+  font-size: 1.4rem;
+  margin-top: 0.6rem;
+}
+.rm-checkout-summary-sub:first-of-type {
+  margin-top: 1.4rem;
+}
 .rm-checkout-summary-total {
   display: flex;
   justify-content: space-between;
   font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
   color: #f4f4f4;
   font-size: 1.8rem;
-  margin-top: 1.6rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 .rm-checkout-edit {
   display: inline-block;

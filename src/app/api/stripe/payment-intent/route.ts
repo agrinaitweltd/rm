@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
-import { productById } from "@/lib/site";
+import { productById, DELIVERY_FEE_PENCE } from "@/lib/site";
 
 export const runtime = "nodejs";
 
@@ -43,6 +43,9 @@ export async function POST(request: Request) {
     cart.push({ id: product.id, q: quantity });
     summary.push(`${quantity}x ${product.title}`);
   }
+
+  // Flat delivery charge on every order.
+  amount += DELIVERY_FEE_PENCE;
 
   try {
     const intent = await stripe.paymentIntents.create({

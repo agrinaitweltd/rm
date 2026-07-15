@@ -12,6 +12,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useCart, formatGBP } from "@/components/cart/CartProvider";
+import { DELIVERY_FEE_PENCE } from "@/lib/site";
 
 // Publishable key is public by design; the secret key never leaves the server.
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
@@ -195,9 +196,17 @@ export default function CheckoutClient() {
             );
           })}
         </ul>
+        <div className="rm-checkout-summary-sub">
+          <span>Subtotal</span>
+          <span>{formatGBP(totalPence)}</span>
+        </div>
+        <div className="rm-checkout-summary-sub">
+          <span>Delivery</span>
+          <span>{formatGBP(DELIVERY_FEE_PENCE)}</span>
+        </div>
         <div className="rm-checkout-summary-total">
           <span>Total</span>
-          <span>{formatGBP(totalPence)}</span>
+          <span>{formatGBP(totalPence + DELIVERY_FEE_PENCE)}</span>
         </div>
         <Link href="/products" className="rm-checkout-edit">
           Edit cart
