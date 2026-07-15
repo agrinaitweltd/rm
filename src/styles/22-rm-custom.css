@@ -56,26 +56,27 @@ body,
   color: var(--e-global-color-astglobalcolor0, #4f8d36);
 }
 
-/* ---- Footer text visibility on white background ---- */
-#colophon {
-  background-color: #fff !important;
+/* ---- Footer: black with light text, matching the dark site ---- */
+#colophon,
+#colophon .site-primary-footer-wrap,
+#colophon .site-below-footer-wrap {
+  background-color: #000 !important;
 }
 
 #colophon,
 #colophon p,
-#colophon .widget-title,
 #colophon .textwidget,
 #colophon .menu-link,
 .ast-footer-copyright p {
-  color: #1e1e1e !important;
+  color: #f4f4f4 !important;
 }
 
 #colophon a {
-  color: #1e1e1e !important;
+  color: #f4f4f4 !important;
 }
 
 #colophon a:hover {
-  color: var(--e-global-color-astglobalcolor0, #4f8d36) !important;
+  color: #7aa82d !important;
 }
 
 /* ---- Sticky header: the menu scrolls with the site (all devices) ---- */
@@ -760,17 +761,28 @@ body,
   color: #cfcfcf;
 }
 
-/* ---- Header + mobile drawer stay white so the menu is always visible ---- */
+/* ---- Header stays white ---- */
 #masthead,
 #masthead .main-header-bar,
 #masthead .ast-primary-header-bar,
 #ast-desktop-header,
 #ast-mobile-header,
-#ast-mobile-header .main-header-bar,
+#ast-mobile-header .main-header-bar {
+  background-color: #fff !important;
+}
+
+/* ---- Mobile drawer is black with bright links (matches the dark site) ---- */
 .ast-mobile-popup-drawer .ast-mobile-popup-inner,
 .ast-mobile-popup-content,
+#ast-mobile-popup .ast-mobile-popup-header,
 .ast-builder-menu-mobile .main-navigation {
-  background-color: #fff !important;
+  background-color: #000 !important;
+}
+.ast-mobile-popup-drawer .ast-mobile-popup-inner {
+  border-left: 1px solid rgba(122, 168, 45, 0.35);
+}
+.ast-mobile-popup-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* Mobile off-canvas menu: give the drawer a comfortable width */
@@ -797,7 +809,7 @@ body,
   width: 100%;
 }
 #ast-mobile-popup .menu-item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 #ast-mobile-popup .menu-item:last-child {
   border-bottom: none;
@@ -808,19 +820,38 @@ body,
   line-height: 1.4 !important;
   padding: 1.3rem 0.4rem !important;
   display: block;
+  transition: color 0.2s, padding-left 0.2s;
 }
-/* sub-menu links indented a little, slightly smaller */
+/* sub-menu links indented, dimmer than their parent */
+#ast-mobile-popup .sub-menu {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
 #ast-mobile-popup .sub-menu .menu-link {
-  font-size: 1.6rem;
-  padding: 1rem 0.4rem 1rem 1.8rem !important;
-  opacity: 0.9;
+  font-size: 1.5rem;
+  padding: 0.9rem 0.4rem 0.9rem 1.8rem !important;
+  color: #cfcfcf !important;
 }
-#ast-mobile-popup .menu-item:nth-child(1) > .menu-link { color: #4f8d36; }
-#ast-mobile-popup .menu-item:nth-child(2) > .menu-link { color: #f6a200; }
-#ast-mobile-popup .menu-item:nth-child(3) > .menu-link { color: #7aa82d; }
-#ast-mobile-popup .menu-item:nth-child(4) > .menu-link { color: #eda20b; }
-#ast-mobile-popup .menu-link:hover { color: #1e1e1e; }
-#menu-toggle-close .ast-close-svg { color: #1e1e1e; }
+#ast-mobile-popup .sub-menu .menu-item {
+  border-bottom: none;
+}
+/* Bright brand tints so every item reads clearly on black */
+#ast-mobile-popup > .ast-mobile-popup-inner .menu-item:nth-child(1) > .menu-link { color: #acca38; }
+#ast-mobile-popup > .ast-mobile-popup-inner .menu-item:nth-child(2) > .menu-link { color: #f6a200; }
+#ast-mobile-popup > .ast-mobile-popup-inner .menu-item:nth-child(3) > .menu-link { color: #c4e057; }
+#ast-mobile-popup > .ast-mobile-popup-inner .menu-item:nth-child(4) > .menu-link { color: #ffc94d; }
+#ast-mobile-popup .menu-link:hover,
+#ast-mobile-popup .menu-link:active {
+  color: #ffffff !important;
+  padding-left: 1rem !important;
+}
+/* Menu arrows + close button visible on the dark drawer */
+#ast-mobile-popup .ast-icon svg,
+#ast-mobile-popup .ast-menu-toggle svg {
+  fill: currentColor;
+}
+#menu-toggle-close .ast-close-svg {
+  color: #f6a200;
+}
 
 .rm-cookie-prefs {
   border-top: 1px solid var(--e-global-color-astglobalcolor6, #e3e3e3);
@@ -1061,4 +1092,189 @@ body,
   .rm-wholesale-form {
     padding: 2.2rem 1.8rem;
   }
+}
+
+/* ================= More black: flat white/grey sections ================= */
+/* These sections had flat white or #F2F2F2 backgrounds and dominated the
+   page (especially on mobile). Photo-backed sections are left untouched. */
+.elementor-6799 .elementor-element.elementor-element-9e8beb7:not(.elementor-motion-effects-element-type-background),
+.elementor-6799 .elementor-element.elementor-element-6e1ae56:not(.elementor-motion-effects-element-type-background),
+.elementor-5558 .elementor-element.elementor-element-19fe91b:not(.elementor-motion-effects-element-type-background),
+.elementor-5558 .elementor-element.elementor-element-3519f37:not(.elementor-motion-effects-element-type-background),
+.elementor-5719 .elementor-element.elementor-element-ab80e56:not(.elementor-motion-effects-element-type-background),
+.elementor-5719 .elementor-element.elementor-element-74d4411d:not(.elementor-motion-effects-element-type-background),
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e:not(.elementor-motion-effects-element-type-background),
+.elementor-6274 .elementor-element.elementor-element-d263836:not(.elementor-motion-effects-element-type-background),
+.elementor-6274 .elementor-element.elementor-element-811a1bd:not(.elementor-motion-effects-element-type-background),
+.elementor-6274 .elementor-element.elementor-element-ab799f7:not(.elementor-motion-effects-element-type-background) {
+  background-color: #000 !important;
+}
+
+/* Text in those now-black sections reads light again */
+.elementor-6799 .elementor-element.elementor-element-7181f31,
+.elementor-6799 .elementor-element.elementor-element-ecfcae6,
+.elementor-6799 .elementor-element.elementor-element-62c8657,
+.elementor-6799 .elementor-element.elementor-element-1901114,
+.elementor-6799 .elementor-element.elementor-element-107f310,
+.elementor-6799 .elementor-element.elementor-element-1634c8e,
+.elementor-6799 .elementor-element.elementor-element-7181f31 h3,
+.elementor-6799 .elementor-element.elementor-element-7181f31 p,
+.elementor-6799 .elementor-element.elementor-element-ecfcae6 h3,
+.elementor-6799 .elementor-element.elementor-element-ecfcae6 p,
+.elementor-6799 .elementor-element.elementor-element-62c8657 h3,
+.elementor-6799 .elementor-element.elementor-element-62c8657 p,
+.elementor-6799 .elementor-element.elementor-element-1901114 h3,
+.elementor-6799 .elementor-element.elementor-element-1901114 p,
+.elementor-6799 .elementor-element.elementor-element-107f310 h3,
+.elementor-6799 .elementor-element.elementor-element-107f310 p,
+.elementor-6799 .elementor-element.elementor-element-1634c8e h3,
+.elementor-6799 .elementor-element.elementor-element-1634c8e p,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e p,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h2,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e h3,
+.elementor-5719 .elementor-element.elementor-element-ecd5d6e span,
+.elementor-5558 .elementor-element.elementor-element-cb12385,
+.elementor-5558 .elementor-element.elementor-element-cb12385 p,
+.elementor-5558 .elementor-element.elementor-element-3519f37,
+.elementor-5558 .elementor-element.elementor-element-3519f37 p,
+.elementor-5558 .elementor-element.elementor-element-3519f37 h2,
+.elementor-5558 .elementor-element.elementor-element-b38e755 p,
+.elementor-5558 .elementor-element.elementor-element-bcfdf42 p,
+.elementor-5558 .elementor-element.elementor-element-5d65511 h2 {
+  color: #f4f4f4 !important;
+}
+
+/* Price line in the brand yellow so cards pop on black */
+.elementor-6799 .elementor-element.elementor-element-b5a1aa3 p,
+.elementor-6799 .elementor-element.elementor-element-03011fe p,
+.elementor-6799 .elementor-element.elementor-element-e076092 p,
+.elementor-6799 .elementor-element.elementor-element-c5cab64 p,
+.elementor-6799 .elementor-element.elementor-element-894abaa p,
+.elementor-6799 .elementor-element.elementor-element-f446d35 p {
+  color: #f6a200 !important;
+}
+
+/* The stat/services icon boxes get a subtle card on the black */
+.elementor-5719 .elementor-element.elementor-element-8fd0261 .elementor-widget-icon-box {
+  background: rgba(122, 168, 45, 0.08);
+  border: 1px solid rgba(122, 168, 45, 0.28);
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+}
+
+/* ================= Footer polish (mobile especially) ================= */
+#colophon .site-primary-footer-wrap {
+  border-top: 1px solid rgba(122, 168, 45, 0.3);
+}
+#colophon .widget-title {
+  color: #f6a200 !important;
+  letter-spacing: 0.02em;
+}
+#colophon .site-below-footer-wrap {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+#colophon a {
+  transition: color 0.2s;
+}
+#colophon .menu-link:hover,
+#colophon .textwidget a:hover {
+  color: #7aa82d !important;
+}
+
+@media (max-width: 921px) {
+  /* Stack the footer neatly and centre it on small screens */
+  #colophon .site-primary-footer-inner-wrap {
+    gap: 3rem;
+    padding: 3rem 2.4rem 1rem;
+    text-align: center;
+  }
+  #colophon .site-footer-section {
+    padding: 0 !important;
+    align-items: center;
+  }
+  #colophon .widget-title {
+    margin-bottom: 1rem;
+  }
+  #colophon .widget {
+    margin-bottom: 0;
+  }
+  #colophon .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  #colophon .elementor-element-fa92b97 {
+    justify-content: center;
+    gap: 2rem;
+  }
+  #colophon .elementor-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  #colophon .site-below-footer-inner-wrap {
+    padding: 1.6rem 2.4rem 2.4rem;
+    text-align: center;
+  }
+  .ast-footer-copyright p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+  }
+}
+
+/* ================= Extra black on mobile ================= */
+@media (max-width: 921px) {
+  /* Photo-backed hero sections get a dark scrim so text pops and the
+     page reads darker overall on phones */
+  .elementor-5558 .elementor-element.elementor-element-994b4b1,
+  .elementor-6274 .elementor-element.elementor-element-b23117b,
+  .elementor-6799 .elementor-element.elementor-element-5b1dd83,
+  .elementor-5719 .elementor-element.elementor-element-715b2fc {
+    background-color: #000 !important;
+    background-blend-mode: multiply;
+  }
+
+  /* White cards become near-black on phones (they dominated the screen) */
+  .elementor-5558 .elementor-element.elementor-element-47e3004,
+  .elementor-5558 .elementor-element.elementor-element-4642815,
+  .elementor-6274 .elementor-element.elementor-element-4007056,
+  .elementor-5719 .elementor-element.elementor-element-2e21e8d,
+  .elementor-5719 .elementor-element.elementor-element-8915c7c {
+    background-color: rgba(0, 0, 0, 0.82) !important;
+    border: 1px solid rgba(122, 168, 45, 0.3);
+  }
+  .elementor-5558 .elementor-element.elementor-element-47e3004,
+  .elementor-5558 .elementor-element.elementor-element-47e3004 p,
+  .elementor-5558 .elementor-element.elementor-element-47e3004 span,
+  .elementor-5558 .elementor-element.elementor-element-4642815,
+  .elementor-5558 .elementor-element.elementor-element-4642815 p,
+  .elementor-5558 .elementor-element.elementor-element-4642815 span,
+  .elementor-6274 .elementor-element.elementor-element-4007056,
+  .elementor-6274 .elementor-element.elementor-element-4007056 p,
+  .elementor-6274 .elementor-element.elementor-element-4007056 span,
+  .elementor-5719 .elementor-element.elementor-element-2e21e8d,
+  .elementor-5719 .elementor-element.elementor-element-2e21e8d p,
+  .elementor-5719 .elementor-element.elementor-element-2e21e8d span,
+  .elementor-5719 .elementor-element.elementor-element-8915c7c,
+  .elementor-5719 .elementor-element.elementor-element-8915c7c p,
+  .elementor-5719 .elementor-element.elementor-element-8915c7c span {
+    color: #f4f4f4 !important;
+  }
+  .elementor-5558 .elementor-element.elementor-element-47e3004 h1,
+  .elementor-6274 .elementor-element.elementor-element-4007056 h1,
+  .elementor-5719 .elementor-element.elementor-element-2e21e8d h1,
+  .elementor-5719 .elementor-element.elementor-element-8915c7c h1,
+  .elementor-5558 .elementor-element.elementor-element-4642815 h2 {
+    color: #f6a200 !important;
+  }
+}
+
+/* reCAPTCHA note under the form */
+.rm-form-recaptcha-note {
+  font-size: 1.15rem;
+  color: #8b8b8b;
+  margin: 0;
+}
+.rm-form-recaptcha-note a {
+  color: #7aa82d;
 }

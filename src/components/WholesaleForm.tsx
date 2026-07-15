@@ -1,12 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Status = "idle" | "sending" | "sent" | "error";
+
+// reCAPTCHA site keys are public by design; the secret stays server-side.
+const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LfAwlQtAAAAAFkqBF7edcECWDMhYaV7RV36fiLe";
+
+type Grecaptcha = {
+  ready: (cb: () => void) => void;
+  execute: (siteKey: string, options: { action: string }) => Promise<string>;
+};
+
+function getRecaptchaToken(): Promise<string> {
+  const grecaptcha = (window as unknown as { grecaptcha?: Grecaptcha }).grecaptcha;
+  if (!SITE_KEY || !grecaptcha) return Promise.resolve("");
+  return new Promise((resolve) => {
+    grecaptcha.ready(() => {
+      grecaptcha
+        .execute(SITE_KEY, { action: "wholesale_enquiry" })
+        .then(resolve)
+        .catch(() => resolve(""));
+    });
+  });
+}
 
 export default function WholesaleForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+
+  // Load the reCAPTCHA v3 script once; its badge sits bottom-right by default.
+  useEffect(() => {
+    if (!SITE_KEY || document.getElementById("recaptcha-v3")) return;
+    const script = document.createElement("script");
+    script.id = "recaptcha-v3";
+    script.src = `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`;
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -15,10 +46,11 @@ export default function WholesaleForm() {
     setStatus("sending");
     setErrorMsg("");
     try {
+      const recaptchaToken = await getRecaptchaToken();
       const res = await fetch("/api/wholesale", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, recaptchaToken }),
       });
       const body = await res.json().catch(() => ({}));
       if (res.ok) {
@@ -39,7 +71,7 @@ export default function WholesaleForm() {
       <div className="rm-wholesale-form rm-wholesale-success" role="status">
         <div className="rm-soon-emoji" aria-hidden="true">🥭</div>
         <h3>Thank you!</h3>
-        <p>Your wholesale enquiry has been sent. We&rsquo;ll get back to you as soon as possible.</p>
+        <p>Your wholesale enquiry has been sent. Check your inbox — we&rsquo;ve emailed you a confirmation.</p>
       </div>
     );
   }
@@ -78,6 +110,11 @@ export default function WholesaleForm() {
       <button type="submit" className="elementor-button elementor-size-md rm-form-submit" disabled={status === "sending"}>
         <span className="elementor-button-text">{status === "sending" ? "Sending…" : "Send enquiry"}</span>
       </button>
+      <p className="rm-form-recaptcha-note">
+        Protected by reCAPTCHA — Google{" "}
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> &amp;{" "}
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a> apply.
+      </p>
     </form>
   );
 }
