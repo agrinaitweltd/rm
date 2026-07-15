@@ -43,6 +43,16 @@ export async function POST(request: Request) {
     }
   }
 
+  if (event.type === "payment_intent.payment_failed") {
+    // Best-effort courtesy email (e.g. insufficient funds) — never fail the
+    // webhook over it, and no order is recorded for failed payments.
+    try {
+      await sendPaymentFailedEmail(event.data.object as Stripe.PaymentIntent);
+    } catch (err) {
+      console.error("[stripe/webhook] failed-payment email error:", err);
+    }
+  }
+
   // Acknowledge all other event types so Stripe stops retrying them.
   return NextResponse.json({ received: true });
 }
@@ -163,6 +173,57 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
   } catch (err) {
     console.error("[stripe/webhook] order emails failed:", err);
   }
+}
+
+async function sendPaymentFailedEmail(intent: Stripe.PaymentIntent) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return;
+
+  const email =
+    intent.receipt_email || intent.last_payment_error?.payment_method?.billing_details?.email || "";
+  const name = intent.shipping?.name || "";
+  const reason = intent.last_payment_error?.message || "Your card was declined.";
+  const resend = new Resend(apiKey);
+  const from = process.env.WHOLESALE_FROM_EMAIL || `RM Mangoes <no-reply@rmmangoes.co.uk>`;
+  const adminTo = process.env.WHOLESALE_TO_EMAIL || site.email;
+  const amount = `£${(intent.amount / 100).toFixed(2)}`;
+
+  // Let the admin know an attempt failed (useful for follow-up).
+  await resend.emails.send({
+    from,
+    to: adminTo,
+    subject: `Failed payment attempt ${amount}${name ? ` — ${name}` : ""}`,
+    html: `
+      <div style="font-family:Helvetica,Arial,sans-serif;color:#1e1e1e">
+        <h2 style="color:#c0392b">Failed payment — RM Mangoes</h2>
+        <p><strong>Amount:</strong> ${amount}<br/>
+        <strong>Customer:</strong> ${esc(name) || "—"} ${esc(email) || ""}<br/>
+        <strong>Reason:</strong> ${esc(reason)}<br/>
+        <strong>Stripe payment:</strong> ${esc(intent.id)}</p>
+      </div>`,
+  });
+
+  if (!email) return;
+  await resend.emails.send({
+    from,
+    to: email,
+    subject: "Your payment didn't go through — RM Mangoes",
+    html: `
+      <div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;color:#1e1e1e">
+        <h2 style="color:#4f8d36">Almost there${name ? `, ${esc(name.split(" ")[0])}` : ""}!</h2>
+        <p>Unfortunately your payment of <strong>${amount}</strong> didn't go through:</p>
+        <p style="background:#fdf2f0;border-left:4px solid #c0392b;padding:12px 16px">${esc(reason)}</p>
+        <p>You haven't been charged, and your cart is saved. You can try again with the same or a different card:</p>
+        <p><a href="${site.url}/checkout" style="color:#4f8d36;font-weight:bold">Return to checkout →</a></p>
+        <p>Need a hand? Reach us any time:</p>
+        <p>
+          📞 <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
+          💬 <a href="${site.whatsapp}">WhatsApp us</a><br/>
+          ✉️ <a href="mailto:${site.email}">${site.email}</a>
+        </p>
+        <p style="color:#f6a200;font-weight:bold">RM Mangoes — King Of Mangoes 🥭</p>
+      </div>`,
+  });
 }
 
 const esc = (s: string) =>

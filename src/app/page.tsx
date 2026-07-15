@@ -113,7 +113,7 @@ export default function HomePage() {
               <div className="elementor-button-wrapper">
                 <Link className="elementor-button elementor-button-link elementor-size-lg" href="/products">
                   <span className="elementor-button-content-wrapper">
-                    <span className="elementor-button-text">View our mangoes</span>
+                    <span className="elementor-button-text">Order Now</span>
                   </span>
                 </Link>
               </div>

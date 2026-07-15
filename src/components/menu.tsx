@@ -19,7 +19,7 @@ export const menuItems: MenuItem[] = [
       { label: "Our clients", href: "/the-chain#clients" },
     ],
   },
-  { label: "Our Mangoes", href: "/products" },
+  { label: "Order Now", href: "/products" },
   {
     label: "About RM Mangoes",
     href: "/about",

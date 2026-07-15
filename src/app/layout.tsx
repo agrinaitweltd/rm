@@ -9,6 +9,7 @@ import Analytics from "@/components/Analytics";
 import { CartProvider } from "@/components/cart/CartProvider";
 import CartWidget from "@/components/cart/CartWidget";
 import SiteChrome from "@/components/SiteChrome";
+import RecaptchaLoader from "@/components/RecaptchaLoader";
 import { site } from "@/lib/site";
 
 // Ported stylesheets from the original theme, in the original cascade order.
@@ -209,6 +210,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </SiteChrome>
         </CartProvider>
         <SiteBehaviors />
+        <RecaptchaLoader />
         <CookieConsent />
         <Analytics />
       </body>

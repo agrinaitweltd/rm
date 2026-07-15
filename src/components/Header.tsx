@@ -100,11 +100,15 @@ export default function Header() {
                     data-section="section-header-mobile-trigger"
                   >
                     <div className="ast-button-wrap">
+                      {/* Astra's beforeInteractive script stamps data-index on this
+                          button before React hydrates — suppress the mismatch. */}
                       <button
                         type="button"
                         className="menu-toggle main-header-menu-toggle ast-mobile-menu-trigger-fill"
                         aria-expanded="false"
                         aria-label="Main menu toggle"
+                        data-index="0"
+                        suppressHydrationWarning
                       >
                         <span className="mobile-menu-toggle-icon">
                           <span aria-hidden="true" className="ahfb-svg-iconset ast-inline-flex svg-baseline">
