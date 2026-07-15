@@ -1278,3 +1278,11 @@ body,
 .rm-form-recaptcha-note a {
   color: #7aa82d;
 }
+
+/* ---- Chain hero: small brand mark above the title ---- */
+.rm-chain-hero-logo {
+  width: 56px;
+  height: auto;
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}

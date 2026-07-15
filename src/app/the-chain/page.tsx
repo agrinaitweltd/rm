@@ -131,6 +131,14 @@ export default function TheChainPage() {
       >
         <div className="e-con-inner">
           <div className="elementor-element elementor-element-2e21e8d e-con-full e-flex e-con e-child" data-id="2e21e8d" data-element_type="container">
+            <img
+              className="rm-chain-hero-logo"
+              src="/logo4.png"
+              alt="RM Mangoes"
+              width={492}
+              height={492}
+              decoding="async"
+            />
             <IconBoxTitle mobileId="7584585" desktopId="58c01c0" title="The Chain" />
             <div className="elementor-element elementor-element-a00ad91 e-con-full e-flex e-con e-child" data-id="a00ad91" data-element_type="container">
               <Text id="bcc9bc8" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit" anim="fadeInUp">
