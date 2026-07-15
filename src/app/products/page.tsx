@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
+import AddToCartButton from "@/components/cart/AddToCartButton";
 import { site, products } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -133,15 +134,12 @@ export default function ProductsPage() {
           {products.map((product, i) => {
             const ids = cardIds[i];
             return (
-              <a
+              <div
                 key={ids.id}
                 className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child elementor-invisible`}
                 data-id={ids.id}
                 data-element_type="container"
                 data-settings={`{"_animation":"zoomIn","_animation_delay":${(i % 3) * 150}}`}
-                href={site.whatsappOrder(product.order)}
-                target="_blank"
-                rel="noopener"
               >
                 <div
                   className={`elementor-element elementor-element-${ids.imageId} e-transform elementor-widget-tablet__width-initial elementor-widget elementor-widget-image`}
@@ -180,7 +178,16 @@ export default function ProductsPage() {
                     <p className="elementor-heading-title elementor-size-default">{product.price}</p>
                   </div>
                 </div>
-              </a>
+                <AddToCartButton id={product.id} />
+                <a
+                  className="rm-card-whatsapp"
+                  href={site.whatsappOrder(product.order)}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  or order on WhatsApp
+                </a>
+              </div>
             );
           })}
         </div>

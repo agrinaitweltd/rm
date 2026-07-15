@@ -6,6 +6,9 @@ import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import SiteBehaviors from "@/components/SiteBehaviors";
 import Analytics from "@/components/Analytics";
+import { CartProvider } from "@/components/cart/CartProvider";
+import CartWidget from "@/components/cart/CartWidget";
+import SiteChrome from "@/components/SiteChrome";
 import { site } from "@/lib/site";
 
 // Ported stylesheets from the original theme, in the original cascade order.
@@ -39,6 +42,7 @@ import "@/styles/29-uael-extract.css";
 import "@/styles/30-jet-team-member.css";
 import "@/styles/31-animations.css";
 import "@/styles/22-rm-custom.css";
+import "@/styles/32-cart.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -194,12 +198,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip-link screen-reader-text" href="#content" title="Skip to content">
           Skip to content
         </a>
-        <div className="hfeed site" id="page">
-          <Header />
-          {children}
-          <MobileNav />
-          <Footer />
-        </div>
+        <CartProvider>
+          <SiteChrome
+            header={<Header />}
+            mobileNav={<MobileNav />}
+            footer={<Footer />}
+            cart={<CartWidget />}
+          >
+            {children}
+          </SiteChrome>
+        </CartProvider>
         <SiteBehaviors />
         <CookieConsent />
         <Analytics />

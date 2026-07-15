@@ -27,5 +27,10 @@ next-env.d.ts
 # vercel
 .vercel
 
+# supabase CLI (keep migrations, ignore local temp/state + any secrets)
+/supabase/.temp/
+/supabase/.branches/
+/supabase/config.toml
+
 # original wget mirror of olympicfruit.com (design reference, not part of the app)
 /olympicfruit.com/
