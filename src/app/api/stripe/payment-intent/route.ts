@@ -31,17 +31,25 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Your cart is empty." }, { status: 400 });
   }
 
+  // Merge duplicate lines first — the stock check below must see the summed
+  // quantity per product, not each line in isolation.
+  const merged = new Map<string, number>();
+  for (const item of items) {
+    const id = String(item?.id);
+    const quantity = Math.max(1, Math.min(99, Math.floor(Number(item?.quantity)) || 0));
+    if (!productById(id) || quantity <= 0) {
+      return NextResponse.json({ error: "One of the items is no longer available." }, { status: 400 });
+    }
+    merged.set(id, Math.min(99, (merged.get(id) || 0) + quantity));
+  }
+
   let amount = 0;
   const cart: { id: string; q: number }[] = [];
   const summary: string[] = [];
-  for (const item of items) {
-    const product = productById(String(item?.id));
-    const quantity = Math.max(1, Math.min(99, Math.floor(Number(item?.quantity)) || 0));
-    if (!product || quantity <= 0) {
-      return NextResponse.json({ error: "One of the items is no longer available." }, { status: 400 });
-    }
+  for (const [id, quantity] of merged) {
+    const product = productById(id)!;
     amount += product.amount * quantity;
-    cart.push({ id: product.id, q: quantity });
+    cart.push({ id, q: quantity });
     summary.push(`${quantity}x ${product.title}`);
   }
 
