@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
+import WholesaleForm from "@/components/WholesaleForm";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -169,6 +170,46 @@ export default function ContactPage() {
             <div className="elementor-widget-container">
               <p className="elementor-heading-title elementor-size-default">&lsquo;Part of the new conversation&rsquo;</p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Wholesale enquiries */}
+      <div
+        className="elementor-element e-flex e-con-boxed e-con e-parent rm-wholesale-section"
+        data-element_type="container"
+        id="wholesale"
+      >
+        <div className="e-con-inner">
+          <div
+            className="elementor-element elementor-widget elementor-widget-heading elementor-invisible"
+            data-settings='{"_animation":"fadeInUp"}'
+            data-element_type="widget"
+            data-widget_type="heading.default"
+          >
+            <div className="elementor-widget-container">
+              <h2 className="elementor-heading-title elementor-size-default rm-wholesale-title">Wholesale enquiries</h2>
+            </div>
+          </div>
+          <div
+            className="elementor-element elementor-widget elementor-widget-text-editor elementor-invisible"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":150}'
+            data-element_type="widget"
+            data-widget_type="text-editor.default"
+          >
+            <div className="elementor-widget-container">
+              <p className="rm-wholesale-intro">
+                Run a shop, restaurant or market stall? We supply premium Pakistani mangoes in bulk across Scotland and
+                Ireland. Tell us what you need and we&rsquo;ll come back with prices.
+              </p>
+            </div>
+          </div>
+          <div
+            className="elementor-element elementor-invisible rm-wholesale-wrap"
+            data-settings='{"_animation":"fadeInUp","_animation_delay":300}'
+            data-element_type="widget"
+          >
+            <WholesaleForm />
           </div>
         </div>
       </div>

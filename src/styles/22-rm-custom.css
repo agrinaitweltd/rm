@@ -907,3 +907,158 @@ body,
 .elementor-6274 .jet-team-member__desc a:hover {
   color: #7aa82d !important;
 }
+
+/* ================= More black polish ================= */
+
+/* Alternate some brand bands to black so the site breathes black/green:
+   chain consumer + products + clients bands, and the About movie band. */
+.elementor-5719 .elementor-element.elementor-element-6329e66:not(.elementor-motion-effects-element-type-background),
+.elementor-5719 .elementor-element.elementor-element-d61f23c:not(.elementor-motion-effects-element-type-background),
+.elementor-5719 .elementor-element.elementor-element-49b7770:not(.elementor-motion-effects-element-type-background),
+.elementor-5558 .elementor-element.elementor-element-785e6af:not(.elementor-motion-effects-element-type-background) {
+  background-color: #000 !important;
+  border-top: 1px solid rgba(122, 168, 45, 0.35);
+  border-bottom: 1px solid rgba(122, 168, 45, 0.35);
+}
+
+/* Divider arrows pointing into the blackened bands keep the illusion */
+.elementor-5719 .elementor-element.elementor-element-3528660 .elementor-shape-top .elementor-shape-fill,
+.elementor-5719 .elementor-element.elementor-element-746c2dd .elementor-shape-top .elementor-shape-fill,
+.elementor-5719 .elementor-element.elementor-element-34804aa .elementor-shape-top .elementor-shape-fill {
+  fill: #000 !important;
+}
+
+/* Headings on the blackened bands pick up the brand yellow */
+.elementor-5719 .elementor-element.elementor-element-6329e66 .elementor-heading-title,
+.elementor-5719 .elementor-element.elementor-element-d61f23c .elementor-heading-title,
+.elementor-5719 .elementor-element.elementor-element-49b7770 .elementor-heading-title,
+.elementor-5558 .elementor-element.elementor-element-785e6af .elementor-heading-title {
+  color: #f6a200 !important;
+}
+
+/* White cards float on the black with a soft shadow */
+.elementor-5558 .elementor-element.elementor-element-47e3004,
+.elementor-5558 .elementor-element.elementor-element-4642815,
+.elementor-6274 .elementor-element.elementor-element-4007056,
+.elementor-5719 .elementor-element.elementor-element-2e21e8d,
+.elementor-5719 .elementor-element.elementor-element-8915c7c {
+  box-shadow: 0 14px 46px rgba(0, 0, 0, 0.55);
+  border-radius: 6px;
+}
+
+/* ================= Wholesale enquiry form ================= */
+.rm-wholesale-section {
+  padding: 4rem 0 6rem;
+}
+.rm-wholesale-title {
+  text-align: center;
+  color: #f6a200 !important;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+}
+.rm-wholesale-intro {
+  text-align: center;
+  max-width: 62rem;
+  margin: 0 auto 1rem;
+}
+.rm-wholesale-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.rm-wholesale-form {
+  width: 100%;
+  max-width: 64rem;
+  background: #0a0a0a;
+  border: 1px solid rgba(122, 168, 45, 0.4);
+  border-radius: 18px;
+  padding: 3rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  box-shadow: 0 14px 46px rgba(0, 0, 0, 0.55);
+}
+.rm-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+}
+.rm-wholesale-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  color: #7aa82d;
+}
+.rm-wholesale-form input,
+.rm-wholesale-form textarea {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  color: #f4f4f4;
+  font-family: "Avenir-Medium", Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
+  padding: 1.1rem 1.3rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.rm-wholesale-form input::placeholder,
+.rm-wholesale-form textarea::placeholder {
+  color: #7c7c7c;
+}
+.rm-wholesale-form input:focus,
+.rm-wholesale-form textarea:focus {
+  outline: none;
+  border-color: #7aa82d;
+  box-shadow: 0 0 0 3px rgba(122, 168, 45, 0.25);
+}
+.rm-form-submit {
+  align-self: flex-start;
+  background-color: #4f8d36 !important;
+  color: #fff !important;
+  border-radius: 30px;
+  padding: 1.2rem 3.2rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.25s, transform 0.2s;
+}
+.rm-form-submit:hover:not(:disabled) {
+  background-color: #f6a200 !important;
+  color: #1e1e1e !important;
+  transform: translateY(-2px);
+}
+.rm-form-submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.rm-form-error {
+  color: #ff8d8d;
+  font-size: 1.4rem;
+  margin: 0;
+}
+.rm-wholesale-success {
+  text-align: center;
+  align-items: center;
+}
+.rm-wholesale-success h3 {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: #7aa82d;
+  font-size: 2.4rem;
+  margin: 0 0 0.6rem;
+}
+.rm-wholesale-success p {
+  color: #f4f4f4;
+  margin: 0;
+}
+.rm-wholesale-success .rm-soon-emoji {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+@media (max-width: 640px) {
+  .rm-form-row {
+    grid-template-columns: 1fr;
+  }
+  .rm-wholesale-form {
+    padding: 2.2rem 1.8rem;
+  }
+}
