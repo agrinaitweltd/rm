@@ -1,18 +1,40 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
 
-// Payment succeeded — clear the cart (localStorage + state) and thank the buyer.
-// Reaching this page only happens after Stripe redirects on a completed payment;
-// a cancelled payment returns to /products with the cart untouched.
+// Landed here after stripe.confirmPayment — either directly (cards, no redirect)
+// or via Stripe's return_url redirect, which appends ?redirect_status=….
+// The cart is cleared only when the payment actually succeeded; a failed
+// redirect keeps the cart intact and sends the customer back to checkout.
 export default function CheckoutSuccess() {
   const { clear } = useCart();
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    const status = new URLSearchParams(window.location.search).get("redirect_status");
+    if (status && status !== "succeeded") {
+      setFailed(true);
+      return;
+    }
     clear();
   }, [clear]);
+
+  if (failed) {
+    return (
+      <div className="rm-checkout-status">
+        <div className="rm-checkout-card">
+          <div className="rm-soon-emoji" aria-hidden="true">🥭</div>
+          <h1>Payment not completed</h1>
+          <p>Your payment didn&rsquo;t go through — you have not been charged and your cart is untouched.</p>
+          <Link href="/checkout" className="rm-checkout-cta">
+            Try again
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="rm-checkout-status">

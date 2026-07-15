@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { productById } from "@/lib/site";
 
 // Stripe needs the raw, unparsed body to verify the signature, so this route
 // must run on the Node.js runtime and read the body as text.
@@ -31,9 +32,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
+  if (event.type === "payment_intent.succeeded") {
     try {
-      await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
+      await handlePaymentSucceeded(event.data.object as Stripe.PaymentIntent);
     } catch (err) {
       // Return 500 so Stripe retries — we don't want to silently drop an order.
       console.error("[stripe/webhook] failed to persist order:", err);
@@ -45,39 +46,29 @@ export async function POST(request: Request) {
   return NextResponse.json({ received: true });
 }
 
-async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
+async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
   const supabase = createAdminClient();
 
-  // Idempotency: if this session was already recorded, do nothing (Stripe may
-  // deliver the same event more than once).
+  // Idempotency: Stripe may deliver the same event more than once.
   const { data: existing } = await supabase
     .from("orders")
     .select("id")
-    .eq("stripe_session_id", session.id)
+    .eq("stripe_payment_intent", intent.id)
     .maybeSingle();
   if (existing) return;
 
-  // Pull line items from Stripe (source of truth for what was paid).
-  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 100 });
-
-  const email =
-    session.customer_details?.email || session.customer_email || "unknown@rmmangoes.co.uk";
-  const fullName = session.customer_details?.name || "";
-  const phone = session.customer_details?.phone || "";
-
-  // Delivery address (shipping if collected, else billing).
-  const ship =
-    session.collected_information?.shipping_details?.address ||
-    session.customer_details?.address ||
-    null;
-  const deliveryName =
-    session.collected_information?.shipping_details?.name || fullName || "";
+  // Contact details: receipt_email is set at confirmation time by the checkout
+  // page; shipping comes from the Address Element.
+  const ship = intent.shipping;
+  const resolvedEmail = intent.receipt_email || "unknown@rmmangoes.co.uk";
+  const deliveryName = ship?.name || "";
+  const phone = ship?.phone || "";
 
   // ── customer (create if new, by email) ────────────────────────────────────
   const { data: customer, error: customerErr } = await supabase
     .from("customers")
     .upsert(
-      { full_name: fullName || deliveryName, email, phone },
+      { full_name: deliveryName, email: resolvedEmail, phone },
       { onConflict: "email", ignoreDuplicates: false }
     )
     .select("id")
@@ -89,53 +80,59 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     const { data: found } = await supabase
       .from("customers")
       .select("id")
-      .eq("email", email)
+      .eq("email", resolvedEmail)
       .maybeSingle();
     if (!found) throw customerErr || new Error("Could not resolve customer");
     customerId = found.id;
   }
 
-  const paymentIntentId =
-    typeof session.payment_intent === "string"
-      ? session.payment_intent
-      : session.payment_intent?.id || null;
-
   // ── order ─────────────────────────────────────────────────────────────────
+  const addr = ship?.address;
   const { data: order, error: orderErr } = await supabase
     .from("orders")
     .insert({
       customer_id: customerId,
-      stripe_session_id: session.id,
-      stripe_payment_intent: paymentIntentId,
-      total: session.amount_total ?? 0,
-      currency: session.currency ?? "gbp",
-      payment_status: session.payment_status ?? "unpaid",
+      stripe_session_id: null,
+      stripe_payment_intent: intent.id,
+      total: intent.amount_received || intent.amount,
+      currency: intent.currency ?? "gbp",
+      payment_status: "paid",
       order_status: "Pending",
       delivery_name: deliveryName,
       delivery_phone: phone,
-      delivery_address: [ship?.line1, ship?.line2].filter(Boolean).join(", ") || null,
-      delivery_city: ship?.city ?? null,
-      delivery_county: ship?.state ?? null,
-      delivery_postcode: ship?.postal_code ?? null,
-      delivery_country: ship?.country ?? null,
+      delivery_address: [addr?.line1, addr?.line2].filter(Boolean).join(", ") || null,
+      delivery_city: addr?.city ?? null,
+      delivery_county: addr?.state ?? null,
+      delivery_postcode: addr?.postal_code ?? null,
+      delivery_country: addr?.country ?? null,
     })
     .select("id")
     .single();
 
   if (orderErr || !order) throw orderErr || new Error("Could not create order");
 
-  // ── order items ───────────────────────────────────────────────────────────
-  const items = lineItems.data.map((li) => {
-    const quantity = li.quantity ?? 1;
-    const totalPrice = li.amount_total ?? 0;
-    return {
-      order_id: order.id,
-      product_name: li.description ?? "Mango box",
-      quantity,
-      unit_price: quantity > 0 ? Math.round(totalPrice / quantity) : totalPrice,
-      total_price: totalPrice,
-    };
-  });
+  // ── order items (from PI metadata, priced by the server catalogue) ────────
+  let cart: { id: string; q: number }[] = [];
+  try {
+    cart = JSON.parse(intent.metadata?.cart || "[]");
+  } catch {
+    cart = [];
+  }
+
+  const items = cart
+    .map((line) => {
+      const product = productById(line.id);
+      const quantity = Math.max(1, Math.floor(line.q) || 1);
+      if (!product) return null;
+      return {
+        order_id: order.id,
+        product_name: product.title,
+        quantity,
+        unit_price: product.amount,
+        total_price: product.amount * quantity,
+      };
+    })
+    .filter((i): i is NonNullable<typeof i> => i !== null);
 
   if (items.length > 0) {
     const { error: itemsErr } = await supabase.from("order_items").insert(items);

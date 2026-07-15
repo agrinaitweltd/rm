@@ -1,37 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCart, formatGBP } from "./CartProvider";
 
 // Floating cart button + slide-in drawer, rendered site-wide from the layout.
-// Styling lives in styles/29-cart.css and reuses the brand palette/fonts.
+// Styling lives in styles/32-cart.css and reuses the brand palette/fonts.
 export default function CartWidget() {
   const { lines, open, setOpen, itemCount, totalPence, setQuantity, removeItem, productFor } = useCart();
-  const [checkingOut, setCheckingOut] = useState(false);
-  const [error, setError] = useState("");
+  const router = useRouter();
 
-  async function handleCheckout() {
-    setCheckingOut(true);
-    setError("");
-    try {
-      const res = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: lines }),
-      });
-      const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
-      if (res.ok && data.url) {
-        // Cart is intentionally left intact — Stripe cancel returns the customer
-        // here with everything still in place. It's cleared only on success.
-        window.location.href = data.url;
-        return;
-      }
-      setError(data.error || "Sorry, we couldn't start checkout. Please try again.");
-      setCheckingOut(false);
-    } catch {
-      setError("Sorry, we couldn't start checkout. Please check your connection and try again.");
-      setCheckingOut(false);
-    }
+  // The on-site /checkout page (Stripe Payment Element) takes it from here.
+  // The cart is only cleared after a successful payment.
+  function handleCheckout() {
+    setOpen(false);
+    router.push("/checkout");
   }
 
   return (
@@ -121,17 +103,12 @@ export default function CartWidget() {
 
         {lines.length > 0 && (
           <div className="rm-cart-footer">
-            {error && (
-              <p className="rm-cart-error" role="alert">
-                {error}
-              </p>
-            )}
             <div className="rm-cart-total">
               <span>Total</span>
               <span>{formatGBP(totalPence)}</span>
             </div>
-            <button type="button" className="rm-cart-checkout" onClick={handleCheckout} disabled={checkingOut}>
-              {checkingOut ? "Redirecting…" : "Checkout"}
+            <button type="button" className="rm-cart-checkout" onClick={handleCheckout}>
+              Checkout
             </button>
             <p className="rm-cart-note">Secure payment by Stripe. Delivery details collected at checkout.</p>
           </div>

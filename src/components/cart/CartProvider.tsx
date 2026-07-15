@@ -85,7 +85,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setLines((prev) => prev.filter((l) => l.id !== id));
   }, []);
 
-  const clear = useCallback(() => setLines([]), []);
+  // Clears state AND storage synchronously. On a hard page load a child's
+  // clear() effect runs before this provider's hydration effect (child effects
+  // fire first in React), so removing the key here prevents hydration from
+  // restoring the just-cleared cart.
+  const clear = useCallback(() => {
+    setLines([]);
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   const itemCount = useMemo(() => lines.reduce((n, l) => n + l.quantity, 0), [lines]);
 
