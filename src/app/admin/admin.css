@@ -98,6 +98,94 @@
   color: #cfcfcf;
   margin-top: 40px;
 }
+
+/* ---- Stock panel ---- */
+.rm-admin-stock {
+  max-width: 1100px;
+  margin: 0 auto 32px;
+  background: #111;
+  border: 1px solid rgba(122, 168, 45, 0.35);
+  border-radius: 12px;
+  padding: 20px;
+}
+.rm-admin-stock h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  color: #f6a200;
+}
+.rm-admin-stock-hint {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #9a9a9a;
+}
+.rm-admin-stock table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.rm-admin-stock th,
+.rm-admin-stock td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: #e8e8e8;
+}
+.rm-admin-stock th {
+  color: #9a9a9a;
+  font-weight: 600;
+  font-size: 12px;
+}
+.rm-admin-stock-price {
+  color: #9a9a9a;
+  margin-left: 6px;
+}
+.rm-admin-stock-out {
+  margin-left: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff8d8d;
+  border: 1px solid rgba(255, 141, 141, 0.5);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+.rm-admin-stock input {
+  width: 90px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.rm-admin-stock input:focus {
+  outline: none;
+  border-color: #7aa82d;
+}
+.rm-admin-stock button {
+  background: #4f8d36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.rm-admin-stock button:hover:not(:disabled) {
+  background: #f6a200;
+  color: #1e1e1e;
+}
+.rm-admin-stock-err {
+  color: #ff8d8d;
+  margin-left: 8px;
+  font-size: 13px;
+}
+.rm-admin-orders-title {
+  max-width: 1100px;
+  margin: 0 auto 14px;
+  font-size: 20px;
+  color: #f6a200;
+}
 .rm-admin-orders {
   max-width: 1100px;
   margin: 0 auto;

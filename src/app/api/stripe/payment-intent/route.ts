@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { productById, DELIVERY_FEE_PENCE } from "@/lib/site";
 
 export const runtime = "nodejs";
@@ -46,6 +47,38 @@ export async function POST(request: Request) {
 
   // Flat delivery charge on every order.
   amount += DELIVERY_FEE_PENCE;
+
+  // Stock check — reject before taking payment rather than after.
+  try {
+    const supabase = createAdminClient();
+    const { data: stockRows } = await supabase
+      .from("product_stock")
+      .select("product_id, stock")
+      .in(
+        "product_id",
+        cart.map((c) => c.id)
+      );
+    for (const line of cart) {
+      const row = stockRows?.find((r) => r.product_id === line.id);
+      const available = row?.stock ?? 0;
+      if (available < line.q) {
+        const title = productById(line.id)?.title || "One of the items";
+        return NextResponse.json(
+          {
+            error:
+              available <= 0
+                ? `Sorry, ${title} is sold out.`
+                : `Sorry, only ${available} of ${title} left in stock.`,
+          },
+          { status: 409 }
+        );
+      }
+    }
+  } catch (err) {
+    // If the stock lookup itself fails, let the order through rather than
+    // blocking every sale on an infrastructure blip.
+    console.error("[stripe/payment-intent] stock check failed:", err);
+  }
 
   try {
     const intent = await stripe.paymentIntents.create({

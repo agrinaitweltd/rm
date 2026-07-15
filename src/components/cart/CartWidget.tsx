@@ -36,7 +36,12 @@ export default function CartWidget() {
           <circle cx="9" cy="20" r="1.6" fill="currentColor" />
           <circle cx="17" cy="20" r="1.6" fill="currentColor" />
         </svg>
-        {itemCount > 0 && <span className="rm-cart-fab-badge">{itemCount}</span>}
+        {/* key retriggers the pop animation whenever the count changes */}
+        {itemCount > 0 && (
+          <span key={itemCount} className="rm-cart-fab-badge">
+            {itemCount}
+          </span>
+        )}
       </button>
 
       {open && <div className="rm-cart-overlay" onClick={() => setOpen(false)} aria-hidden="true" />}

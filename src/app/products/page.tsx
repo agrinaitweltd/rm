@@ -3,6 +3,28 @@ import PageShell from "@/components/PageShell";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import { site, products } from "@/lib/site";
 
+// Re-render at most once a minute so sold-out labels track admin stock edits.
+export const revalidate = 60;
+
+// Stock is world-readable by design (RLS allows SELECT only); sold-out state
+// is enforced server-side at payment time regardless of what renders here.
+async function getStock(): Promise<Record<string, number>> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/product_stock?select=product_id,stock`,
+      {
+        headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "" },
+        next: { revalidate: 60 },
+      }
+    );
+    if (!res.ok) return {};
+    const rows = (await res.json()) as { product_id: string; stock: number }[];
+    return Object.fromEntries(rows.map((r) => [r.product_id, r.stock]));
+  } catch {
+    return {}; // fail open — payment API still enforces stock
+  }
+}
+
 export const metadata: Metadata = {
   title: "Our Mangoes — Premium Pakistani Mango Boxes & Prices",
   description:
@@ -37,7 +59,8 @@ const productsJsonLd = {
   })),
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const stock = await getStock();
   return (
     <PageShell postId={6799}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productsJsonLd) }} />
@@ -178,7 +201,7 @@ export default function ProductsPage() {
                     <p className="elementor-heading-title elementor-size-default">{product.price}</p>
                   </div>
                 </div>
-                <AddToCartButton id={product.id} />
+                <AddToCartButton id={product.id} soldOut={(stock[product.id] ?? 1) <= 0} />
                 <a
                   className="rm-card-whatsapp"
                   href={site.whatsappOrder(product.order)}

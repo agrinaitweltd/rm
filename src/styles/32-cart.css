@@ -23,6 +23,17 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(246, 162, 0, 0.28);
 }
+.rm-add-to-cart:active {
+  transform: translateY(0) scale(0.94);
+}
+.rm-add-to-cart.rm-sold-out,
+.rm-add-to-cart.rm-sold-out:hover {
+  background-color: #3a3a3a;
+  color: #9a9a9a;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
 /* A small secondary "or WhatsApp" link under the button on product cards */
 .rm-card-whatsapp {
@@ -71,7 +82,19 @@
   flex: none;
   display: block;
 }
+@keyframes rmBadgePop {
+  0% {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .rm-cart-fab-badge {
+  animation: rmBadgePop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   position: absolute;
   top: -4px;
   right: -4px;
@@ -401,6 +424,16 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   gap: 2.4rem;
   align-items: start;
 }
+@keyframes rmFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .rm-checkout-summary,
 .rm-checkout-payment {
   background: #0a0a0a;
@@ -408,6 +441,31 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   border-radius: 18px;
   padding: 2.6rem 2.4rem;
   box-shadow: 0 14px 46px rgba(0, 0, 0, 0.55);
+  animation: rmFadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rm-checkout-payment {
+  animation-delay: 0.12s;
+}
+.rm-cart-drawer.is-open .rm-cart-line {
+  animation: rmFadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rm-cart-drawer.is-open .rm-cart-line:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.rm-cart-drawer.is-open .rm-cart-line:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.rm-cart-drawer.is-open .rm-cart-line:nth-child(n + 4) {
+  animation-delay: 0.18s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rm-cart-fab-badge,
+  .rm-checkout-summary,
+  .rm-checkout-payment,
+  .rm-cart-drawer.is-open .rm-cart-line,
+  .rm-home-hero-mark {
+    animation: none !important;
+  }
 }
 .rm-checkout-summary h2 {
   font-family: "Filson Pro black", Helvetica, Arial, sans-serif;

@@ -159,6 +159,19 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
     if (itemsErr) throw itemsErr;
   }
 
+  // Sync stock with the sale. Atomic (never below zero); a failure here is
+  // logged but doesn't fail the webhook — the order itself is already stored.
+  for (const line of cart) {
+    const qty = Math.max(1, Math.floor(line.q) || 1);
+    const { data: ok, error: stockErr } = await supabase.rpc("decrement_stock", {
+      pid: line.id,
+      qty,
+    });
+    if (stockErr || ok === false) {
+      console.error(`[stripe/webhook] stock decrement failed for ${line.id} x${qty}:`, stockErr?.message || "insufficient stock");
+    }
+  }
+
   // Order emails are best-effort: a mail hiccup must not 500 the webhook,
   // or Stripe would retry and we'd re-check idempotency for nothing.
   try {

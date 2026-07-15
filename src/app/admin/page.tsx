@@ -3,6 +3,7 @@ import { isAdminAuthed } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import AdminLogin from "./AdminLogin";
 import OrdersTable, { type AdminOrder } from "./OrdersTable";
+import StockPanel from "./StockPanel";
 import LogoutButton from "./LogoutButton";
 import "./admin.css";
 
@@ -36,12 +37,17 @@ export default async function AdminPage() {
 
   const orders = (data || []) as unknown as AdminOrder[];
 
+  const { data: stockRows } = await supabase.from("product_stock").select("product_id, stock");
+  const stock = Object.fromEntries((stockRows || []).map((r) => [r.product_id, r.stock]));
+
   return (
     <div className="rm-admin">
       <header className="rm-admin-topbar">
-        <h1>Orders</h1>
+        <h1>RM Mangoes Admin</h1>
         <LogoutButton />
       </header>
+      <StockPanel initial={stock} />
+      <h2 className="rm-admin-orders-title">Orders</h2>
       {error ? (
         <p className="rm-admin-error">Could not load orders: {error.message}</p>
       ) : (
