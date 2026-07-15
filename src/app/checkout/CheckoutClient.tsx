@@ -124,32 +124,69 @@ export default function CheckoutClient() {
   const { lines, totalPence, productFor } = useCart();
   const [clientSecret, setClientSecret] = useState("");
   const [amount, setAmount] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [promoLabel, setPromoLabel] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState("");
+  const [promoInput, setPromoInput] = useState("");
+  const [promoBusy, setPromoBusy] = useState(false);
+  const [promoError, setPromoError] = useState("");
   const [loadError, setLoadError] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const requested = useRef(false);
 
   useEffect(() => setHydrated(true), []);
 
+  // Creates (or re-creates, when a promo is applied) the PaymentIntent.
+  async function createIntent(promoCode?: string) {
+    const res = await fetch("/api/stripe/payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: lines, ...(promoCode ? { promoCode } : {}) }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.clientSecret) {
+      setClientSecret(data.clientSecret);
+      setAmount(data.amount);
+      setDiscount(data.discount || 0);
+      setPromoLabel(data.promoLabel || "");
+      return { ok: true as const };
+    }
+    return { ok: false as const, error: data.error || "Sorry, we couldn't start checkout. Please try again." };
+  }
+
   // Create the PaymentIntent once the (localStorage-hydrated) cart is known.
   useEffect(() => {
     if (!hydrated || lines.length === 0 || requested.current) return;
     requested.current = true;
-    fetch("/api/stripe/payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: lines }),
-    })
-      .then(async (res) => {
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data.clientSecret) {
-          setClientSecret(data.clientSecret);
-          setAmount(data.amount);
-        } else {
-          setLoadError(data.error || "Sorry, we couldn't start checkout. Please try again.");
-        }
-      })
-      .catch(() => setLoadError("Sorry, we couldn't start checkout. Please check your connection."));
+    createIntent().then((r) => {
+      if (!r.ok) setLoadError(r.error);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated, lines]);
+
+  async function applyPromo() {
+    const code = promoInput.trim();
+    if (!code || promoBusy) return;
+    setPromoBusy(true);
+    setPromoError("");
+    const r = await createIntent(code);
+    if (r.ok) {
+      setAppliedPromo(code.toUpperCase());
+      setPromoInput("");
+    } else {
+      setPromoError(r.error);
+    }
+    setPromoBusy(false);
+  }
+
+  async function removePromo() {
+    if (promoBusy) return;
+    setPromoBusy(true);
+    setPromoError("");
+    const r = await createIntent();
+    if (r.ok) setAppliedPromo("");
+    setPromoBusy(false);
+  }
 
   const options = useMemo<StripeElementsOptions | null>(
     () => (clientSecret ? { clientSecret, appearance } : null),
@@ -196,17 +233,57 @@ export default function CheckoutClient() {
             );
           })}
         </ul>
+        {/* Promo code */}
+        <div className="rm-checkout-promo">
+          {appliedPromo ? (
+            <p className="rm-checkout-promo-applied">
+              <span>
+                Code <strong>{appliedPromo}</strong> applied{promoLabel ? ` — ${promoLabel}` : ""}
+              </span>
+              <button type="button" onClick={removePromo} disabled={promoBusy}>
+                Remove
+              </button>
+            </p>
+          ) : (
+            <div className="rm-checkout-promo-row">
+              <input
+                type="text"
+                placeholder="Promo code"
+                value={promoInput}
+                maxLength={50}
+                onChange={(e) => setPromoInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), applyPromo())}
+                disabled={promoBusy}
+              />
+              <button type="button" onClick={applyPromo} disabled={promoBusy || !promoInput.trim()}>
+                {promoBusy ? "…" : "Apply"}
+              </button>
+            </div>
+          )}
+          {promoError && (
+            <p className="rm-pay-error" role="alert">
+              {promoError}
+            </p>
+          )}
+        </div>
+
         <div className="rm-checkout-summary-sub">
           <span>Subtotal</span>
           <span>{formatGBP(totalPence)}</span>
         </div>
+        {discount > 0 && (
+          <div className="rm-checkout-summary-sub rm-checkout-summary-discount">
+            <span>Discount{appliedPromo ? ` (${appliedPromo})` : ""}</span>
+            <span>-{formatGBP(discount)}</span>
+          </div>
+        )}
         <div className="rm-checkout-summary-sub">
           <span>Delivery</span>
           <span>{formatGBP(DELIVERY_FEE_PENCE)}</span>
         </div>
         <div className="rm-checkout-summary-total">
           <span>Total</span>
-          <span>{formatGBP(totalPence + DELIVERY_FEE_PENCE)}</span>
+          <span>{formatGBP(Math.max(0, totalPence - discount) + DELIVERY_FEE_PENCE)}</span>
         </div>
         <Link href="/products" className="rm-checkout-edit">
           Edit cart
@@ -220,7 +297,7 @@ export default function CheckoutClient() {
             {loadError}
           </p>
         ) : options ? (
-          <Elements stripe={stripePromise} options={options}>
+          <Elements key={clientSecret} stripe={stripePromise} options={options}>
             <PayForm amount={amount} />
           </Elements>
         ) : (

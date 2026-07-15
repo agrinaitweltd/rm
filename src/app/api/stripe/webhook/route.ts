@@ -154,6 +154,23 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
     total_price: DELIVERY_FEE_PENCE,
   });
 
+  // Promo discount as a negative line, and count the use.
+  const promoCode = intent.metadata?.promo || "";
+  const promoDiscount = Math.floor(Number(intent.metadata?.discount)) || 0;
+  if (promoCode && promoDiscount > 0) {
+    items.push({
+      order_id: order.id,
+      product_name: `Promo code ${promoCode}`,
+      quantity: 1,
+      unit_price: -promoDiscount,
+      total_price: -promoDiscount,
+    });
+    const { error: promoErr } = await supabase.rpc("increment_promo_use", {
+      promo_code: promoCode,
+    });
+    if (promoErr) console.error("[stripe/webhook] promo use increment failed:", promoErr.message);
+  }
+
   if (items.length > 0) {
     const { error: itemsErr } = await supabase.from("order_items").insert(items);
     if (itemsErr) throw itemsErr;

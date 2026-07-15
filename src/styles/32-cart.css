@@ -514,6 +514,79 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   color: #f6a200;
   font-size: 1.45rem;
 }
+/* ---- Promo code box in the order summary ---- */
+.rm-checkout-promo {
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.rm-checkout-promo-row {
+  display: flex;
+  gap: 0.8rem;
+}
+.rm-checkout-promo-row input {
+  flex: 1;
+  min-width: 0;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  color: #f4f4f4;
+  font-family: "Avenir-Medium", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  padding: 0.9rem 1.2rem;
+  text-transform: uppercase;
+}
+.rm-checkout-promo-row input:focus {
+  outline: none;
+  border-color: #7aa82d;
+  box-shadow: 0 0 0 3px rgba(122, 168, 45, 0.25);
+}
+.rm-checkout-promo-row button {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4f8d36;
+  transition: background-color 0.25s;
+}
+.rm-checkout-promo-row button:hover:not(:disabled) {
+  background-color: #f6a200;
+  color: #1e1e1e;
+}
+.rm-checkout-promo-row button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.rm-checkout-promo-applied {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  color: #7aa82d;
+  font-size: 1.35rem;
+}
+.rm-checkout-promo-applied button {
+  background: none;
+  border: none;
+  color: #8b8b8b;
+  font-size: 1.25rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.rm-checkout-promo-applied button:hover {
+  color: #ff8d8d;
+}
+.rm-checkout-promo .rm-pay-error {
+  margin-top: 0.8rem;
+}
+.rm-checkout-summary-discount span {
+  color: #7aa82d !important;
+}
+
 .rm-checkout-summary-sub {
   display: flex;
   justify-content: space-between;
@@ -624,4 +697,89 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   .rm-checkout-page {
     padding: 3rem 1.6rem 6rem;
   }
+}
+
+/* ---- Post-payment rating (success page) ---- */
+.rm-rating {
+  margin: 2.4rem 0 0.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.rm-rating h3 {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: #f6a200 !important;
+  font-size: 1.8rem;
+  margin: 0 0 0.3rem;
+}
+.rm-rating-sub {
+  color: #cfcfcf !important;
+  font-size: 1.35rem !important;
+  margin: 0 0 1rem !important;
+}
+.rm-rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+}
+.rm-rating-stars button {
+  background: none;
+  border: none;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: #3a3a3a;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.15s, transform 0.15s;
+}
+.rm-rating-stars button.is-lit {
+  color: #f6a200;
+}
+.rm-rating-stars button:hover {
+  transform: scale(1.2);
+}
+.rm-rating-picked {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: #f6a200 !important;
+  font-size: 1.5rem !important;
+  margin: 0.6rem 0 !important;
+}
+.rm-rating textarea {
+  width: 100%;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  color: #f4f4f4;
+  font-family: "Avenir-Medium", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+}
+.rm-rating textarea:focus {
+  outline: none;
+  border-color: #7aa82d;
+  box-shadow: 0 0 0 3px rgba(122, 168, 45, 0.25);
+}
+.rm-rating-submit {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 30px;
+  padding: 1rem 2.6rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4f8d36;
+  transition: background-color 0.25s, transform 0.2s;
+}
+.rm-rating-submit:hover:not(:disabled) {
+  background-color: #f6a200;
+  color: #1e1e1e;
+  transform: translateY(-2px);
+}
+.rm-rating-thanks {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  color: #7aa82d !important;
+  font-size: 1.7rem !important;
+  margin: 0 !important;
 }

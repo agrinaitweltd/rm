@@ -186,6 +186,80 @@
   font-size: 20px;
   color: #f6a200;
 }
+
+/* ---- Promo panel + rating badge ---- */
+.rm-admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rm-admin-rating-avg {
+  color: #f6a200;
+  font-size: 15px;
+  font-weight: 700;
+}
+.rm-admin-promo-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+.rm-admin-promo-form input,
+.rm-admin-promo-form select {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.rm-admin-promo-form input:focus,
+.rm-admin-promo-form select:focus {
+  outline: none;
+  border-color: #7aa82d;
+}
+.rm-admin-promo-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: #9a9a9a;
+}
+.rm-admin-promo-form button {
+  background: #4f8d36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.rm-admin-promo-form button:hover:not(:disabled) {
+  background: #f6a200;
+  color: #1e1e1e;
+}
+.rm-admin-promo td button {
+  background: transparent;
+  border: 1px solid rgba(122, 168, 45, 0.5);
+  color: #7aa82d;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.rm-admin-promo td button:hover {
+  background: #4f8d36;
+  color: #fff;
+}
+.rm-admin-promo td .rm-admin-promo-delete {
+  border-color: rgba(255, 141, 141, 0.4);
+  color: #ff8d8d;
+}
+.rm-admin-promo td .rm-admin-promo-delete:hover {
+  background: #7a2222;
+  color: #fff;
+}
 .rm-admin-orders {
   max-width: 1100px;
   margin: 0 auto;

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
+import RatingPrompt from "./RatingPrompt";
 
 // Landed here after stripe.confirmPayment — either directly (cards, no redirect)
 // or via Stripe's return_url redirect, which appends ?redirect_status=….
@@ -48,6 +49,7 @@ export default function CheckoutSuccess() {
           in touch about delivery.
         </p>
         <p>Fresh Pakistani mangoes are on their way to your door.</p>
+        <RatingPrompt />
         <Link href="/products" className="rm-checkout-cta">
           Back to shop
         </Link>

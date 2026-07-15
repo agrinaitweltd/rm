@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import AdminLogin from "./AdminLogin";
 import OrdersTable, { type AdminOrder } from "./OrdersTable";
 import StockPanel from "./StockPanel";
+import PromoPanel, { type AdminPromo } from "./PromoPanel";
 import LogoutButton from "./LogoutButton";
 import "./admin.css";
 
@@ -40,13 +41,37 @@ export default async function AdminPage() {
   const { data: stockRows } = await supabase.from("product_stock").select("product_id, stock");
   const stock = Object.fromEntries((stockRows || []).map((r) => [r.product_id, r.stock]));
 
+  const { data: promoRows } = await supabase
+    .from("promo_codes")
+    .select("id, code, type, value, starts_at, expires_at, max_uses, uses, active")
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  const { data: ratingRows } = await supabase
+    .from("ratings")
+    .select("stars, comment, created_at")
+    .order("created_at", { ascending: false })
+    .limit(200);
+  const ratings = ratingRows || [];
+  const avgRating = ratings.length
+    ? (ratings.reduce((s, r) => s + r.stars, 0) / ratings.length).toFixed(1)
+    : null;
+
   return (
     <div className="rm-admin">
       <header className="rm-admin-topbar">
         <h1>RM Mangoes Admin</h1>
-        <LogoutButton />
+        <div className="rm-admin-topbar-right">
+          {avgRating && (
+            <span className="rm-admin-rating-avg" title={`${ratings.length} rating(s)`}>
+              ★ {avgRating}/10 ({ratings.length})
+            </span>
+          )}
+          <LogoutButton />
+        </div>
       </header>
       <StockPanel initial={stock} />
+      <PromoPanel initial={(promoRows || []) as AdminPromo[]} />
       <h2 className="rm-admin-orders-title">Orders</h2>
       {error ? (
         <p className="rm-admin-error">Could not load orders: {error.message}</p>

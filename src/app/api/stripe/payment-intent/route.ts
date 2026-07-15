@@ -7,6 +7,34 @@ export const runtime = "nodejs";
 
 type CheckoutItem = { id: string; quantity: number };
 
+// Validates a promo code and returns the discount in pence on the given
+// item subtotal (delivery is never discounted). Null means invalid/expired.
+async function promoDiscount(
+  code: string,
+  subtotal: number
+): Promise<{ discount: number; label: string } | null> {
+  const supabase = createAdminClient();
+  const { data: promo } = await supabase
+    .from("promo_codes")
+    .select("code, type, value, starts_at, expires_at, max_uses, uses, active")
+    .ilike("code", code)
+    .maybeSingle();
+  if (!promo || !promo.active) return null;
+  const now = Date.now();
+  if (promo.starts_at && new Date(promo.starts_at).getTime() > now) return null;
+  if (promo.expires_at && new Date(promo.expires_at).getTime() < now) return null;
+  if (promo.max_uses !== null && promo.uses >= promo.max_uses) return null;
+
+  const discount =
+    promo.type === "percent"
+      ? Math.floor((subtotal * promo.value) / 100)
+      : Math.min(promo.value, subtotal);
+  if (discount <= 0) return null;
+  const label =
+    promo.type === "percent" ? `${promo.value}% off` : `£${(promo.value / 100).toFixed(2)} off`;
+  return { discount, label };
+}
+
 // Creates a PaymentIntent for the on-site Payment Element checkout. The amount
 // is computed from the server-side catalogue (src/lib/site.ts) — client-sent
 // prices are never trusted. The cart contents travel in metadata so the
@@ -19,7 +47,7 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: { items?: CheckoutItem[] };
+  let body: { items?: CheckoutItem[]; promoCode?: string };
   try {
     body = await request.json();
   } catch {
@@ -51,6 +79,31 @@ export async function POST(request: Request) {
     amount += product.amount * quantity;
     cart.push({ id, q: quantity });
     summary.push(`${quantity}x ${product.title}`);
+  }
+
+  // Promo code (optional): discount applies to the item subtotal only.
+  const promoCode = String(body.promoCode || "").trim().slice(0, 50);
+  let discount = 0;
+  let promoLabel = "";
+  if (promoCode) {
+    try {
+      const promo = await promoDiscount(promoCode, amount);
+      if (!promo) {
+        return NextResponse.json(
+          { error: "That promo code isn't valid or has expired." },
+          { status: 400 }
+        );
+      }
+      discount = promo.discount;
+      promoLabel = promo.label;
+      amount -= discount;
+    } catch (err) {
+      console.error("[stripe/payment-intent] promo check failed:", err);
+      return NextResponse.json(
+        { error: "We couldn't check that promo code. Please try again." },
+        { status: 502 }
+      );
+    }
   }
 
   // Flat delivery charge on every order.
@@ -94,10 +147,18 @@ export async function POST(request: Request) {
       currency: "gbp",
       automatic_payment_methods: { enabled: true },
       description: `RM Mangoes order — ${summary.join(", ")}`,
-      metadata: { cart: JSON.stringify(cart) },
+      metadata: {
+        cart: JSON.stringify(cart),
+        ...(discount > 0 ? { promo: promoCode.toUpperCase(), discount: String(discount) } : {}),
+      },
     });
 
-    return NextResponse.json({ clientSecret: intent.client_secret, amount });
+    return NextResponse.json({
+      clientSecret: intent.client_secret,
+      amount,
+      discount,
+      promoLabel,
+    });
   } catch (err) {
     console.error("[stripe/payment-intent] failed to create intent:", err);
     return NextResponse.json(
