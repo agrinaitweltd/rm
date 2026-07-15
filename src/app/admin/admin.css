@@ -199,11 +199,60 @@
   font-weight: 700;
 }
 .rm-admin-promo-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
   align-items: end;
   margin-bottom: 16px;
+}
+.rm-admin-promo-form label {
+  font-size: 12px;
+  color: #9a9a9a;
+}
+.rm-admin-promo-form input,
+.rm-admin-promo-form select {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+.rm-admin-promo-created {
+  color: #7aa82d;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+.rm-admin-promo-code {
+  font-weight: 700;
+  color: #f6a200 !important;
+  letter-spacing: 0.04em;
+}
+.rm-admin-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+.rm-admin-badge--on {
+  background: rgba(122, 168, 45, 0.18);
+  border: 1px solid rgba(122, 168, 45, 0.55);
+  color: #acca38;
+}
+.rm-admin-badge--off {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #9a9a9a;
+}
+.rm-admin-badge--warn {
+  background: rgba(246, 162, 0, 0.14);
+  border: 1px solid rgba(246, 162, 0, 0.5);
+  color: #f6a200;
+}
+.rm-admin-promo-actions {
+  white-space: nowrap;
+}
+.rm-admin-promo-actions button + button {
+  margin-left: 6px;
 }
 .rm-admin-promo-form input,
 .rm-admin-promo-form select {

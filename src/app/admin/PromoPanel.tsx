@@ -18,7 +18,17 @@ const describe = (p: AdminPromo) =>
   p.type === "percent" ? `${p.value}% off` : `£${(p.value / 100).toFixed(2)} off`;
 
 const shortDate = (iso: string | null) =>
-  iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—";
+  iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : null;
+
+// Effective state, considering the on/off switch, dates and the use budget.
+function statusOf(p: AdminPromo): { label: string; tone: "on" | "off" | "warn" } {
+  if (!p.active) return { label: "Off", tone: "off" };
+  const now = Date.now();
+  if (p.starts_at && new Date(p.starts_at).getTime() > now) return { label: "Scheduled", tone: "warn" };
+  if (p.expires_at && new Date(p.expires_at).getTime() < now) return { label: "Expired", tone: "off" };
+  if (p.max_uses !== null && p.uses >= p.max_uses) return { label: "Used up", tone: "off" };
+  return { label: "Active", tone: "on" };
+}
 
 export default function PromoPanel({ initial }: { initial: AdminPromo[] }) {
   const [promos, setPromos] = useState(initial);
@@ -30,11 +40,13 @@ export default function PromoPanel({ initial }: { initial: AdminPromo[] }) {
   const [maxUses, setMaxUses] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [created, setCreated] = useState("");
 
   async function create(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setError("");
+    setCreated("");
     try {
       const res = await fetch("/api/admin/promo", {
         method: "POST",
@@ -50,11 +62,17 @@ export default function PromoPanel({ initial }: { initial: AdminPromo[] }) {
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setError(data.error || "Could not create the code.");
+      if (res.ok && data.promo) {
+        setPromos((prev) => [data.promo as AdminPromo, ...prev]);
+        setCreated(data.promo.code);
+        setCode("");
+        setValue("");
+        setStartsAt("");
+        setExpiresAt("");
+        setMaxUses("");
+        setTimeout(() => setCreated(""), 4000);
       } else {
-        window.location.reload();
-        return;
+        setError(data.error || "Could not create the code.");
       }
     } catch {
       setError("Could not create the code.");
@@ -74,6 +92,7 @@ export default function PromoPanel({ initial }: { initial: AdminPromo[] }) {
   }
 
   async function remove(promo: AdminPromo) {
+    if (!window.confirm(`Delete promo code ${promo.code}? Customers will no longer be able to use it.`)) return;
     const res = await fetch("/api/admin/promo", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -88,89 +107,113 @@ export default function PromoPanel({ initial }: { initial: AdminPromo[] }) {
     <section className="rm-admin-stock rm-admin-promo">
       <h2>Promo codes</h2>
       <p className="rm-admin-stock-hint">
-        Customers enter these at checkout. Percentage or fixed £ discounts apply to the item subtotal
-        (never the £5 delivery).
+        Customers enter these at checkout. The discount applies to the whole order — delivery included.
+        Leave dates empty for no time limit, and max uses empty for unlimited.
       </p>
 
       <form className="rm-admin-promo-form" onSubmit={create}>
-        <input
-          type="text"
-          placeholder="CODE e.g. MANGO10"
-          value={code}
-          onChange={(e) => setCode(e.target.value.toUpperCase())}
-          maxLength={30}
-          required
-        />
-        <select value={type} onChange={(e) => setType(e.target.value as "percent" | "fixed")}>
-          <option value="percent">% off</option>
-          <option value="fixed">£ off</option>
-        </select>
-        <input
-          type="number"
-          placeholder={type === "percent" ? "e.g. 10 (%)" : "e.g. 5 (£)"}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          min={type === "percent" ? 1 : 0.5}
-          max={type === "percent" ? 100 : 1000}
-          step={type === "percent" ? 1 : 0.5}
-          required
-        />
         <label>
-          Starts
+          Code
+          <input
+            type="text"
+            placeholder="MANGO10"
+            value={code}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
+            maxLength={30}
+            required
+          />
+        </label>
+        <label>
+          Discount type
+          <select value={type} onChange={(e) => setType(e.target.value as "percent" | "fixed")}>
+            <option value="percent">Percentage (%)</option>
+            <option value="fixed">Fixed amount (£)</option>
+          </select>
+        </label>
+        <label>
+          {type === "percent" ? "Percent off" : "Pounds off"}
+          <input
+            type="number"
+            placeholder={type === "percent" ? "10" : "5.00"}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            min={type === "percent" ? 1 : 0.5}
+            max={type === "percent" ? 100 : 1000}
+            step={type === "percent" ? 1 : 0.5}
+            required
+          />
+        </label>
+        <label>
+          Starts (optional)
           <input type="date" value={startsAt} onChange={(e) => setStartsAt(e.target.value)} />
         </label>
         <label>
-          Expires
+          Expires (optional)
           <input type="date" value={expiresAt} onChange={(e) => setExpiresAt(e.target.value)} />
         </label>
-        <input
-          type="number"
-          placeholder="Max uses (optional)"
-          value={maxUses}
-          onChange={(e) => setMaxUses(e.target.value)}
-          min={1}
-        />
+        <label>
+          Max uses (optional)
+          <input
+            type="number"
+            placeholder="∞"
+            value={maxUses}
+            onChange={(e) => setMaxUses(e.target.value)}
+            min={1}
+          />
+        </label>
         <button type="submit" disabled={busy}>
           {busy ? "Creating…" : "Create code"}
         </button>
       </form>
       {error && <p className="rm-admin-error">{error}</p>}
+      {created && (
+        <p className="rm-admin-promo-created" role="status">
+          ✓ Code <strong>{created}</strong> created and active.
+        </p>
+      )}
 
-      {promos.length > 0 && (
+      {promos.length === 0 ? (
+        <p className="rm-admin-empty">No promo codes yet — create your first one above.</p>
+      ) : (
         <table>
           <thead>
             <tr>
               <th>Code</th>
               <th>Discount</th>
-              <th>Window</th>
+              <th>Starts</th>
+              <th>Expires</th>
               <th>Uses</th>
               <th>Status</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {promos.map((p) => (
-              <tr key={p.id}>
-                <td className="rm-admin-mono">{p.code}</td>
-                <td>{describe(p)}</td>
-                <td>
-                  {shortDate(p.starts_at)} → {shortDate(p.expires_at)}
-                </td>
-                <td>
-                  {p.uses}
-                  {p.max_uses ? ` / ${p.max_uses}` : ""}
-                </td>
-                <td>{p.active ? "Active" : "Off"}</td>
-                <td>
-                  <button type="button" onClick={() => toggle(p)}>
-                    {p.active ? "Disable" : "Enable"}
-                  </button>{" "}
-                  <button type="button" className="rm-admin-promo-delete" onClick={() => remove(p)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {promos.map((p) => {
+              const s = statusOf(p);
+              return (
+                <tr key={p.id}>
+                  <td className="rm-admin-mono rm-admin-promo-code">{p.code}</td>
+                  <td>{describe(p)}</td>
+                  <td>{shortDate(p.starts_at) || "—"}</td>
+                  <td>{shortDate(p.expires_at) || "—"}</td>
+                  <td>
+                    {p.uses}
+                    {p.max_uses ? ` / ${p.max_uses}` : ""}
+                  </td>
+                  <td>
+                    <span className={`rm-admin-badge rm-admin-badge--${s.tone}`}>{s.label}</span>
+                  </td>
+                  <td className="rm-admin-promo-actions">
+                    <button type="button" onClick={() => toggle(p)}>
+                      {p.active ? "Disable" : "Enable"}
+                    </button>
+                    <button type="button" className="rm-admin-promo-delete" onClick={() => remove(p)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}

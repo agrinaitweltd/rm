@@ -283,7 +283,8 @@ export default function CheckoutClient() {
         </div>
         <div className="rm-checkout-summary-total">
           <span>Total</span>
-          <span>{formatGBP(Math.max(0, totalPence - discount) + DELIVERY_FEE_PENCE)}</span>
+          {/* Server-computed amount (it owns the discount + delivery maths). */}
+          <span>{formatGBP(clientSecret ? amount : totalPence + DELIVERY_FEE_PENCE)}</span>
         </div>
         <Link href="/products" className="rm-checkout-edit">
           Edit cart

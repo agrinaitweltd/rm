@@ -47,19 +47,23 @@ export async function POST(request: Request) {
   }
 
   const supabase = createAdminClient();
-  const { error } = await supabase.from("promo_codes").insert({
-    code,
-    type,
-    value,
-    starts_at: startsAt?.toISOString() ?? null,
-    expires_at: expiresAt?.toISOString() ?? null,
-    max_uses: maxUses,
-  });
-  if (error) {
-    const msg = error.code === "23505" ? "That code already exists." : "Could not create the code.";
+  const { data: promo, error } = await supabase
+    .from("promo_codes")
+    .insert({
+      code,
+      type,
+      value,
+      starts_at: startsAt?.toISOString() ?? null,
+      expires_at: expiresAt?.toISOString() ?? null,
+      max_uses: maxUses,
+    })
+    .select("id, code, type, value, starts_at, expires_at, max_uses, uses, active")
+    .single();
+  if (error || !promo) {
+    const msg = error?.code === "23505" ? "That code already exists." : "Could not create the code.";
     return NextResponse.json({ error: msg }, { status: 400 });
   }
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, promo });
 }
 
 // Toggle a promo code on/off (or delete it).

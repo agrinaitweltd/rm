@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 type CheckoutItem = { id: string; quantity: number };
 
 // Validates a promo code and returns the discount in pence on the given
-// item subtotal (delivery is never discounted). Null means invalid/expired.
+// order total (items + delivery). Null means invalid/expired.
 async function promoDiscount(
   code: string,
   subtotal: number
@@ -81,7 +81,12 @@ export async function POST(request: Request) {
     summary.push(`${quantity}x ${product.title}`);
   }
 
-  // Promo code (optional): discount applies to the item subtotal only.
+  // Flat delivery charge on every order.
+  amount += DELIVERY_FEE_PENCE;
+
+  // Promo code (optional): the discount applies to the WHOLE order, delivery
+  // included. Stripe won't charge less than 30p, so a big discount is capped
+  // just above zero rather than failing the payment.
   const promoCode = String(body.promoCode || "").trim().slice(0, 50);
   let discount = 0;
   let promoLabel = "";
@@ -94,7 +99,7 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
-      discount = promo.discount;
+      discount = Math.min(promo.discount, amount - 30);
       promoLabel = promo.label;
       amount -= discount;
     } catch (err) {
@@ -105,9 +110,6 @@ export async function POST(request: Request) {
       );
     }
   }
-
-  // Flat delivery charge on every order.
-  amount += DELIVERY_FEE_PENCE;
 
   // Stock check — reject before taking payment rather than after.
   try {
