@@ -197,6 +197,25 @@ function initCarousels(cleanups: Array<() => void>) {
     });
 }
 
+// Close the mobile off-canvas menu when a nav link is tapped. Navigation is
+// client-side (Next <Link>), so without this the drawer would stay open on
+// the new page.
+function initMobileMenuAutoClose(cleanups: Array<() => void>) {
+  const popup = document.getElementById("ast-mobile-popup");
+  if (!popup) return;
+  const onClick = (e: Event) => {
+    const link = (e.target as HTMLElement).closest("a.menu-link");
+    if (!link) return;
+    // Ignore submenu arrow toggles — only real navigations close the drawer.
+    if ((e.target as HTMLElement).closest(".ast-menu-toggle, .dropdown-menu-toggle")) return;
+    document.getElementById("menu-toggle-close")?.click();
+    document.body.classList.remove("ast-main-header-nav-open", "ast-popup-nav-open");
+    popup.classList.remove("active", "show");
+  };
+  popup.addEventListener("click", onClick);
+  cleanups.push(() => popup.removeEventListener("click", onClick));
+}
+
 export default function SiteBehaviors() {
   const pathname = usePathname();
 
@@ -207,6 +226,7 @@ export default function SiteBehaviors() {
     initTabs(cleanups);
     initVideos(cleanups);
     initCarousels(cleanups);
+    initMobileMenuAutoClose(cleanups);
 
     const w = window as unknown as { astraToggleSetup?: () => void };
     if (typeof w.astraToggleSetup === "function") w.astraToggleSetup();

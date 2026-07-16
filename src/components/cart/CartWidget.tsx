@@ -2,13 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { useCart, formatGBP } from "./CartProvider";
-import { DELIVERY_FEE_PENCE } from "@/lib/site";
+import { DELIVERY_FEE_PENCE, products } from "@/lib/site";
 
 // Floating cart button + slide-in drawer, rendered site-wide from the layout.
 // Styling lives in styles/32-cart.css and reuses the brand palette/fonts.
 export default function CartWidget() {
-  const { lines, open, setOpen, itemCount, totalPence, setQuantity, removeItem, productFor } = useCart();
+  const { lines, open, setOpen, itemCount, totalPence, setQuantity, removeItem, productFor, addItem } = useCart();
   const router = useRouter();
+
+  // Up to three boxes not yet in the cart, offered under the cart lines.
+  const suggestions = products.filter((p) => !lines.some((l) => l.id === p.id)).slice(0, 3);
 
   // The on-site /checkout page (Stripe Payment Element) takes it from here.
   // The cart is only cleared after a successful payment.
@@ -104,6 +107,26 @@ export default function CartWidget() {
                 );
               })}
             </ul>
+          )}
+
+          {lines.length > 0 && suggestions.length > 0 && (
+            <div className="rm-cart-suggest">
+              <h4>Interested in these too?</h4>
+              <ul>
+                {suggestions.map((p) => (
+                  <li key={p.id}>
+                    <img src={p.image} alt="" />
+                    <div className="rm-cart-suggest-info">
+                      <span className="rm-cart-suggest-title">{p.title}</span>
+                      <span className="rm-cart-suggest-price">{p.price}</span>
+                    </div>
+                    <button type="button" onClick={() => addItem(p.id)} aria-label={`Add ${p.title} to cart`}>
+                      Add
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
 
