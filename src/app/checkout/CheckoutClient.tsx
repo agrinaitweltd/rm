@@ -40,13 +40,43 @@ const appearance: StripeElementsOptions["appearance"] = {
   },
 };
 
+const SCOTTISH_POSTCODE_AREAS = new Set([
+  "AB",
+  "DD",
+  "DG",
+  "EH",
+  "FK",
+  "G",
+  "HS",
+  "IV",
+  "KA",
+  "KW",
+  "KY",
+  "ML",
+  "PA",
+  "PH",
+  "TD",
+  "ZE",
+]);
+
+function isScottishPostcode(postcode: string) {
+  const match = postcode.toUpperCase().replace(/\s+/g, "").match(/^[A-Z]{1,2}/);
+  return match ? SCOTTISH_POSTCODE_AREAS.has(match[0]) : false;
+}
+
 function PayForm({ amount }: { amount: number }) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [addressComplete, setAddressComplete] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const postcodeError =
+    addressComplete && postcode && !isScottishPostcode(postcode)
+      ? "Sorry, we currently deliver around Scotland only."
+      : "";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -55,6 +85,11 @@ function PayForm({ amount }: { amount: number }) {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("Please enter a valid email address for your receipt.");
+      return;
+    }
+
+    if (postcodeError) {
+      setError(postcodeError);
       return;
     }
 
@@ -103,7 +138,17 @@ function PayForm({ amount }: { amount: number }) {
           fields: { phone: "always" },
           validation: { phone: { required: "always" } },
         }}
+        onChange={(event) => {
+          setAddressComplete(event.complete);
+          setPostcode(event.value.address.postal_code || "");
+          if (error === postcodeError) setError("");
+        }}
       />
+      {postcodeError && (
+        <p className="rm-pay-error" role="alert">
+          {postcodeError}
+        </p>
+      )}
 
       <h3 className="rm-pay-section-title">Payment</h3>
       {/* Wallets are explicit: Apple Pay shows in Safari on Apple devices with

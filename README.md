@@ -1,7 +1,7 @@
 # RM Mangoes
 
-Premium Pakistani mangoes, delivered throughout Scotland & Ireland.
-**From Pakistani Farms to Scottish & Irish Doorsteps.**
+Premium Pakistani mangoes, delivered throughout Scotland.
+**From Pakistani Farms to Scottish Doorsteps.**
 
 Next.js + React + TypeScript (App Router). Faithful rebrand of the original
 Olympic Fruit design — same layout, typography, colours and effects, with
@@ -50,6 +50,7 @@ Drop your own files over these placeholders (same names):
 - `mango-box-small.png`, `mango-box-2-small.png`, `mango-box-3-small.png`, `mango-box-medium.png`, `mango-box-2-medium.png`, `mango-box-large.png` — one photo per price option
 - `icon-mangoes.png`, `icon-story.png`, `icon-whatsapp.png`, `Team.png` — home quick-link icons
 - `assortiment-*.png` — mango variety icons (The Chain)
+- `icon-guava.svg`, `icon-apricot.svg`, `icon-cherries.svg`, `icon-karela.svg`, `icon-jamun.svg`, `icon-watermelon.svg` — fresh fruit fallback artwork
 - `hero-poster.png` — hero image (shown before/between video plays)
 - `site-bgr.jpg`, `about-hero.jpg`, `products-hero.jpg`, `contact-hero.jpg` — background photos
 - `og.png` — social sharing image
