@@ -28,7 +28,8 @@ const appearance: StripeElementsOptions["appearance"] = {
     colorDanger: "#ff8d8d",
     borderRadius: "10px",
     fontFamily: "Helvetica, Arial, sans-serif",
-    fontSizeBase: "15px",
+    // 16px keeps iOS Safari from auto-zooming the Stripe iframe inputs.
+    fontSizeBase: "16px",
   },
   rules: {
     ".Input": { border: "1px solid rgba(255, 255, 255, 0.18)" },

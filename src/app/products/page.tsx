@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
-import AddToCartButton from "@/components/cart/AddToCartButton";
-import ProductImg from "@/components/cart/ProductImg";
+import ProductGrid from "./ProductGrid";
 import { site, products } from "@/lib/site";
 
 // Re-render at most once a minute so sold-out labels track admin stock edits.
@@ -32,23 +31,6 @@ export const metadata: Metadata = {
     "Order premium Pakistani mangoes and fresh fruit delivered throughout Scotland — mango boxes from £7, plus guava, apricots, cherries, karela, jamun, watermelon, khubani, kishmish, lychee, jackfruit and dragon fruit.",
   alternates: { canonical: "/products" },
 };
-
-// Elementor element ids from the original template, one set per product card.
-const cardIds = [
-  { id: "7181f31", imageId: "bff7b29", headingId: "4f882f0", subId: "b5a1aa3" },
-  { id: "ecfcae6", imageId: "0d56ec3", headingId: "76fc612", subId: "03011fe" },
-  { id: "62c8657", imageId: "af84dda", headingId: "24e92bd", subId: "e076092" },
-  { id: "1901114", imageId: "19536e6", headingId: "f8798df", subId: "c5cab64" },
-  { id: "107f310", imageId: "d913f8e", headingId: "071b279", subId: "894abaa" },
-  { id: "1634c8e", imageId: "9815cf7", headingId: "6af9dd2", subId: "f446d35" },
-  // Fresh-fruit range (same card styling, cycled through the three palettes).
-  { id: "7181f31", imageId: "bff7b29", headingId: "4f882f0", subId: "b5a1aa3" },
-  { id: "ecfcae6", imageId: "0d56ec3", headingId: "76fc612", subId: "03011fe" },
-  { id: "62c8657", imageId: "af84dda", headingId: "24e92bd", subId: "e076092" },
-  { id: "1901114", imageId: "19536e6", headingId: "f8798df", subId: "c5cab64" },
-  { id: "107f310", imageId: "d913f8e", headingId: "071b279", subId: "894abaa" },
-  { id: "1634c8e", imageId: "9815cf7", headingId: "6af9dd2", subId: "f446d35" },
-];
 
 const productsJsonLd = {
   "@context": "https://schema.org",
@@ -164,65 +146,7 @@ export default async function ProductsPage() {
               <path className="elementor-shape-fill" d="M350,10L340,0h20L350,10z"></path>
             </svg>
           </div>
-          {products.map((product, i) => {
-            const ids = cardIds[i % cardIds.length];
-            return (
-              <div
-                key={product.id}
-                className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child elementor-invisible`}
-                data-id={ids.id}
-                data-element_type="container"
-                data-settings={`{"_animation":"zoomIn","_animation_delay":${(i % 3) * 150}}`}
-              >
-                <div
-                  className={`elementor-element elementor-element-${ids.imageId} e-transform elementor-widget-tablet__width-initial elementor-widget elementor-widget-image`}
-                  data-id={ids.imageId}
-                  data-element_type="widget"
-                  data-settings='{"_transform_scale_effect_hover":{"unit":"px","size":1.1,"sizes":[]}}'
-                  data-widget_type="image.default"
-                >
-                  <div className="elementor-widget-container">
-                    <ProductImg
-                      src={product.image}
-                      fallback={product.icon}
-                      title={product.title}
-                      alt={`${product.title} — fresh delivery across Scotland by RM Mangoes`}
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                <div
-                  className={`elementor-element elementor-element-${ids.headingId} elementor-widget elementor-widget-heading`}
-                  data-id={ids.headingId}
-                  data-element_type="widget"
-                  data-widget_type="heading.default"
-                >
-                  <div className="elementor-widget-container">
-                    <h3 className="elementor-heading-title elementor-size-default">{product.title}</h3>
-                  </div>
-                </div>
-                <div
-                  className={`elementor-element elementor-element-${ids.subId} elementor-widget elementor-widget-heading`}
-                  data-id={ids.subId}
-                  data-element_type="widget"
-                  data-widget_type="heading.default"
-                >
-                  <div className="elementor-widget-container">
-                    <p className="elementor-heading-title elementor-size-default">{product.price}</p>
-                  </div>
-                </div>
-                <AddToCartButton id={product.id} soldOut={(stock[product.id] ?? 1) <= 0} />
-                <a
-                  className="rm-card-whatsapp"
-                  href={site.whatsappOrder(product.order)}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  or order on WhatsApp
-                </a>
-              </div>
-            );
-          })}
+          <ProductGrid stock={stock} />
         </div>
       </div>
 

@@ -11,8 +11,25 @@ export default function CartWidget() {
   const { lines, open, setOpen, itemCount, totalPence, setQuantity, removeItem, productFor, addItem } = useCart();
   const router = useRouter();
 
-  // Up to three boxes not yet in the cart, offered under the cart lines.
-  const suggestions = products.filter((p) => !lines.some((l) => l.id === p.id)).slice(0, 3);
+  // Up to three products not yet in the cart, offered under the cart lines.
+  // Round-robin across categories (mangoes → fruit → veg → …) so the picks
+  // show the breadth of the range rather than three mango boxes.
+  const notInCart = products.filter((p) => !lines.some((l) => l.id === p.id));
+  const byCategory = new Map<string, typeof notInCart>();
+  for (const p of notInCart) {
+    const group = byCategory.get(p.category) || [];
+    group.push(p);
+    byCategory.set(p.category, group);
+  }
+  const groups = [...byCategory.values()];
+  const suggestions: typeof notInCart = [];
+  for (let round = 0; suggestions.length < 3; round++) {
+    const before = suggestions.length;
+    for (const group of groups) {
+      if (group[round] && suggestions.length < 3) suggestions.push(group[round]);
+    }
+    if (suggestions.length === before) break; // nothing left to add
+  }
 
   // The on-site /checkout page (Stripe Payment Element) takes it from here.
   // The cart is only cleared after a successful payment.

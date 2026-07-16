@@ -165,6 +165,13 @@ body,
   height: auto;
 }
 
+/* Sourcing/delivery map: rounded, framed, gently lifted. */
+.uael-hotspot > img {
+  border-radius: 16px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(122, 168, 45, 0.35);
+}
+
 .rm-hotspot {
   position: absolute;
   width: 26px;
@@ -172,29 +179,71 @@ body,
   cursor: pointer;
 }
 
+/* Pulsing halo behind each pin so delivery points draw the eye. */
+.rm-hotspot::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(246, 162, 0, 0.55);
+  animation: rmPinPulse 2.2s ease-out infinite;
+}
+@keyframes rmPinPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(246, 162, 0, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(246, 162, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(246, 162, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rm-hotspot::before {
+    animation: none;
+  }
+}
+
 .rm-hotspot svg {
+  position: relative;
   display: block;
   width: 100%;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+  transition: transform 0.2s;
+}
+.rm-hotspot:hover svg {
+  transform: translateY(-3px) scale(1.08);
 }
 
 .rm-hotspot-tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 10px);
   left: 50%;
-  transform: translateX(-50%);
-  background: #333;
-  color: #fff;
+  transform: translateX(-50%) translateY(4px);
+  background: #0a0a0a;
+  color: #f4f4f4;
+  border: 1px solid rgba(122, 168, 45, 0.55);
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
   font-size: 1.3rem;
   line-height: 1.4;
-  padding: 0.8rem 1.2rem;
-  border-radius: 6px;
+  padding: 0.8rem 1.4rem;
+  border-radius: 20px;
   white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 350ms ease;
+  transition: opacity 250ms ease, transform 250ms ease;
   z-index: 99;
   pointer-events: none;
+}
+.rm-hotspot:hover .rm-hotspot-tooltip,
+.rm-hotspot:focus .rm-hotspot-tooltip {
+  transform: translateX(-50%) translateY(0);
 }
 
 .rm-hotspot:hover .rm-hotspot-tooltip,

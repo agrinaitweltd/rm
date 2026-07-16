@@ -70,7 +70,7 @@ export default function Footer() {
                         <Link href="/contact" className="menu-link">Contact our team</Link>
                       </li>
                       <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                        <Link href="/products" className="menu-link">Our mangoes</Link>
+                        <Link href="/products" className="menu-link">Our produce</Link>
                       </li>
                       <li className="menu-item menu-item-type-custom menu-item-object-custom">
                         <Link href="/about" className="menu-link">About us</Link>

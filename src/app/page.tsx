@@ -20,8 +20,8 @@ const quickLinks = [
     textId: "576a505",
     href: "/products",
     icon: "/icon-mangoes.png",
-    title: "Our mangoes",
-    text: "Discover our premium Pakistani mango boxes",
+    title: "Our produce",
+    text: "Discover our mango boxes, fresh fruit & veg",
   },
   {
     id: "16e345c",
@@ -194,7 +194,7 @@ export default function HomePage() {
                 <div className="elementor-button-wrapper">
                   <Link className="elementor-button elementor-button-link elementor-size-sm" href="/products">
                     <span className="elementor-button-content-wrapper">
-                      <span className="elementor-button-text">Our mangoes</span>
+                      <span className="elementor-button-text">Our produce</span>
                     </span>
                   </Link>
                 </div>

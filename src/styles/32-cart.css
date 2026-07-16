@@ -484,6 +484,71 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   }
 }
 
+/* ---- Shop category tabs ---- */
+.rm-shop-tabs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 0 2.4rem;
+}
+.rm-shop-tab {
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid rgba(122, 168, 45, 0.5);
+  background: transparent;
+  color: #acca38;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.22s, color 0.22s, border-color 0.22s, transform 0.18s;
+}
+.rm-shop-tab:hover {
+  border-color: #f6a200;
+  color: #f6a200;
+  transform: translateY(-2px);
+}
+.rm-shop-tab.is-active {
+  background-color: #4f8d36;
+  border-color: #4f8d36;
+  color: #fff;
+}
+.rm-shop-tab-count {
+  font-family: "Avenir-Medium", Helvetica, Arial, sans-serif;
+  font-size: 1.15rem;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 12px;
+  padding: 0.15rem 0.8rem;
+}
+.rm-shop-tab.is-active .rm-shop-tab-count {
+  background: rgba(255, 255, 255, 0.22);
+}
+/* Cards fade up whenever the filter changes (key remount restarts it). */
+.rm-shop-card {
+  animation: rmFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rm-shop-card {
+    animation: none !important;
+  }
+}
+
+/* ---- Mobile: 16px form controls stop iOS auto-zooming on focus ---- */
+@media (max-width: 921px) {
+  .rm-pay-email input,
+  .rm-checkout-promo-row input,
+  .rm-rating textarea,
+  .rm-wholesale-form input,
+  .rm-wholesale-form select,
+  .rm-wholesale-form textarea {
+    font-size: 16px !important;
+  }
+}
+
 /* ---- On-site checkout page (Stripe Payment Element) ---- */
 .rm-checkout-page {
   max-width: 96rem;
