@@ -50,6 +50,11 @@ export const products: Product[] = [
   { id: "karela-large", title: "Large Box of Karela", price: "£8", amount: 800, image: "/karela-large.png", icon: "/icon-karela.svg", order: "a Large Box of Karela (£8)" },
   { id: "jamun", title: "Jamun", price: "£8", amount: 800, image: "/jamun.png", icon: "/icon-jamun.svg", order: "Jamun (£8)" },
   { id: "watermelon-large", title: "Large Watermelon", price: "£5.50", amount: 550, image: "/watermelon-large.png", icon: "/icon-watermelon.svg", order: "a Large Watermelon (£5.50)" },
+  { id: "khubani-large-apricot", title: "Khubani - Pakistani Large Box Apricot", price: "£10", amount: 1000, image: "/khubani-large-apricot.png", order: "Khubani - Pakistani Large Box Apricot (£10)" },
+  { id: "kishmish-small-grapes", title: "Kishmish - Pakistani Small Grapes", price: "£3.50", amount: 350, image: "/kishmish-small-grapes.png", order: "Kishmish - Pakistani Small Grapes (£3.50)" },
+  { id: "lychee-large-box", title: "Lychee Large Box", price: "£15", amount: 1500, image: "/lychee-large-box.png", order: "a Large Box of Lychee (£15)" },
+  { id: "jackfruit-peeled-200g", title: "Jackfruit Cut and Peeled 200g", price: "£3.50", amount: 350, image: "/jackfruit-peeled-200g.png", order: "Jackfruit Cut and Peeled 200g (£3.50)" },
+  { id: "dragon-fruit", title: "Dragon Fruit", price: "£3.50", amount: 350, image: "/dragon-fruit.png", order: "Dragon Fruit (£3.50)" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).

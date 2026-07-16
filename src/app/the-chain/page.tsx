@@ -70,6 +70,11 @@ const varieties = [
   { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/icon-karela.svg", name: "karela" },
   { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/icon-jamun.svg", name: "jamun" },
   { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/icon-watermelon.svg", name: "watermelon" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/khubani-large-apricot.png", name: "khubani" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/kishmish-small-grapes.png", name: "kishmish" },
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/lychee-large-box.png", name: "lychee" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/jackfruit-peeled-200g.png", name: "jackfruit" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/dragon-fruit.png", name: "dragon fruit" },
 ];
 
 const stats = [
@@ -441,7 +446,8 @@ export default function TheChainPage() {
               <p>
                 Premium Pakistani mangoes are our speciality — the best varieties at their peak, from honey-sweet
                 Sindhri to aromatic Chaunsa. And alongside the king of fruits we bring you fresh guava, apricots,
-                cherries, karela, jamun and watermelon throughout the season.
+                cherries, karela, jamun, watermelon, khubani, kishmish, lychee, jackfruit and dragon fruit throughout
+                the season.
               </p>
             </Text>
           </div>

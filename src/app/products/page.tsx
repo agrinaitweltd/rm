@@ -29,7 +29,7 @@ async function getStock(): Promise<Record<string, number>> {
 export const metadata: Metadata = {
   title: "Order Now — Premium Pakistani Mangoes & Fresh Fruit",
   description:
-    "Order premium Pakistani mangoes and fresh fruit delivered throughout Scotland — mango boxes from £7, plus guava, apricots, cherries, karela, jamun and watermelon.",
+    "Order premium Pakistani mangoes and fresh fruit delivered throughout Scotland — mango boxes from £7, plus guava, apricots, cherries, karela, jamun, watermelon, khubani, kishmish, lychee, jackfruit and dragon fruit.",
   alternates: { canonical: "/products" },
 };
 
@@ -165,7 +165,7 @@ export default async function ProductsPage() {
             </svg>
           </div>
           {products.map((product, i) => {
-            const ids = cardIds[i];
+            const ids = cardIds[i % cardIds.length];
             return (
               <div
                 key={product.id}

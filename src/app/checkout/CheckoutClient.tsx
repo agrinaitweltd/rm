@@ -64,6 +64,19 @@ function isScottishPostcode(postcode: string) {
   return match ? SCOTTISH_POSTCODE_AREAS.has(match[0]) : false;
 }
 
+type ShippingDetails = {
+  name: string;
+  phone?: string;
+  address: {
+    line1: string;
+    line2?: string;
+    city?: string;
+    state?: string;
+    postal_code?: string;
+    country: string;
+  };
+};
+
 function PayForm({ amount }: { amount: number }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -71,6 +84,7 @@ function PayForm({ amount }: { amount: number }) {
   const [email, setEmail] = useState("");
   const [postcode, setPostcode] = useState("");
   const [addressComplete, setAddressComplete] = useState(false);
+  const [shippingDetails, setShippingDetails] = useState<ShippingDetails | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const postcodeError =
@@ -88,6 +102,11 @@ function PayForm({ amount }: { amount: number }) {
       return;
     }
 
+    if (!addressComplete || !shippingDetails) {
+      setError("Please complete your delivery address.");
+      return;
+    }
+
     if (postcodeError) {
       setError(postcodeError);
       return;
@@ -99,6 +118,7 @@ function PayForm({ amount }: { amount: number }) {
       confirmParams: {
         return_url: `${window.location.origin}/checkout/success`,
         receipt_email: email,
+        shipping: shippingDetails,
       },
       // Card payments complete without leaving the page; bank redirects
       // (if ever enabled) come back to the success page.
@@ -139,8 +159,25 @@ function PayForm({ amount }: { amount: number }) {
           validation: { phone: { required: "always" } },
         }}
         onChange={(event) => {
+          const line1 = event.value.address.line1 || "";
           setAddressComplete(event.complete);
           setPostcode(event.value.address.postal_code || "");
+          setShippingDetails(
+            line1
+              ? {
+                  name: event.value.name || "RM Mangoes customer",
+                  phone: event.value.phone || undefined,
+                  address: {
+                    line1,
+                    line2: event.value.address.line2 || undefined,
+                    city: event.value.address.city || undefined,
+                    state: event.value.address.state || undefined,
+                    postal_code: event.value.address.postal_code || undefined,
+                    country: event.value.address.country || "GB",
+                  },
+                }
+              : null
+          );
           if (error === postcodeError) setError("");
         }}
       />
