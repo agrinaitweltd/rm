@@ -6,9 +6,9 @@ import HeroBackgroundVideo from "@/components/HeroBackgroundVideo";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "RM Mangoes — Premium Pakistani Mangoes | Scotland & Ireland",
+  title: "RM Mangoes — Premium Pakistani Mangoes | Scotland",
   description:
-    "We import the very finest and freshest Pakistani mangoes and deliver them to doorsteps throughout Scotland and Ireland. From Pakistani farms to Scottish & Irish doorsteps.",
+    "We import the very finest and freshest Pakistani mangoes and deliver them to doorsteps throughout Scotland. From Pakistani farms to Scottish doorsteps.",
   alternates: { canonical: "/" },
 };
 
@@ -80,7 +80,7 @@ export default function HomePage() {
                 fetchPriority="high"
                 src="/rm-mangoes-hero-logo.png"
                 title="RM Mangoes"
-                alt="RM Mangoes — From Pakistani Farms to Scottish & Irish Doorsteps"
+                alt="RM Mangoes — From Pakistani Farms to Scottish Doorsteps"
               />
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function HomePage() {
                   </strong>
                 </p>
                 <p>
-                  Throughout the season we deliver premium mango boxes to doorsteps across Scotland and Ireland. But we
+                  Throughout the season we deliver premium mango boxes to doorsteps across Scotland. But we
                   are more than just a mango importer. Our relationships with growers in Pakistan and our customers here
                   are built for the long term, ensuring we are your ideal mango partner not only today, but also in the
                   future.
@@ -221,7 +221,7 @@ export default function HomePage() {
       </div>
 
       {/* Quote band */}
-      <QuoteBand quote={`'From Pakistani farms to Scottish & Irish doorsteps'`} />
+      <QuoteBand quote={`'From Pakistani farms to Scottish doorsteps'`} />
 
       {/* Quick links */}
       <div

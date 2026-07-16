@@ -2,7 +2,7 @@
   "name": "rm-mangoes",
   "version": "1.0.0",
   "private": true,
-  "description": "RM Mangoes — Premium Pakistani Mangoes delivered throughout Scotland & Ireland",
+  "description": "RM Mangoes — Premium Pakistani Mangoes delivered throughout Scotland",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

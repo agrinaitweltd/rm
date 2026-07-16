@@ -7,7 +7,7 @@ import { ShapeTop, Heading, Text, Button, Image, IconBoxTitle, SwiperArrows } fr
 export const metadata: Metadata = {
   title: "The Chain — From Pakistani Farms to Your Doorstep",
   description:
-    "Follow the RM Mangoes chain: our customers, trusted growers in Pakistan, quality control, our mango varieties, temperature-controlled logistics and delivery across Scotland and Ireland.",
+    "Follow the RM Mangoes chain: our customers, trusted growers in Pakistan, quality control, our mango varieties, temperature-controlled logistics and delivery across Scotland.",
   alternates: { canonical: "/the-chain" },
 };
 
@@ -63,6 +63,13 @@ const varieties = [
   { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/assortiment-anwar-ratol.png", name: "anwar ratol" },
   { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/assortiment-langra.png", name: "langra" },
   { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/assortiment-dusehri.png", name: "dusehri" },
+  // Fresh-fruit range (flat SVG marks, reusing the carousel card styles).
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/icon-guava.svg", name: "guava" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/icon-apricot.svg", name: "apricots" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/icon-cherries.svg", name: "cherries" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/icon-karela.svg", name: "karela" },
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/icon-jamun.svg", name: "jamun" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/icon-watermelon.svg", name: "watermelon" },
 ];
 
 const stats = [
@@ -135,7 +142,7 @@ export default function TheChainPage() {
             <div className="elementor-element elementor-element-a00ad91 e-con-full e-flex e-con e-child" data-id="a00ad91" data-element_type="container">
               <Text id="bcc9bc8" cls="elementor-widget__width-initial elementor-widget-tablet__width-inherit" anim="fadeInUp">
                 <p>
-                  Our chain runs from mango orchards in Pakistan straight to doorsteps across Scotland and Ireland. We
+                  Our chain runs from mango orchards in Pakistan straight to doorsteps across Scotland. We
                   keep it short, personal and fresh — because a great mango is a team effort. We grow together with our
                   partners by building trust and sharing our knowledge and inspiration.
                 </p>
@@ -181,8 +188,8 @@ export default function TheChainPage() {
             </Text>
             <Text id="a09c28b" anim="fadeInUp" delay={300}>
               <p>
-                That starts with understanding you, the mango lover. We listen closely to our customers across Scotland
-                and Ireland — which varieties you love, when you want them and how you enjoy them. That is how we keep
+                That starts with understanding you, the mango lover. We listen closely to our customers across
+                Scotland — which varieties you love, when you want them and how you enjoy them. That is how we keep
                 improving every season, and how more people discover the king of fruits.
               </p>
             </Text>
@@ -347,7 +354,6 @@ export default function TheChainPage() {
                             <div className="uael-hotspot uael-hotspot-tooltip-yes">
                               <img loading="lazy" decoding="async" width={1500} height={901} src="/sourcing-map.png" alt="World map showing our delivery area" />
                               <MapPin left="44.2%" top="18.5%" label="Scotland — doorstep delivery" />
-                              <MapPin left="42.2%" top="22.5%" label="Ireland — doorstep delivery" />
                             </div>
                           </div>
                         </div>
@@ -433,8 +439,9 @@ export default function TheChainPage() {
             <Heading id="3171c71" text="Our product range" anim="fadeInUp" />
             <Text id="17c051d">
               <p>
-                We specialise in one thing and do it brilliantly: premium Pakistani mangoes. Throughout the season we
-                bring you the best varieties at their peak — from honey-sweet Sindhri to aromatic Chaunsa.
+                Premium Pakistani mangoes are our speciality — the best varieties at their peak, from honey-sweet
+                Sindhri to aromatic Chaunsa. And alongside the king of fruits we bring you fresh guava, apricots,
+                cherries, karela, jamun and watermelon throughout the season.
               </p>
             </Text>
           </div>
@@ -449,7 +456,7 @@ export default function TheChainPage() {
               <div className="e-n-carousel swiper" role="region" aria-roledescription="carousel" aria-label="Carousel" dir="ltr">
                 <div className="swiper-wrapper" aria-live="off">
                   {varieties.map((v, i) => (
-                    <div key={v.id} className="swiper-slide" data-slide={i + 1} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${varieties.length}`}>
+                    <div key={v.name} className="swiper-slide" data-slide={i + 1} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${varieties.length}`}>
                       {v.boxed ? (
                         <Link className={`elementor-element elementor-element-${v.id} e-flex e-con-boxed e-con e-child`} data-id={v.id} data-element_type="container" href="/products">
                           <div className="e-con-inner">
@@ -536,7 +543,7 @@ export default function TheChainPage() {
                   {[
                     "Temperature-controlled transport",
                     "Careful hand-packing",
-                    <>Door-to-door delivery<br key="br" />across Scotland &amp; Ireland</>,
+                    <>Door-to-door delivery<br key="br" />across Scotland</>,
                     "Bulk orders for shops & restaurants",
                     "Order updates via WhatsApp",
                   ].map((text, i) => (
@@ -664,7 +671,7 @@ export default function TheChainPage() {
           <div className="elementor-element elementor-element-236eca9 e-con-full e-flex e-con e-child" data-id="236eca9" data-element_type="container">
             <Text id="51414ca" anim="fadeInUp" delay={150}>
               <p>
-                Our customers are located across Scotland and Ireland — families, fruit lovers, local shops and
+                Our customers are located across Scotland — families, fruit lovers, local shops and
                 restaurants who all share a taste for real Pakistani mangoes.
               </p>
             </Text>

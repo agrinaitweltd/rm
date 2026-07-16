@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- slice -->
+  <path d="M14 62a46 46 0 0 0 92 0z" fill="#4f8d36"/>
+  <path d="M20 62a40 40 0 0 0 80 0z" fill="#e8f2d8"/>
+  <path d="M25 62a35 35 0 0 0 70 0z" fill="#e0455a"/>
+  <g fill="#33224a">
+    <ellipse cx="45" cy="74" rx="2.5" ry="4" transform="rotate(20 45 74)"/>
+    <ellipse cx="60" cy="82" rx="2.5" ry="4"/>
+    <ellipse cx="75" cy="74" rx="2.5" ry="4" transform="rotate(-20 75 74)"/>
+    <ellipse cx="52" cy="66" rx="2.5" ry="4" transform="rotate(10 52 66)"/>
+    <ellipse cx="68" cy="66" rx="2.5" ry="4" transform="rotate(-10 68 66)"/>
+  </g>
+  <!-- rind stripe accents -->
+  <path d="M14 62h92" stroke="#7aa82d" stroke-width="3" opacity="0.6"/>
+</svg>

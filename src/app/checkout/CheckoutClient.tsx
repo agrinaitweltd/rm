@@ -12,6 +12,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useCart, formatGBP } from "@/components/cart/CartProvider";
+import ProductImg from "@/components/cart/ProductImg";
 import { DELIVERY_FEE_PENCE } from "@/lib/site";
 
 // Publishable key is public by design; the secret key never leaves the server.
@@ -94,17 +95,20 @@ function PayForm({ amount }: { amount: number }) {
       </label>
 
       <h3 className="rm-pay-section-title">Delivery address</h3>
+      {/* Scotland-only delivery: UK addresses only. */}
       <AddressElement
         options={{
           mode: "shipping",
-          allowedCountries: ["GB", "IE"],
+          allowedCountries: ["GB"],
           fields: { phone: "always" },
           validation: { phone: { required: "always" } },
         }}
       />
 
       <h3 className="rm-pay-section-title">Payment</h3>
-      <PaymentElement />
+      {/* Wallets are explicit: Apple Pay shows in Safari on Apple devices with
+          a Wallet card; Google Pay in Chrome with a saved card. */}
+      <PaymentElement options={{ wallets: { applePay: "auto", googlePay: "auto" } }} />
 
       {error && (
         <p className="rm-pay-error" role="alert">
@@ -224,7 +228,7 @@ export default function CheckoutClient() {
             if (!p) return null;
             return (
               <li key={line.id}>
-                <img src={p.image} alt="" />
+                <ProductImg src={p.image} fallback={p.icon} alt="" />
                 <span className="rm-checkout-summary-title">
                   {p.title} <em>× {line.quantity}</em>
                 </span>

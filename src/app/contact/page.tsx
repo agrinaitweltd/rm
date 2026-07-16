@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with RM Mangoes. Call or WhatsApp +44 0788080890, or email info@rmmangoes.co.uk. Delivering premium Pakistani mangoes throughout Scotland and Ireland.",
+    "Get in touch with RM Mangoes. Call or WhatsApp +44 0788080890, or email info@rmmangoes.co.uk. Delivering premium Pakistani mangoes throughout Scotland.",
   alternates: { canonical: "/contact" },
 };
 
@@ -89,7 +89,7 @@ export default function ContactPage() {
                   <br />
                   Delivering throughout
                   <br />
-                  Scotland &amp; Ireland
+                  Scotland
                 </p>
               </div>
             </div>
@@ -199,8 +199,8 @@ export default function ContactPage() {
           >
             <div className="elementor-widget-container">
               <p className="rm-wholesale-intro">
-                Run a shop, restaurant or market stall? We supply premium Pakistani mangoes in bulk across Scotland and
-                Ireland. Tell us what you need and we&rsquo;ll come back with prices.
+                Run a shop, restaurant or market stall? We supply premium Pakistani mangoes in bulk across
+                Scotland. Tell us what you need and we&rsquo;ll come back with prices.
               </p>
             </div>
           </div>

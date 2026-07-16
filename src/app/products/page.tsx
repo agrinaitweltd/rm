@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import AddToCartButton from "@/components/cart/AddToCartButton";
+import ProductImg from "@/components/cart/ProductImg";
 import { site, products } from "@/lib/site";
 
 // Re-render at most once a minute so sold-out labels track admin stock edits.
@@ -26,14 +27,21 @@ async function getStock(): Promise<Record<string, number>> {
 }
 
 export const metadata: Metadata = {
-  title: "Our Mangoes — Premium Pakistani Mango Boxes & Prices",
+  title: "Order Now — Premium Pakistani Mangoes & Fresh Fruit",
   description:
-    "Order premium Pakistani mangoes delivered throughout Scotland and Ireland. Small box £7, medium box £18, large box £30 — with multi-box bundles available.",
+    "Order premium Pakistani mangoes and fresh fruit delivered throughout Scotland — mango boxes from £7, plus guava, apricots, cherries, karela, jamun and watermelon.",
   alternates: { canonical: "/products" },
 };
 
 // Elementor element ids from the original template, one set per product card.
 const cardIds = [
+  { id: "7181f31", imageId: "bff7b29", headingId: "4f882f0", subId: "b5a1aa3" },
+  { id: "ecfcae6", imageId: "0d56ec3", headingId: "76fc612", subId: "03011fe" },
+  { id: "62c8657", imageId: "af84dda", headingId: "24e92bd", subId: "e076092" },
+  { id: "1901114", imageId: "19536e6", headingId: "f8798df", subId: "c5cab64" },
+  { id: "107f310", imageId: "d913f8e", headingId: "071b279", subId: "894abaa" },
+  { id: "1634c8e", imageId: "9815cf7", headingId: "6af9dd2", subId: "f446d35" },
+  // Fresh-fruit range (same card styling, cycled through the three palettes).
   { id: "7181f31", imageId: "bff7b29", headingId: "4f882f0", subId: "b5a1aa3" },
   { id: "ecfcae6", imageId: "0d56ec3", headingId: "76fc612", subId: "03011fe" },
   { id: "62c8657", imageId: "af84dda", headingId: "24e92bd", subId: "e076092" },
@@ -48,7 +56,9 @@ const productsJsonLd = {
   itemListElement: products.map((p, i) => ({
     "@type": "Product",
     position: i + 1,
-    name: `Premium Pakistani Mangoes — ${p.title}`,
+    name: p.id.startsWith("small") || p.id.startsWith("medium") || p.id.startsWith("large")
+      ? `Premium Pakistani Mangoes — ${p.title}`
+      : `${p.title} — RM Mangoes`,
     image: `${site.url}${p.image}`,
     offers: {
       "@type": "Offer",
@@ -124,7 +134,7 @@ export default async function ProductsPage() {
                 <div className="elementor-widget-container">
                   <p>
                     We import our mangoes directly from trusted growers in Pakistan and deliver them fresh to doorsteps
-                    throughout Scotland and Ireland. Choose the box size that suits you — or save with one of our
+                    throughout Scotland. Choose the box size that suits you — or save with one of our
                     multi-box bundles below.
                   </p>
                 </div>
@@ -158,7 +168,7 @@ export default async function ProductsPage() {
             const ids = cardIds[i];
             return (
               <div
-                key={ids.id}
+                key={product.id}
                 className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child elementor-invisible`}
                 data-id={ids.id}
                 data-element_type="container"
@@ -172,11 +182,11 @@ export default async function ProductsPage() {
                   data-widget_type="image.default"
                 >
                   <div className="elementor-widget-container">
-                    <img
-                      decoding="async"
+                    <ProductImg
                       src={product.image}
+                      fallback={product.icon}
                       title={product.title}
-                      alt={`Premium Pakistani Mangoes — ${product.title}`}
+                      alt={`${product.title} — fresh delivery across Scotland by RM Mangoes`}
                       loading="lazy"
                     />
                   </div>

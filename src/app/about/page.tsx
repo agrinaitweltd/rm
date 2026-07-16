@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About RM Mangoes",
   description:
-    "RM Mangoes is a family business importing premium Pakistani mangoes directly from trusted growers in Pakistan and delivering throughout Scotland and Ireland.",
+    "RM Mangoes is a family business importing premium Pakistani mangoes directly from trusted growers in Pakistan and delivering throughout Scotland.",
   alternates: { canonical: "/about" },
 };
 
@@ -21,7 +21,7 @@ const values = [
     title: "Trust",
     paragraphs: [
       "We believe that trust is the key foundation for building relationships.",
-      "From the growers we work with in Pakistan to every customer we deliver to in Scotland and Ireland, we strive to be completely transparent and to offer real value to everyone.",
+      "From the growers we work with in Pakistan to every customer we deliver to in Scotland, we strive to be completely transparent and to offer real value to everyone.",
     ],
   },
   {
@@ -32,7 +32,7 @@ const values = [
     icon: "/connect.svg",
     title: "Connect",
     paragraphs: [
-      "Bringing people, cultures and flavours together energises us. Our mangoes connect Pakistani orchards with families across Scotland and Ireland. We listen to our customers and growers alike — we are in this together. So, let’s make lasting memories together.",
+      "Bringing people, cultures and flavours together energises us. Our mangoes connect Pakistani orchards with families across Scotland. We listen to our customers and growers alike — we are in this together. So, let’s make lasting memories together.",
     ],
   },
   {
@@ -119,7 +119,7 @@ const partnerCards = [
     textId: "fb249cf",
     buttonId: "5402b26",
     image: "/partner-delivery-ireland.png",
-    heading: "Delivery Ireland",
+    heading: "Doorstep Delivery",
     text: "Coming to your doorstep",
     button: { text: "contact us", href: "/contact" },
   },
@@ -256,7 +256,7 @@ export default function AboutPage() {
               <div className="elementor-widget-container">
                 <p>
                   We import our mangoes directly from Pakistan, working with trusted growers we know personally.
-                  Throughout the season we deliver to doorsteps across Scotland and Ireland. Varieties like Sindhri,
+                  Throughout the season we deliver to doorsteps across Scotland. Varieties like Sindhri,
                   Chaunsa and Anwar Ratol have a special place in our hearts. We can safely call ourselves specialists
                   in the king of fruits.
                 </p>
@@ -296,7 +296,7 @@ export default function AboutPage() {
           <Text id="cb12385" cls="elementor-widget__width-initial elementor-widget-mobile__width-inherit" anim="fadeInUp">
             <p>
               RM Mangoes is more than a webshop — it is a small chain of trusted partners working as one team. Our
-              growers in Pakistan, our air-freight partners and our own delivery network in Scotland and Ireland each
+              growers in Pakistan, our air-freight partners and our own delivery network in Scotland each
               take care of their step of the journey. Because every link is in trusted hands, we can focus on what
               matters most: bringing you the very best mangoes of the season.
             </p>
@@ -439,7 +439,7 @@ export default function AboutPage() {
               <div className="elementor-widget-container">
                 <p>
                   But we are also people of tomorrow. We forge relationships for the long term — with our growers in
-                  Pakistan and with every family we deliver to in Scotland and Ireland. In everything we do, we try to
+                  Pakistan and with every family we deliver to in Scotland. In everything we do, we try to
                   do our part to bring people together around great fruit. And most of all, we have a passion for
                   mangoes.
                 </p>
@@ -455,7 +455,7 @@ export default function AboutPage() {
           >
             <div className="elementor-widget-container">
               <h2 className="elementor-heading-title elementor-size-default">
-                &lsquo;We bring the finest mangoes from Pakistani farms to Scottish and Irish doorsteps to create
+                &lsquo;We bring the finest mangoes from Pakistani farms to Scottish doorsteps to create
                 colorful and meaningful relationships for generations.&rsquo;
               </h2>
             </div>

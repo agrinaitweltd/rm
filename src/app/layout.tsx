@@ -48,25 +48,25 @@ import "@/styles/32-cart.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "RM Mangoes — Premium Pakistani Mangoes | Scotland & Ireland",
+    default: "RM Mangoes — Premium Pakistani Mangoes | Scotland",
     template: "%s | RM Mangoes",
   },
   description:
-    "RM Mangoes imports premium Pakistani mangoes directly from Pakistan and delivers throughout Scotland and Ireland. From Pakistani farms to Scottish & Irish doorsteps.",
-  keywords: ["Pakistani mangoes", "mango delivery", "Scotland", "Ireland", "premium mangoes", "mango box"],
+    "RM Mangoes imports premium Pakistani mangoes directly from Pakistan and delivers throughout Scotland. From Pakistani farms to Scottish doorsteps.",
+  keywords: ["Pakistani mangoes", "mango delivery", "Scotland", "premium mangoes", "mango box", "fresh fruit delivery"],
   openGraph: {
     type: "website",
     locale: "en_GB",
     url: site.url,
     siteName: site.name,
     title: "RM Mangoes — Premium Pakistani Mangoes",
-    description: "From Pakistani Farms to Scottish & Irish Doorsteps. Order your box of premium Pakistani mangoes.",
+    description: "From Pakistani Farms to Scottish Doorsteps. Order your box of premium Pakistani mangoes.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "RM Mangoes" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "RM Mangoes — Premium Pakistani Mangoes",
-    description: "From Pakistani Farms to Scottish & Irish Doorsteps.",
+    description: "From Pakistani Farms to Scottish Doorsteps.",
     images: ["/og.png"],
   },
   icons: { icon: "/icon-fav.png" },
@@ -162,7 +162,7 @@ const organizationJsonLd = {
   email: site.email,
   telephone: site.phoneDisplay,
   sameAs: [site.tiktok],
-  areaServed: ["Scotland", "Ireland"],
+  areaServed: ["Scotland"],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

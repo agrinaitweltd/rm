@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- bitter gourd body -->
+  <path d="M24 78C20 58 34 34 56 28c20-6 36 2 40 14 4 12-4 22-16 30-14 10-30 22-42 18-8-2-12-6-14-12z" fill="#4f8d36"/>
+  <path d="M30 74C28 58 40 40 58 35c16-5 28 1 31 10" stroke="#7aa82d" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- bumpy texture -->
+  <g fill="#7aa82d" opacity="0.9">
+    <ellipse cx="42" cy="56" rx="4" ry="6" transform="rotate(-30 42 56)"/>
+    <ellipse cx="58" cy="46" rx="4" ry="6" transform="rotate(-25 58 46)"/>
+    <ellipse cx="74" cy="42" rx="4" ry="5" transform="rotate(-15 74 42)"/>
+    <ellipse cx="50" cy="72" rx="4" ry="6" transform="rotate(-35 50 72)"/>
+    <ellipse cx="66" cy="62" rx="4" ry="6" transform="rotate(-28 66 62)"/>
+    <ellipse cx="82" cy="56" rx="3.5" ry="5" transform="rotate(-18 82 56)"/>
+    <ellipse cx="36" cy="86" rx="3.5" ry="5" transform="rotate(-40 36 86)"/>
+    <ellipse cx="56" cy="86" rx="3.5" ry="5" transform="rotate(-30 56 86)"/>
+  </g>
+  <path d="M92 40c6-4 10-10 10-16-6 0-12 4-14 10z" fill="#7aa82d"/>
+</svg>

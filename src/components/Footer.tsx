@@ -22,8 +22,8 @@ export default function Footer() {
                   <div className="textwidget">
                     <p>
                       <strong>{site.tagline}.</strong> RM Mangoes imports premium Pakistani mangoes directly from
-                      Pakistan. We deliver fresh, hand-picked mango boxes to doorsteps throughout Scotland and Ireland —
-                      from Pakistani farms to Scottish &amp; Irish doorsteps.
+                      Pakistan. We deliver fresh, hand-picked mango boxes to doorsteps throughout Scotland —
+                      from Pakistani farms to Scottish doorsteps.
                     </p>
                   </div>
                 </section>
@@ -42,7 +42,7 @@ export default function Footer() {
                     <p>
                       Delivering throughout
                       <br />
-                      Scotland &amp; Ireland
+                      Scotland
                     </p>
                     <p>
                       T: <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- whole guava -->
+  <ellipse cx="44" cy="66" rx="26" ry="28" fill="#7aa82d"/>
+  <ellipse cx="38" cy="58" rx="10" ry="12" fill="#8fbc3f" opacity="0.7"/>
+  <path d="M44 38c-1-6 2-11 6-13 1 4-1 10-6 13z" fill="#4f8d36"/>
+  <!-- halved guava -->
+  <g>
+    <ellipse cx="82" cy="70" rx="22" ry="24" fill="#8fbc3f"/>
+    <ellipse cx="82" cy="70" rx="17" ry="19" fill="#f7d9cf"/>
+    <ellipse cx="82" cy="70" rx="10" ry="12" fill="#f2a8a0"/>
+    <circle cx="78" cy="66" r="1.6" fill="#8c4a42"/>
+    <circle cx="86" cy="64" r="1.6" fill="#8c4a42"/>
+    <circle cx="88" cy="74" r="1.6" fill="#8c4a42"/>
+    <circle cx="79" cy="76" r="1.6" fill="#8c4a42"/>
+    <circle cx="83" cy="70" r="1.6" fill="#8c4a42"/>
+  </g>
+</svg>

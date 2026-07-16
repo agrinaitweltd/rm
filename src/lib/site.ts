@@ -1,6 +1,6 @@
 export const site = {
   name: "RM Mangoes",
-  slogan: "From Pakistani Farms to Scottish & Irish Doorsteps",
+  slogan: "From Pakistani Farms to Scottish Doorsteps",
   tagline: "King Of Mangoes",
   url: "https://rmmangoes.co.uk",
   // Add your Google Analytics 4 Measurement ID (e.g. "G-XXXXXXXXXX") to
@@ -12,7 +12,7 @@ export const site = {
   whatsapp: "https://wa.me/44788080890",
   whatsappOrder: (box: string) =>
     `https://wa.me/44788080890?text=${encodeURIComponent(
-      `Hi RM Mangoes, I'd like to order ${box} of premium Pakistani mangoes.`
+      `Hi RM Mangoes, I'd like to order ${box}.`
     )}`,
   tiktok: "https://www.tiktok.com/@rm_mangoes",
   tiktokHandle: "@rm_mangoes",
@@ -31,16 +31,25 @@ export type Product = {
   price: string;
   amount: number; // pence
   image: string;
+  // Flat SVG mark shown on The Chain page and used as an automatic fallback
+  // wherever the photo (image) hasn't been uploaded yet.
+  icon?: string;
   order: string;
 };
 
 export const products: Product[] = [
-  { id: "small-1", title: "Small Box", price: "£7", amount: 700, image: "/mango-box-small.png", order: "a Small Box (£7)" },
-  { id: "small-2", title: "2 Small Boxes", price: "£13", amount: 1300, image: "/mango-box-2-small.png", order: "2 Small Boxes (£13)" },
-  { id: "small-3", title: "3 Small Boxes", price: "£20", amount: 2000, image: "/mango-box-3-small.png", order: "3 Small Boxes (£20)" },
-  { id: "medium-1", title: "Medium Box", price: "£18", amount: 1800, image: "/mango-box-medium.png", order: "a Medium Box (£18)" },
-  { id: "medium-2", title: "2 Medium Boxes", price: "£35", amount: 3500, image: "/mango-box-2-medium.png", order: "2 Medium Boxes (£35)" },
-  { id: "large-1", title: "Large Box", price: "£30", amount: 3000, image: "/mango-box-large.png", order: "a Large Box (£30)" },
+  { id: "small-1", title: "Small Box", price: "£7", amount: 700, image: "/mango-box-small.png", order: "a Small Box of mangoes (£7)" },
+  { id: "small-2", title: "2 Small Boxes", price: "£13", amount: 1300, image: "/mango-box-2-small.png", order: "2 Small Boxes of mangoes (£13)" },
+  { id: "small-3", title: "3 Small Boxes", price: "£20", amount: 2000, image: "/mango-box-3-small.png", order: "3 Small Boxes of mangoes (£20)" },
+  { id: "medium-1", title: "Medium Box", price: "£18", amount: 1800, image: "/mango-box-medium.png", order: "a Medium Box of mangoes (£18)" },
+  { id: "medium-2", title: "2 Medium Boxes", price: "£35", amount: 3500, image: "/mango-box-2-medium.png", order: "2 Medium Boxes of mangoes (£35)" },
+  { id: "large-1", title: "Large Box", price: "£30", amount: 3000, image: "/mango-box-large.png", order: "a Large Box of mangoes (£30)" },
+  { id: "guava-large", title: "Large Guava", price: "£1", amount: 100, image: "/guava-large.png", icon: "/icon-guava.svg", order: "a Large Guava (£1)" },
+  { id: "apricot-250g", title: "Apricots 250g", price: "£2.50", amount: 250, image: "/apricot-250g.png", icon: "/icon-apricot.svg", order: "Apricots 250g (£2.50)" },
+  { id: "cherries-large", title: "Large Box of Cherries", price: "£12", amount: 1200, image: "/cherries-large.png", icon: "/icon-cherries.svg", order: "a Large Box of Cherries (£12)" },
+  { id: "karela-large", title: "Large Box of Karela", price: "£8", amount: 800, image: "/karela-large.png", icon: "/icon-karela.svg", order: "a Large Box of Karela (£8)" },
+  { id: "jamun", title: "Jamun", price: "£8", amount: 800, image: "/jamun.png", icon: "/icon-jamun.svg", order: "Jamun (£8)" },
+  { id: "watermelon-large", title: "Large Watermelon", price: "£5.50", amount: 550, image: "/watermelon-large.png", icon: "/icon-watermelon.svg", order: "a Large Watermelon (£5.50)" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).

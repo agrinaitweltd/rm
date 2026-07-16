@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCart, formatGBP } from "./CartProvider";
+import ProductImg from "./ProductImg";
 import { DELIVERY_FEE_PENCE, products } from "@/lib/site";
 
 // Floating cart button + slide-in drawer, rendered site-wide from the layout.
@@ -73,7 +74,7 @@ export default function CartWidget() {
                 if (!p) return null;
                 return (
                   <li key={line.id} className="rm-cart-line">
-                    <img src={p.image} alt="" className="rm-cart-line-img" />
+                    <ProductImg src={p.image} fallback={p.icon} alt="" className="rm-cart-line-img" />
                     <div className="rm-cart-line-info">
                       <span className="rm-cart-line-title">{p.title}</span>
                       <span className="rm-cart-line-price">{p.price}</span>
@@ -115,7 +116,7 @@ export default function CartWidget() {
               <ul>
                 {suggestions.map((p) => (
                   <li key={p.id}>
-                    <img src={p.image} alt="" />
+                    <ProductImg src={p.image} fallback={p.icon} alt="" />
                     <div className="rm-cart-suggest-info">
                       <span className="rm-cart-suggest-title">{p.title}</span>
                       <span className="rm-cart-suggest-price">{p.price}</span>
