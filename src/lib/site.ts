@@ -57,7 +57,7 @@ export const products: Product[] = [
   { id: "apricot-250g", title: "Apricots 250g", price: "£2.50", amount: 250, image: "/apricot-250g.png", icon: "/icon-apricot.svg", category: "fruit", order: "Apricots 250g (£2.50)" },
   { id: "cherries-large", title: "Large Box of Cherries", price: "£12", amount: 1200, image: "/cherries-large.png", icon: "/icon-cherries.svg", category: "fruit", order: "a Large Box of Cherries (£12)" },
   { id: "karela-large", title: "Large Box of Karela", price: "£8", amount: 800, image: "/karela-large.png", icon: "/icon-karela.svg", category: "veg", order: "a Large Box of Karela (£8)" },
-  { id: "jamun", title: "Jamun", price: "£8", amount: 800, image: "/jamun.png", icon: "/icon-jamun.svg", category: "fruit", order: "Jamun (£8)" },
+  { id: "jamun", title: "Jamun", price: "£12", amount: 1200, image: "/jamun.png", icon: "/icon-jamun.svg", category: "fruit", order: "Jamun (£12)" },
   { id: "watermelon-large", title: "Large Watermelon", price: "£5.50", amount: 550, image: "/watermelon-large.png", icon: "/icon-watermelon.svg", category: "fruit", order: "a Large Watermelon (£5.50)" },
   { id: "khubani-large-apricot", title: "Khubani - Pakistani Large Box Apricot", price: "£10", amount: 1000, image: "/khubani-large-apricot.png", category: "fruit", order: "Khubani - Pakistani Large Box Apricot (£10)" },
   { id: "kishmish-small-grapes", title: "Kishmish - Pakistani Small Grapes", price: "£3.50", amount: 350, image: "/kishmish-small-grapes.png", category: "fruit", order: "Kishmish - Pakistani Small Grapes (£3.50)" },

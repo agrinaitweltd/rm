@@ -555,6 +555,44 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   font-size: 1.25rem;
   margin: -1rem 0 1.6rem;
 }
+
+/* ---- Grouped "All Produce" view: one titled section per category ---- */
+.rm-shop-group {
+  width: 100%;
+  margin-bottom: 2.4rem;
+}
+.rm-shop-group-title {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: #f6a200;
+  margin: 0 0 1.6rem;
+  padding: 0 1rem;
+}
+.rm-shop-group-title span {
+  font-family: "Avenir-Medium", Helvetica, Arial, sans-serif;
+  font-size: 1.25rem;
+  color: #acca38;
+  background: rgba(122, 168, 45, 0.14);
+  border: 1px solid rgba(122, 168, 45, 0.4);
+  border-radius: 14px;
+  padding: 0.2rem 1rem;
+}
+/* rule line filling the rest of the row */
+.rm-shop-group-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(122, 168, 45, 0.45), transparent);
+}
+.rm-shop-group-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
 /* Cards fade up whenever the filter changes (key remount restarts it). */
 .rm-shop-card {
   position: relative;

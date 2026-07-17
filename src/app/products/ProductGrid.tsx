@@ -3,7 +3,7 @@
 import { useState } from "react";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import ProductImg from "@/components/cart/ProductImg";
-import { site, products, categories, type ProductCategory } from "@/lib/site";
+import { site, products, categories, type Product, type ProductCategory } from "@/lib/site";
 
 // Elementor element ids from the original template, cycled per card so every
 // card keeps the theme's three colour palettes.
@@ -18,14 +18,91 @@ const cardIds = [
 
 type Filter = "all" | ProductCategory;
 
-// Category-filtered product grid. Cards reuse the theme's Elementor card
-// markup; filtering re-triggers a CSS fade so switches feel intentional.
+const byPrice = (a: Product, b: Product) => a.amount - b.amount;
+
+function Card({
+  product,
+  index,
+  filter,
+  soldOut,
+  showChip,
+}: {
+  product: Product;
+  index: number;
+  filter: Filter;
+  soldOut: boolean;
+  showChip: boolean;
+}) {
+  const ids = cardIds[index % cardIds.length];
+  return (
+    <div
+      // filter in the key restarts the fade animation on every switch
+      key={`${filter}-${product.id}`}
+      className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child rm-shop-card`}
+      data-id={ids.id}
+      data-element_type="container"
+      style={{ animationDelay: `${(index % 6) * 60}ms` }}
+    >
+      {showChip && (
+        <span className="rm-shop-card-chip">
+          {categories.find((c) => c.key === product.category)?.label}
+        </span>
+      )}
+      <div
+        className={`elementor-element elementor-element-${ids.imageId} e-transform elementor-widget-tablet__width-initial elementor-widget elementor-widget-image`}
+        data-id={ids.imageId}
+        data-element_type="widget"
+        data-settings='{"_transform_scale_effect_hover":{"unit":"px","size":1.1,"sizes":[]}}'
+        data-widget_type="image.default"
+      >
+        <div className="elementor-widget-container">
+          <ProductImg
+            src={product.image}
+            fallback={product.icon}
+            title={product.title}
+            alt={`${product.title} — fresh delivery across Scotland by RM Mangoes`}
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div
+        className={`elementor-element elementor-element-${ids.headingId} elementor-widget elementor-widget-heading`}
+        data-id={ids.headingId}
+        data-element_type="widget"
+        data-widget_type="heading.default"
+      >
+        <div className="elementor-widget-container">
+          <h3 className="elementor-heading-title elementor-size-default">{product.title}</h3>
+        </div>
+      </div>
+      <div
+        className={`elementor-element elementor-element-${ids.subId} elementor-widget elementor-widget-heading`}
+        data-id={ids.subId}
+        data-element_type="widget"
+        data-widget_type="heading.default"
+      >
+        <div className="elementor-widget-container">
+          <p className="elementor-heading-title elementor-size-default">{product.price}</p>
+        </div>
+      </div>
+      <AddToCartButton id={product.id} soldOut={soldOut} />
+      <a className="rm-card-whatsapp" href={site.whatsappOrder(product.order)} target="_blank" rel="noopener">
+        or order on WhatsApp
+      </a>
+    </div>
+  );
+}
+
+// Category-filtered product grid. "All Produce" groups the range under a
+// heading per category; every group is sorted cheapest-first.
 export default function ProductGrid({ stock }: { stock: Record<string, number> }) {
   const [filter, setFilter] = useState<Filter>("all");
-  const visible = filter === "all" ? products : products.filter((p) => p.category === filter);
 
   const countFor = (f: Filter) =>
     f === "all" ? products.length : products.filter((p) => p.category === f).length;
+
+  const total = countFor(filter);
+  const soldOut = (p: Product) => (stock[p.id] ?? 1) <= 0;
 
   return (
     <>
@@ -45,73 +122,45 @@ export default function ProductGrid({ stock }: { stock: Record<string, number> }
         ))}
       </div>
       <p className="rm-shop-showing" role="status">
-        Showing {visible.length} {visible.length === 1 ? "product" : "products"}
+        Showing {total} {total === 1 ? "product" : "products"}
         {filter !== "all" ? ` in ${categories.find((c) => c.key === filter)?.label}` : ""}
       </p>
 
-      {visible.map((product, i) => {
-        const ids = cardIds[i % cardIds.length];
-        return (
-          <div
-            // filter in the key restarts the fade animation on every switch
-            key={`${filter}-${product.id}`}
-            className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child rm-shop-card`}
-            data-id={ids.id}
-            data-element_type="container"
-            style={{ animationDelay: `${(i % 6) * 60}ms` }}
-          >
-            <span className="rm-shop-card-chip">
-              {categories.find((c) => c.key === product.category)?.label}
-            </span>
-            <div
-              className={`elementor-element elementor-element-${ids.imageId} e-transform elementor-widget-tablet__width-initial elementor-widget elementor-widget-image`}
-              data-id={ids.imageId}
-              data-element_type="widget"
-              data-settings='{"_transform_scale_effect_hover":{"unit":"px","size":1.1,"sizes":[]}}'
-              data-widget_type="image.default"
-            >
-              <div className="elementor-widget-container">
-                <ProductImg
-                  src={product.image}
-                  fallback={product.icon}
-                  title={product.title}
-                  alt={`${product.title} — fresh delivery across Scotland by RM Mangoes`}
-                  loading="lazy"
-                />
+      {filter === "all"
+        ? categories.map((cat) => {
+            const group = products.filter((p) => p.category === cat.key).sort(byPrice);
+            if (group.length === 0) return null;
+            return (
+              <div key={cat.key} className="rm-shop-group">
+                <h2 className="rm-shop-group-title">
+                  {cat.label}
+                  <span>{group.length}</span>
+                </h2>
+                <div className="rm-shop-group-cards">
+                  {group.map((product, i) => (
+                    <Card
+                      key={`all-${product.id}`}
+                      product={product}
+                      index={i}
+                      filter={filter}
+                      soldOut={soldOut(product)}
+                      showChip={false}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div
-              className={`elementor-element elementor-element-${ids.headingId} elementor-widget elementor-widget-heading`}
-              data-id={ids.headingId}
-              data-element_type="widget"
-              data-widget_type="heading.default"
-            >
-              <div className="elementor-widget-container">
-                <h3 className="elementor-heading-title elementor-size-default">{product.title}</h3>
-              </div>
-            </div>
-            <div
-              className={`elementor-element elementor-element-${ids.subId} elementor-widget elementor-widget-heading`}
-              data-id={ids.subId}
-              data-element_type="widget"
-              data-widget_type="heading.default"
-            >
-              <div className="elementor-widget-container">
-                <p className="elementor-heading-title elementor-size-default">{product.price}</p>
-              </div>
-            </div>
-            <AddToCartButton id={product.id} soldOut={(stock[product.id] ?? 1) <= 0} />
-            <a
-              className="rm-card-whatsapp"
-              href={site.whatsappOrder(product.order)}
-              target="_blank"
-              rel="noopener"
-            >
-              or order on WhatsApp
-            </a>
-          </div>
-        );
-      })}
+            );
+          })
+        : [...products.filter((p) => p.category === filter)].sort(byPrice).map((product, i) => (
+            <Card
+              key={`${filter}-${product.id}`}
+              product={product}
+              index={i}
+              filter={filter}
+              soldOut={soldOut(product)}
+              showChip={false}
+            />
+          ))}
     </>
   );
 }
