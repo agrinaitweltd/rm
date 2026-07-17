@@ -175,7 +175,20 @@
   color: #cfcfcf;
   font-size: 1.5rem;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
+}
+.rm-cart-empty-emoji {
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 0.8rem;
+  animation: rmFloatY 4s ease-in-out infinite;
+}
+.rm-cart-empty p {
+  margin: 0.3rem 0;
+}
+.rm-cart-empty-sub {
+  color: #8b8b8b;
+  font-size: 1.3rem;
 }
 .rm-cart-lines {
   list-style: none;
@@ -832,6 +845,47 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   font-size: 1.5rem;
   text-align: center;
   padding: 3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* ---- Small brand spinner ---- */
+@keyframes rmSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.rm-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #f6a200;
+  border-radius: 50%;
+  animation: rmSpin 0.8s linear infinite;
+  vertical-align: -2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rm-spinner {
+    animation-duration: 2.4s;
+  }
+}
+
+/* ---- Trust strip under the pay button ---- */
+.rm-pay-trust {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.8rem;
+  color: #9a9a9a;
+  font-size: 1.2rem;
+}
+.rm-pay-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 @media (max-width: 860px) {

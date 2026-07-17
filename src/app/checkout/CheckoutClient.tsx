@@ -200,9 +200,20 @@ function PayForm({ amount }: { amount: number }) {
       )}
 
       <button type="submit" className="rm-pay-button" disabled={!stripe || submitting}>
-        {submitting ? "Processing…" : `Pay Now — ${formatGBP(amount)}`}
+        {submitting ? (
+          <>
+            <span className="rm-spinner" aria-hidden="true" /> Processing…
+          </>
+        ) : (
+          `Pay Now — ${formatGBP(amount)}`
+        )}
       </button>
-      <p className="rm-pay-note">Payments are processed securely by Stripe. Your card details never touch our servers.</p>
+      <div className="rm-pay-trust">
+        <span>🔒 SSL encrypted</span>
+        <span>Powered by Stripe</span>
+        <span>Apple Pay &amp; Google Pay</span>
+      </div>
+      <p className="rm-pay-note">Your card details never touch our servers.</p>
     </form>
   );
 }
@@ -389,7 +400,9 @@ export default function CheckoutClient() {
             <PayForm amount={amount} />
           </Elements>
         ) : (
-          <p className="rm-pay-loading">Preparing secure payment…</p>
+          <p className="rm-pay-loading">
+            <span className="rm-spinner" aria-hidden="true" /> Preparing secure payment…
+          </p>
         )}
       </section>
     </div>

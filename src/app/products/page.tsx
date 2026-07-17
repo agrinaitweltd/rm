@@ -77,7 +77,7 @@ export default async function ProductsPage() {
               data-widget_type="heading.default"
             >
               <div className="elementor-widget-container">
-                <h1 className="elementor-heading-title elementor-size-default">Premium Pakistani Mangoes</h1>
+                <h1 className="elementor-heading-title elementor-size-default">Premium Pakistani Mangoes &amp; Fresh Produce</h1>
               </div>
             </div>
             <div
@@ -115,9 +115,9 @@ export default async function ProductsPage() {
               >
                 <div className="elementor-widget-container">
                   <p>
-                    We import our mangoes directly from trusted growers in Pakistan and deliver them fresh to doorsteps
-                    throughout Scotland. Choose the box size that suits you — or save with one of our
-                    multi-box bundles below.
+                    We import directly from trusted growers in Pakistan and deliver fresh to doorsteps throughout
+                    Scotland — mango boxes, seasonal fruit like lychee, cherries and dragon fruit, and fresh
+                    vegetables. Pick a category below to browse, and save with our multi-box mango bundles.
                   </p>
                 </div>
               </div>

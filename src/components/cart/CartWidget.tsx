@@ -83,7 +83,11 @@ export default function CartWidget() {
 
         <div className="rm-cart-body">
           {lines.length === 0 ? (
-            <p className="rm-cart-empty">Your cart is empty.</p>
+            <div className="rm-cart-empty">
+              <span className="rm-cart-empty-emoji" aria-hidden="true">🥭</span>
+              <p>Your cart is empty.</p>
+              <p className="rm-cart-empty-sub">Fresh Pakistani produce, delivered across Scotland.</p>
+            </div>
           ) : (
             <ul className="rm-cart-lines">
               {lines.map((line) => {
@@ -127,9 +131,9 @@ export default function CartWidget() {
             </ul>
           )}
 
-          {lines.length > 0 && suggestions.length > 0 && (
+          {suggestions.length > 0 && (
             <div className="rm-cart-suggest">
-              <h4>Interested in these too?</h4>
+              <h4>{lines.length > 0 ? "Interested in these too?" : "Try our favourites"}</h4>
               <ul>
                 {suggestions.map((p) => (
                   <li key={p.id}>
