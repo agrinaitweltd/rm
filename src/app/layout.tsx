@@ -48,24 +48,24 @@ import "@/styles/32-cart.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "RM Mangoes — Premium Pakistani Mangoes | Scotland",
+    default: "RM Mangoes — Premium Pakistani Mangoes, Fruit & Veg | Scotland",
     template: "%s | RM Mangoes",
   },
   description:
-    "RM Mangoes imports premium Pakistani mangoes directly from Pakistan and delivers throughout Scotland. From Pakistani farms to Scottish doorsteps.",
-  keywords: ["Pakistani mangoes", "mango delivery", "Scotland", "premium mangoes", "mango box", "fresh fruit delivery"],
+    "RM Mangoes imports premium Pakistani mangoes, fresh fruit and vegetables directly from Pakistan and delivers throughout Scotland. From Pakistani farms to Scottish doorsteps.",
+  keywords: ["Pakistani mangoes", "mango delivery", "Scotland", "premium mangoes", "mango box", "fresh fruit delivery", "fruit and veg delivery", "Pakistani fruit"],
   openGraph: {
     type: "website",
     locale: "en_GB",
     url: site.url,
     siteName: site.name,
-    title: "RM Mangoes — Premium Pakistani Mangoes",
-    description: "From Pakistani Farms to Scottish Doorsteps. Order your box of premium Pakistani mangoes.",
+    title: "RM Mangoes — Premium Pakistani Mangoes, Fruit & Veg",
+    description: "From Pakistani Farms to Scottish Doorsteps. Order premium mangoes, fresh fruit and vegetables.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "RM Mangoes" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RM Mangoes — Premium Pakistani Mangoes",
+    title: "RM Mangoes — Premium Pakistani Mangoes, Fruit & Veg",
     description: "From Pakistani Farms to Scottish Doorsteps.",
     images: ["/og.png"],
   },

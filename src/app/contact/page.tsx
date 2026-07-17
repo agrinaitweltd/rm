@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with RM Mangoes. Call or WhatsApp +44 0788080890, or email info@rmmangoes.co.uk. Delivering premium Pakistani mangoes throughout Scotland.",
+    "Get in touch with RM Mangoes. Call or WhatsApp +44 0788080890, or email info@rmmangoes.co.uk. Delivering premium Pakistani mangoes, fruit and veg throughout Scotland.",
   alternates: { canonical: "/contact" },
 };
 

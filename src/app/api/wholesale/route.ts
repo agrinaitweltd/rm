@@ -142,11 +142,11 @@ export async function POST(request: Request) {
       </p>
       <p>In the meantime you can reach us any time:</p>
       <p>
-        📞 <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
-        💬 <a href="${site.whatsapp}">WhatsApp us</a><br/>
-        ✉️ <a href="mailto:${site.email}">${site.email}</a>
+        Phone: <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
+        WhatsApp: <a href="${site.whatsapp}">message us</a><br/>
+        Email: <a href="mailto:${site.email}">${site.email}</a>
       </p>
-      <p style="color:#f6a200;font-weight:bold">RM Mangoes — King Of Mangoes 🥭</p>
+      <p style="color:#f6a200;font-weight:bold">RM Mangoes — Fresh Pakistani Produce</p>
     </div>
   `;
 

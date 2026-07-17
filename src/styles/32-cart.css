@@ -177,11 +177,19 @@
   text-align: center;
   margin-top: 2rem;
 }
-.rm-cart-empty-emoji {
+.rm-cart-empty-mark {
   display: block;
-  font-size: 4rem;
-  margin-bottom: 0.8rem;
+  width: 56px;
+  height: auto;
+  margin: 0 auto 1rem;
   animation: rmFloatY 4s ease-in-out infinite;
+}
+/* Brand mark on status cards (order confirmed, cart empty, enquiry sent). */
+.rm-status-mark {
+  display: block;
+  width: 64px;
+  height: auto;
+  margin: 0 auto 1.4rem;
 }
 .rm-cart-empty p {
   margin: 0.3rem 0;
@@ -540,9 +548,39 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
 .rm-shop-tab.is-active .rm-shop-tab-count {
   background: rgba(255, 255, 255, 0.22);
 }
+.rm-shop-showing {
+  width: 100%;
+  text-align: center;
+  color: #8b8b8b;
+  font-size: 1.25rem;
+  margin: -1rem 0 1.6rem;
+}
 /* Cards fade up whenever the filter changes (key remount restarts it). */
 .rm-shop-card {
+  position: relative;
   animation: rmFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  border-radius: 18px;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.rm-shop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.rm-shop-card-chip {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 2;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 0.35rem 1.1rem;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .rm-shop-card {

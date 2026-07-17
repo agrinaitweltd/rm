@@ -29,7 +29,7 @@ export default function RatingPrompt() {
   if (state === "done") {
     return (
       <div className="rm-rating" role="status">
-        <p className="rm-rating-thanks">Thank you for the feedback! 🥭</p>
+        <p className="rm-rating-thanks">Thank you for the feedback!</p>
       </div>
     );
   }

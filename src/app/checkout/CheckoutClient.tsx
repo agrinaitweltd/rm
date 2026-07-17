@@ -209,7 +209,13 @@ function PayForm({ amount }: { amount: number }) {
         )}
       </button>
       <div className="rm-pay-trust">
-        <span>🔒 SSL encrypted</span>
+        <span>
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
+            <rect x="0.5" y="5" width="10" height="7.5" rx="1.5" fill="currentColor" />
+            <path d="M2.75 5V3.75a2.75 2.75 0 1 1 5.5 0V5" stroke="currentColor" strokeWidth="1.4" fill="none" />
+          </svg>
+          SSL encrypted
+        </span>
         <span>Powered by Stripe</span>
         <span>Apple Pay &amp; Google Pay</span>
       </div>
@@ -299,7 +305,7 @@ export default function CheckoutClient() {
     return (
       <div className="rm-checkout-status">
         <div className="rm-checkout-card">
-          <div className="rm-soon-emoji" aria-hidden="true">🥭</div>
+          <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
           <h1>Your cart is empty</h1>
           <p>Add a box of premium Pakistani mangoes and come back.</p>
           <Link href="/products" className="rm-checkout-cta">

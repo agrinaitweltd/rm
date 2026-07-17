@@ -44,6 +44,10 @@ export default function ProductGrid({ stock }: { stock: Record<string, number> }
           </button>
         ))}
       </div>
+      <p className="rm-shop-showing" role="status">
+        Showing {visible.length} {visible.length === 1 ? "product" : "products"}
+        {filter !== "all" ? ` in ${categories.find((c) => c.key === filter)?.label}` : ""}
+      </p>
 
       {visible.map((product, i) => {
         const ids = cardIds[i % cardIds.length];
@@ -56,6 +60,9 @@ export default function ProductGrid({ stock }: { stock: Record<string, number> }
             data-element_type="container"
             style={{ animationDelay: `${(i % 6) * 60}ms` }}
           >
+            <span className="rm-shop-card-chip">
+              {categories.find((c) => c.key === product.category)?.label}
+            </span>
             <div
               className={`elementor-element elementor-element-${ids.imageId} e-transform elementor-widget-tablet__width-initial elementor-widget elementor-widget-image`}
               data-id={ids.imageId}

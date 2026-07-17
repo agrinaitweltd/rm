@@ -21,9 +21,9 @@ export default function Footer() {
                   <h3 className="widget-title">About RM Mangoes</h3>
                   <div className="textwidget">
                     <p>
-                      <strong>{site.tagline}.</strong> RM Mangoes imports premium Pakistani mangoes directly from
-                      Pakistan. We deliver fresh, hand-picked mango boxes to doorsteps throughout Scotland —
-                      from Pakistani farms to Scottish doorsteps.
+                      <strong>{site.tagline}.</strong> RM Mangoes imports premium Pakistani mangoes, fresh fruit and
+                      vegetables directly from Pakistan. We deliver hand-picked produce to doorsteps throughout
+                      Scotland — from Pakistani farms to Scottish doorsteps.
                     </p>
                   </div>
                 </section>

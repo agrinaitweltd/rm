@@ -247,11 +247,11 @@ async function sendPaymentFailedEmail(intent: Stripe.PaymentIntent) {
         <p><a href="${site.url}/checkout" style="color:#4f8d36;font-weight:bold">Return to checkout →</a></p>
         <p>Need a hand? Reach us any time:</p>
         <p>
-          📞 <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
-          💬 <a href="${site.whatsapp}">WhatsApp us</a><br/>
-          ✉️ <a href="mailto:${site.email}">${site.email}</a>
+          Phone: <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
+          WhatsApp: <a href="${site.whatsapp}">message us</a><br/>
+          Email: <a href="mailto:${site.email}">${site.email}</a>
         </p>
-        <p style="color:#f6a200;font-weight:bold">RM Mangoes — King Of Mangoes 🥭</p>
+        <p style="color:#f6a200;font-weight:bold">RM Mangoes — Fresh Pakistani Produce</p>
       </div>`,
   });
 }
@@ -306,21 +306,21 @@ async function sendOrderEmails(
   await resend.emails.send({
     from,
     to: customer.email,
-    subject: "Your order is confirmed — RM Mangoes 🥭",
+    subject: "Your order is confirmed — RM Mangoes",
     html: `
       <div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;color:#1e1e1e">
         <h2 style="color:#4f8d36">Thank you for your order${customer.name ? `, ${esc(customer.name.split(" ")[0])}` : ""}!</h2>
-        <p>Your payment was successful and your mangoes are being prepared.</p>
+        <p>Your payment was successful and your order is being prepared.</p>
         ${itemsTable}
         <h3 style="margin-top:20px">Delivering to</h3>
         <p>${esc(customer.name)}<br/>${esc(customer.address)}</p>
         <p>Questions? Reach us any time:</p>
         <p>
-          📞 <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
-          💬 <a href="${site.whatsapp}">WhatsApp us</a><br/>
-          ✉️ <a href="mailto:${site.email}">${site.email}</a>
+          Phone: <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
+          WhatsApp: <a href="${site.whatsapp}">message us</a><br/>
+          Email: <a href="mailto:${site.email}">${site.email}</a>
         </p>
-        <p style="color:#f6a200;font-weight:bold">RM Mangoes — King Of Mangoes 🥭</p>
+        <p style="color:#f6a200;font-weight:bold">RM Mangoes — Fresh Pakistani Produce</p>
       </div>`,
   });
 }

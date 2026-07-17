@@ -69,7 +69,7 @@ export default function WholesaleForm() {
   if (status === "sent") {
     return (
       <div className="rm-wholesale-form rm-wholesale-success" role="status">
-        <div className="rm-soon-emoji" aria-hidden="true">🥭</div>
+        <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
         <h3>Thank you!</h3>
         <p>Your wholesale enquiry has been sent. Check your inbox — we&rsquo;ve emailed you a confirmation.</p>
       </div>

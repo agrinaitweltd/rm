@@ -6,9 +6,9 @@ import HeroBackgroundVideo from "@/components/HeroBackgroundVideo";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "RM Mangoes — Premium Pakistani Mangoes | Scotland",
+  title: "RM Mangoes — Premium Pakistani Mangoes, Fruit & Veg | Scotland",
   description:
-    "We import the very finest and freshest Pakistani mangoes and deliver them to doorsteps throughout Scotland. From Pakistani farms to Scottish doorsteps.",
+    "We import the very finest Pakistani mangoes, fresh fruit and vegetables and deliver them to doorsteps throughout Scotland. From Pakistani farms to Scottish doorsteps.",
   alternates: { canonical: "/" },
 };
 
@@ -142,7 +142,7 @@ export default function HomePage() {
               data-widget_type="heading.default"
             >
               <div className="elementor-widget-container">
-                <h1 className="elementor-heading-title elementor-size-default">Premium Pakistani mango importer</h1>
+                <h1 className="elementor-heading-title elementor-size-default">Premium Pakistani produce importer</h1>
               </div>
             </div>
             <div
@@ -155,14 +155,14 @@ export default function HomePage() {
               <div className="elementor-widget-container">
                 <p>
                   <strong>
-                    We are RM Mangoes. We import the very finest and freshest Pakistani mangoes, straight from the
-                    orchards of Pakistan.
+                    We are RM Mangoes. We import the very finest and freshest Pakistani mangoes, fruit and
+                    vegetables, straight from the farms of Pakistan.
                   </strong>
                 </p>
                 <p>
-                  Throughout the season we deliver premium mango boxes to doorsteps across Scotland. But we
-                  are more than just a mango importer. Our relationships with growers in Pakistan and our customers here
-                  are built for the long term, ensuring we are your ideal mango partner not only today, but also in the
+                  Throughout the season we deliver premium mango boxes, seasonal fruit like lychee, cherries and
+                  dragon fruit, and fresh vegetables to doorsteps across Scotland. Our relationships with growers in
+                  Pakistan and our customers here are built for the long term — your produce partner today and in the
                   future.
                 </p>
               </div>

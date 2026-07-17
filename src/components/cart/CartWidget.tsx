@@ -84,7 +84,7 @@ export default function CartWidget() {
         <div className="rm-cart-body">
           {lines.length === 0 ? (
             <div className="rm-cart-empty">
-              <span className="rm-cart-empty-emoji" aria-hidden="true">🥭</span>
+              <img className="rm-cart-empty-mark" src="/logo4.png" alt="" width={492} height={492} />
               <p>Your cart is empty.</p>
               <p className="rm-cart-empty-sub">Fresh Pakistani produce, delivered across Scotland.</p>
             </div>

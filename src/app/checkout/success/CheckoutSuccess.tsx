@@ -26,7 +26,7 @@ export default function CheckoutSuccess() {
     return (
       <div className="rm-checkout-status">
         <div className="rm-checkout-card">
-          <div className="rm-soon-emoji" aria-hidden="true">🥭</div>
+          <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
           <h1>Payment not completed</h1>
           <p>Your payment didn&rsquo;t go through — you have not been charged and your cart is untouched.</p>
           <Link href="/checkout" className="rm-checkout-cta">
@@ -40,15 +40,13 @@ export default function CheckoutSuccess() {
   return (
     <div className="rm-checkout-status">
       <div className="rm-checkout-card">
-        <div className="rm-soon-emoji" aria-hidden="true">
-          🥭
-        </div>
+        <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
         <h1>Thank you for your order!</h1>
         <p>
           Your payment was successful and your order is confirmed. We&rsquo;ve emailed your receipt, and we&rsquo;ll be
           in touch about delivery.
         </p>
-        <p>Fresh Pakistani mangoes are on their way to your door.</p>
+        <p>Fresh Pakistani produce is on its way to your door.</p>
         <RatingPrompt />
         <Link href="/products" className="rm-checkout-cta">
           Back to shop
