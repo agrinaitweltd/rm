@@ -1,0 +1,25 @@
+-- Stock rows for the extended fruit & veg price list.
+insert into public.product_stock (product_id, stock) values
+  ('apricot-2kg', 100),
+  ('peach-flat-250g', 100),
+  ('melon-yellow', 100),
+  ('melon-galia', 100),
+  ('grapes-xl-bunch', 100),
+  ('pomegranate', 100),
+  ('large-1-20off', 100),
+  ('figs-box', 100),
+  ('bananas-bunch', 100),
+  ('tomato-box', 100),
+  ('tomato-plum', 100),
+  ('coconut-water', 100),
+  ('coriander-bunch', 100),
+  ('garlic-bunch', 100),
+  ('mushrooms-3kg', 100),
+  ('lauki-bottle-gourd', 100),
+  ('pepper-mix', 100),
+  ('mint-bunch', 100),
+  ('lettuce-4-large', 100),
+  ('spring-onion-bunch', 100),
+  ('chilli-bird-eye', 100),
+  ('chilli-bullet-box', 100)
+on conflict (product_id) do nothing;
