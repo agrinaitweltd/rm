@@ -78,6 +78,8 @@ export const products: Product[] = [
 
   { id: "tomato-box", title: "Tomato Box", price: "£6", amount: 600, image: "/tomato-box.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Tomato Box (£6)" },
   { id: "tomato-plum", title: "Plum Tomatoes", price: "£8", amount: 800, image: "/tomato-plum.png", icon: "/icon-veg-generic.svg", category: "veg", order: "Plum Tomatoes (£8)" },
+  { id: "pineapple-large", title: "Big Pineapple", price: "£3", amount: 300, image: "/pineapple-large.png", icon: "/icon-pineapple.svg", category: "fruit", order: "a Big Pineapple (£3)" },
+  { id: "golden-pear", title: "Pura Vida Golden Pear", price: "£1", amount: 100, image: "/golden-pear.png", icon: "/icon-pear.svg", category: "fruit", order: "a Pura Vida Golden Pear (£1)" },
   { id: "coconut-water", title: "Coconut Water", price: "£1.50", amount: 150, image: "/coconut-water.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Coconut Water (£1.50)" },
   { id: "coriander-bunch", title: "Coriander Bunch", price: "£0.50", amount: 50, image: "/coriander-bunch.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Coriander Bunch (£0.50)" },
   { id: "garlic-bunch", title: "Garlic Bunch", price: "£1", amount: 100, image: "/garlic-bunch.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Garlic Bunch (£1)" },
