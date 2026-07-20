@@ -11,11 +11,16 @@ type CartContextValue = {
   itemCount: number;
   totalPence: number;
   setOpen: (open: boolean) => void;
-  addItem: (id: string) => void;
+  addItem: (id: string, quantity?: number) => void;
   setQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
   clear: () => void;
   productFor: (id: string) => Product | undefined;
+  // Product most recently added, so a global "Added to cart" confirmation
+  // (View Cart / Continue Shopping) can be shown without the drawer itself
+  // popping open — addItem no longer opens the drawer automatically.
+  lastAdded: Product | null;
+  dismissLastAdded: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -43,6 +48,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [open, setOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [lastAdded, setLastAdded] = useState<Product | null>(null);
 
   // Load persisted cart after mount (avoids SSR/client mismatch).
   useEffect(() => {
@@ -62,17 +68,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const productFor = useCallback((id: string) => products.find((p) => p.id === id), []);
 
-  const addItem = useCallback((id: string) => {
-    if (!products.some((p) => p.id === id)) return;
+  const addItem = useCallback((id: string, quantity = 1) => {
+    const product = products.find((p) => p.id === id);
+    if (!product) return;
+    const qty = Math.max(1, Math.min(99, Math.floor(quantity) || 1));
     setLines((prev) => {
       const existing = prev.find((l) => l.id === id);
       if (existing) {
-        return prev.map((l) => (l.id === id ? { ...l, quantity: Math.min(99, l.quantity + 1) } : l));
+        return prev.map((l) => (l.id === id ? { ...l, quantity: Math.min(99, l.quantity + qty) } : l));
       }
-      return [...prev, { id, quantity: 1 }];
+      return [...prev, { id, quantity: qty }];
     });
-    setOpen(true);
+    // The confirmation modal (View Cart / Continue Shopping) handles the
+    // "what next" moment now — the drawer no longer force-opens on add.
+    setLastAdded(product);
   }, []);
+
+  const dismissLastAdded = useCallback(() => setLastAdded(null), []);
 
   const setQuantity = useCallback((id: string, quantity: number) => {
     const q = Math.max(0, Math.min(99, Math.floor(quantity) || 0));
@@ -120,6 +132,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     removeItem,
     clear,
     productFor,
+    lastAdded,
+    dismissLastAdded,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

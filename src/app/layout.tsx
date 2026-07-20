@@ -8,6 +8,7 @@ import SiteBehaviors from "@/components/SiteBehaviors";
 import Analytics from "@/components/Analytics";
 import { CartProvider } from "@/components/cart/CartProvider";
 import CartWidget from "@/components/cart/CartWidget";
+import AddedToCartModal from "@/components/cart/AddedToCartModal";
 import SiteChrome from "@/components/SiteChrome";
 import RecaptchaLoader from "@/components/RecaptchaLoader";
 import { site } from "@/lib/site";
@@ -204,7 +205,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             header={<Header />}
             mobileNav={<MobileNav />}
             footer={<Footer />}
-            cart={<CartWidget />}
+            cart={
+              <>
+                <CartWidget />
+                <AddedToCartModal />
+              </>
+            }
           >
             {children}
           </SiteChrome>

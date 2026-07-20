@@ -1,95 +1,40 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import ProductImg from "@/components/cart/ProductImg";
-import { site, products, categories, type Product, type ProductCategory } from "@/lib/site";
-
-// Elementor element ids from the original template, cycled per card so every
-// card keeps the theme's three colour palettes.
-const cardIds = [
-  { id: "7181f31", imageId: "bff7b29", headingId: "4f882f0", subId: "b5a1aa3" },
-  { id: "ecfcae6", imageId: "0d56ec3", headingId: "76fc612", subId: "03011fe" },
-  { id: "62c8657", imageId: "af84dda", headingId: "24e92bd", subId: "e076092" },
-  { id: "1901114", imageId: "19536e6", headingId: "f8798df", subId: "c5cab64" },
-  { id: "107f310", imageId: "d913f8e", headingId: "071b279", subId: "894abaa" },
-  { id: "1634c8e", imageId: "9815cf7", headingId: "6af9dd2", subId: "f446d35" },
-];
+import { products, categories, type Product, type ProductCategory } from "@/lib/site";
 
 type Filter = "all" | ProductCategory;
 
 const byPrice = (a: Product, b: Product) => a.amount - b.amount;
 
-function Card({
-  product,
-  index,
-  filter,
-  soldOut,
-  showChip,
-}: {
-  product: Product;
-  index: number;
-  filter: Filter;
-  soldOut: boolean;
-  showChip: boolean;
-}) {
-  const ids = cardIds[index % cardIds.length];
+function Card({ product, index, filter, soldOut }: { product: Product; index: number; filter: Filter; soldOut: boolean }) {
   return (
-    <div
+    <Link
       // filter in the key restarts the fade animation on every switch
       key={`${filter}-${product.id}`}
-      className={`elementor-element elementor-element-${ids.id} e-con-full e-flex e-con e-child rm-shop-card`}
-      data-id={ids.id}
-      data-element_type="container"
-      style={{ animationDelay: `${(index % 6) * 60}ms` }}
+      href={`/products/${product.id}`}
+      className="rm-shop-card"
+      style={{ animationDelay: `${(index % 6) * 50}ms` }}
     >
-      {showChip && (
-        <span className="rm-shop-card-chip">
-          {categories.find((c) => c.key === product.category)?.label}
-        </span>
-      )}
-      <div
-        className={`elementor-element elementor-element-${ids.imageId} e-transform elementor-widget-tablet__width-initial elementor-widget elementor-widget-image`}
-        data-id={ids.imageId}
-        data-element_type="widget"
-        data-settings='{"_transform_scale_effect_hover":{"unit":"px","size":1.1,"sizes":[]}}'
-        data-widget_type="image.default"
-      >
-        <div className="elementor-widget-container">
-          <ProductImg
-            src={product.image}
-            fallback={product.icon}
-            title={product.title}
-            alt={`${product.title} — fresh delivery across Scotland by RM Mangoes`}
-            loading="lazy"
-          />
-        </div>
+      {soldOut && <span className="rm-shop-card-soldout">Sold Out</span>}
+      <div className="rm-shop-card-img">
+        <ProductImg
+          src={product.image}
+          fallback={product.icon}
+          title={product.title}
+          alt={`${product.title} — fresh delivery across Scotland by RM Mangoes`}
+          loading="lazy"
+        />
       </div>
-      <div
-        className={`elementor-element elementor-element-${ids.headingId} elementor-widget elementor-widget-heading`}
-        data-id={ids.headingId}
-        data-element_type="widget"
-        data-widget_type="heading.default"
-      >
-        <div className="elementor-widget-container">
-          <h3 className="elementor-heading-title elementor-size-default">{product.title}</h3>
-        </div>
+      <div className="rm-shop-card-body">
+        <h3 className="rm-shop-card-title">{product.title}</h3>
+        <p className="rm-shop-card-price">{product.price}</p>
+        <AddToCartButton id={product.id} soldOut={soldOut} />
       </div>
-      <div
-        className={`elementor-element elementor-element-${ids.subId} elementor-widget elementor-widget-heading`}
-        data-id={ids.subId}
-        data-element_type="widget"
-        data-widget_type="heading.default"
-      >
-        <div className="elementor-widget-container">
-          <p className="elementor-heading-title elementor-size-default">{product.price}</p>
-        </div>
-      </div>
-      <AddToCartButton id={product.id} soldOut={soldOut} />
-      <a className="rm-card-whatsapp" href={site.whatsappOrder(product.order)} target="_blank" rel="noopener">
-        or order on WhatsApp
-      </a>
-    </div>
+    </Link>
   );
 }
 
@@ -138,29 +83,19 @@ export default function ProductGrid({ stock }: { stock: Record<string, number> }
                 </h2>
                 <div className="rm-shop-group-cards">
                   {group.map((product, i) => (
-                    <Card
-                      key={`all-${product.id}`}
-                      product={product}
-                      index={i}
-                      filter={filter}
-                      soldOut={soldOut(product)}
-                      showChip={false}
-                    />
+                    <Card key={`all-${product.id}`} product={product} index={i} filter={filter} soldOut={soldOut(product)} />
                   ))}
                 </div>
               </div>
             );
           })
-        : [...products.filter((p) => p.category === filter)].sort(byPrice).map((product, i) => (
-            <Card
-              key={`${filter}-${product.id}`}
-              product={product}
-              index={i}
-              filter={filter}
-              soldOut={soldOut(product)}
-              showChip={false}
-            />
-          ))}
+        : (
+            <div className="rm-shop-group-cards rm-shop-group-cards-flat">
+              {[...products.filter((p) => p.category === filter)].sort(byPrice).map((product, i) => (
+                <Card key={`${filter}-${product.id}`} product={product} index={i} filter={filter} soldOut={soldOut(product)} />
+              ))}
+            </div>
+          )}
     </>
   );
 }

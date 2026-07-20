@@ -2,28 +2,10 @@ import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import ProductGrid from "./ProductGrid";
 import { site, products } from "@/lib/site";
+import { getStock } from "@/lib/stock";
 
 // Re-render at most once a minute so sold-out labels track admin stock edits.
 export const revalidate = 60;
-
-// Stock is world-readable by design (RLS allows SELECT only); sold-out state
-// is enforced server-side at payment time regardless of what renders here.
-async function getStock(): Promise<Record<string, number>> {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/product_stock?select=product_id,stock`,
-      {
-        headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "" },
-        next: { revalidate: 60 },
-      }
-    );
-    if (!res.ok) return {};
-    const rows = (await res.json()) as { product_id: string; stock: number }[];
-    return Object.fromEntries(rows.map((r) => [r.product_id, r.stock]));
-  } catch {
-    return {}; // fail open — payment API still enforces stock
-  }
-}
 
 export const metadata: Metadata = {
   title: "Order Now — Premium Pakistani Mangoes & Fresh Fruit",
