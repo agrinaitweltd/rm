@@ -618,16 +618,20 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
 }
 .rm-shop-card-img {
   aspect-ratio: 1 / 1;
+  width: 100%;
   background: #f7f6f2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.6rem;
+  overflow: hidden;
 }
 .rm-shop-card-img img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  /* cover, not contain: uploaded photos vary wildly in aspect ratio (some
+     landscape box shots, some square) — contain letterboxed the non-square
+     ones with a lot of dead white space inside the tile, which read as
+     "not fitting". Cover always fills the square cleanly. */
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.3s;
 }
 .rm-shop-card:hover .rm-shop-card-img img {
@@ -872,27 +876,26 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   background: #f7f6f2;
   border: 2px solid #7aa82d;
   border-radius: 10px;
-  padding: 0.5rem;
+  overflow: hidden;
 }
 .rm-pdp-thumb img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .rm-pdp-main {
   flex: 1;
   aspect-ratio: 1 / 1;
   background: #f7f6f2;
   border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
+  overflow: hidden;
 }
 .rm-pdp-main img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .rm-pdp-info-top {
   display: flex;

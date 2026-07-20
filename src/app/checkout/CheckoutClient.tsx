@@ -305,7 +305,7 @@ export default function CheckoutClient() {
     return (
       <div className="rm-checkout-status">
         <div className="rm-checkout-card">
-          <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
+          <img className="rm-status-mark" src="/icon-mango.svg" alt="" width={120} height={120} />
           <h1>Your cart is empty</h1>
           <p>Add a box of premium Pakistani mangoes and come back.</p>
           <Link href="/products" className="rm-checkout-cta">

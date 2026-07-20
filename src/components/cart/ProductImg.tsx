@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Product image with automatic fallback: if the photo (src) 404s — e.g. it
 // hasn't been uploaded to public/ yet — the flat SVG icon is shown instead.
@@ -25,10 +25,24 @@ export default function ProductImg({
   loading?: "lazy" | "eager";
 }) {
   const [failed, setFailed] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // The server-rendered <img> starts its network request as soon as the HTML
+  // parses — before React hydrates and attaches onError. A fast 404 (as on
+  // localhost) can fire-and-be-missed in that window, leaving a broken image
+  // with no fallback. On mount, check whether it already failed.
+  useEffect(() => {
+    const el = imgRef.current;
+    if (el && el.complete && el.naturalWidth === 0 && fallback) {
+      setFailed(true);
+    }
+  }, [fallback]);
+
   const effective = failed && fallback ? fallback : src;
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
+      ref={imgRef}
       src={effective}
       alt={alt}
       title={title}

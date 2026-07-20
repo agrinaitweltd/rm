@@ -26,7 +26,7 @@ export default function CheckoutSuccess() {
     return (
       <div className="rm-checkout-status">
         <div className="rm-checkout-card">
-          <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
+          <img className="rm-status-mark" src="/icon-mango.svg" alt="" width={120} height={120} />
           <h1>Payment not completed</h1>
           <p>Your payment didn&rsquo;t go through — you have not been charged and your cart is untouched.</p>
           <Link href="/checkout" className="rm-checkout-cta">
@@ -40,7 +40,7 @@ export default function CheckoutSuccess() {
   return (
     <div className="rm-checkout-status">
       <div className="rm-checkout-card">
-        <img className="rm-status-mark" src="/logo4.png" alt="" width={492} height={492} />
+        <img className="rm-status-mark" src="/icon-mango.svg" alt="" width={120} height={120} />
         <h1>Thank you for your order!</h1>
         <p>
           Your payment was successful and your order is confirmed. We&rsquo;ve emailed your receipt, and we&rsquo;ll be
