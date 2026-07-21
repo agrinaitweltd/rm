@@ -54,6 +54,7 @@ export default function ProductDetail({
             <div>
               <span className="rm-pdp-category">{categoryLabel}</span>
               <h1>{product.title}</h1>
+              {product.subtitle && <p className="rm-pdp-subtitle">{product.subtitle}</p>}
               <p className="rm-pdp-price">{product.price}</p>
             </div>
             <div className="rm-pdp-arrows">

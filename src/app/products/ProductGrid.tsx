@@ -31,6 +31,7 @@ function Card({ product, index, filter, soldOut }: { product: Product; index: nu
       </div>
       <div className="rm-shop-card-body">
         <h3 className="rm-shop-card-title">{product.title}</h3>
+        {product.subtitle && <p className="rm-shop-card-subtitle">{product.subtitle}</p>}
         <p className="rm-shop-card-price">{product.price}</p>
         <AddToCartButton id={product.id} soldOut={soldOut} />
       </div>
