@@ -157,28 +157,6 @@ export default async function ProductsPage() {
               </h2>
             </div>
           </div>
-          <div
-            className="elementor-element elementor-element-9c38f20 elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button elementor-invisible"
-            data-id="9c38f20"
-            data-element_type="widget"
-            data-settings='{"_animation":"zoomIn","_animation_delay":200}'
-            data-widget_type="button.default"
-          >
-            <div className="elementor-widget-container">
-              <div className="elementor-button-wrapper">
-                <a
-                  className="elementor-button elementor-button-link elementor-size-lg"
-                  href={site.whatsappOrder("a box")}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <span className="elementor-button-content-wrapper">
-                    <span className="elementor-button-text">Order via WhatsApp</span>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </PageShell>

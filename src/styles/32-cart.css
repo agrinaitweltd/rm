@@ -1107,6 +1107,46 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
 .rm-checkout-payment {
   animation-delay: 0.12s;
 }
+
+/* ---- Payment method tabs (Pay Online / Cash on Delivery) ---- */
+.rm-pay-method-tabs {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+.rm-pay-method-tab {
+  flex: 1;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  font-size: 1.3rem;
+  border: 1px solid rgba(122, 168, 45, 0.5);
+  background: transparent;
+  color: #acca38;
+  border-radius: 30px;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.22s, color 0.22s, border-color 0.22s;
+}
+.rm-pay-method-tab:hover {
+  border-color: #f6a200;
+  color: #f6a200;
+}
+.rm-pay-method-tab.is-active {
+  background-color: #4f8d36;
+  border-color: #4f8d36;
+  color: #fff;
+}
+.rm-cash-change {
+  background: rgba(122, 168, 45, 0.12);
+  border: 1px solid rgba(122, 168, 45, 0.4);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  color: #cfcfcf;
+  font-size: 1.35rem;
+  margin: 0;
+}
+.rm-cash-change strong {
+  color: #f6a200;
+}
 .rm-cart-drawer.is-open .rm-cart-line {
   animation: rmFadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

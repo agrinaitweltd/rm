@@ -27,6 +27,9 @@ export type AdminOrder = {
   delivery_country: string | null;
   stripe_session_id: string | null;
   stripe_payment_intent: string | null;
+  payment_method: string | null;
+  cash_tendered: number | null;
+  change_due: number | null;
   customer: { full_name: string | null; email: string | null; phone: string | null } | null;
   items: AdminOrderItem[];
 };
@@ -118,9 +121,18 @@ export default function OrdersTable({ orders }: { orders: AdminOrder[] }) {
               </div>
               <div>
                 <h4>Payment</h4>
-                <p>Status: {o.payment_status || "—"}</p>
-                <p className="rm-admin-mono">{o.stripe_session_id || "—"}</p>
-                <p className="rm-admin-mono">{o.stripe_payment_intent || "—"}</p>
+                {o.payment_method === "cash" ? (
+                  <>
+                    <p className="rm-admin-cash-badge">Cash on Delivery</p>
+                    <p>Bringing: {gbp(o.cash_tendered || 0, o.currency)}</p>
+                    <p>Change due: {gbp(o.change_due || 0, o.currency)}</p>
+                  </>
+                ) : (
+                  <>
+                    <p>Status: {o.payment_status || "—"}</p>
+                    <p className="rm-admin-mono">{o.stripe_payment_intent || "—"}</p>
+                  </>
+                )}
               </div>
             </div>
 

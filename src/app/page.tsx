@@ -12,7 +12,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const quickLinks = [
+type QuickLink = {
+  id: string;
+  imageId: string;
+  headingId: string;
+  textId: string;
+  href: string;
+  icon: string;
+  title: string;
+  text: string;
+  external?: boolean;
+};
+
+const quickLinks: QuickLink[] = [
   {
     id: "e4bde13",
     imageId: "db0f371",
@@ -48,11 +60,10 @@ const quickLinks = [
     imageId: "1d55256",
     headingId: "7d53dce",
     textId: "d61f936",
-    href: site.whatsapp,
-    external: true,
-    icon: "/icon-whatsapp.png",
-    title: "Order on WhatsApp",
-    text: "Message us to order your mango box",
+    href: "/products",
+    icon: "/icon-mangoes.png",
+    title: "Order Now",
+    text: "Browse and order online for delivery",
   },
 ];
 

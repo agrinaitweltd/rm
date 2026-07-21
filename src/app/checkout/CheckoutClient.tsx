@@ -224,8 +224,188 @@ function PayForm({ amount }: { amount: number }) {
   );
 }
 
+// Cash-on-delivery form. Uses a standalone Elements instance for the address
+// element only — no PaymentIntent/clientSecret is needed since nothing is
+// charged through Stripe for a cash order.
+function CashForm({
+  amount,
+  lines,
+  promoCode,
+}: {
+  amount: number;
+  lines: { id: string; quantity: number }[];
+  promoCode: string;
+}) {
+  const router = useRouter();
+  const { clear } = useCart();
+  const [email, setEmail] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [addressComplete, setAddressComplete] = useState(false);
+  const [shippingDetails, setShippingDetails] = useState<ShippingDetails | null>(null);
+  const [cashAmount, setCashAmount] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const postcodeError =
+    addressComplete && postcode && !isScottishPostcode(postcode)
+      ? "Sorry, we currently deliver around Scotland only."
+      : "";
+
+  const cashPence = Math.round((Number(cashAmount) || 0) * 100);
+  const changeDue = Math.max(0, cashPence - amount);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address for your receipt.");
+      return;
+    }
+    if (!addressComplete || !shippingDetails) {
+      setError("Please complete your delivery address.");
+      return;
+    }
+    if (postcodeError) {
+      setError(postcodeError);
+      return;
+    }
+    if (!cashAmount || cashPence < amount) {
+      setError(`Please enter at least ${formatGBP(amount)} so the driver knows how much change to bring.`);
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/orders/cash", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: lines,
+          promoCode: promoCode || undefined,
+          email,
+          name: shippingDetails.name,
+          phone: shippingDetails.phone,
+          address: {
+            line1: shippingDetails.address.line1,
+            line2: shippingDetails.address.line2,
+            city: shippingDetails.address.city,
+            county: shippingDetails.address.state,
+            postal_code: shippingDetails.address.postal_code,
+            country: shippingDetails.address.country,
+          },
+          cashTendered: Number(cashAmount),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error || "Sorry, we couldn't place your order. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+      clear();
+      router.push(
+        `/checkout/success?method=cash&change=${data.changeDue}&tendered=${data.cashTendered}`
+      );
+    } catch {
+      setError("Sorry, we couldn't place your order. Please check your connection and try again.");
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <form className="rm-pay-form" onSubmit={handleSubmit}>
+      <label className="rm-pay-email">
+        Email (for your receipt) *
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          required
+          maxLength={200}
+        />
+      </label>
+
+      <h3 className="rm-pay-section-title">Delivery address</h3>
+      <AddressElement
+        options={{
+          mode: "shipping",
+          allowedCountries: ["GB"],
+          fields: { phone: "always" },
+          validation: { phone: { required: "always" } },
+        }}
+        onChange={(event) => {
+          const line1 = event.value.address.line1 || "";
+          setAddressComplete(event.complete);
+          setPostcode(event.value.address.postal_code || "");
+          setShippingDetails(
+            line1
+              ? {
+                  name: event.value.name || "RM Mangoes customer",
+                  phone: event.value.phone || undefined,
+                  address: {
+                    line1,
+                    line2: event.value.address.line2 || undefined,
+                    city: event.value.address.city || undefined,
+                    state: event.value.address.state || undefined,
+                    postal_code: event.value.address.postal_code || undefined,
+                    country: event.value.address.country || "GB",
+                  },
+                }
+              : null
+          );
+          if (error === postcodeError) setError("");
+        }}
+      />
+      {postcodeError && (
+        <p className="rm-pay-error" role="alert">
+          {postcodeError}
+        </p>
+      )}
+
+      <h3 className="rm-pay-section-title">Cash on delivery</h3>
+      <label className="rm-pay-email">
+        How much cash will you have ready? *
+        <input
+          type="number"
+          min={0}
+          step="0.01"
+          inputMode="decimal"
+          value={cashAmount}
+          onChange={(e) => setCashAmount(e.target.value)}
+          placeholder={`e.g. ${(amount / 100).toFixed(2)}`}
+          required
+        />
+      </label>
+      {cashAmount && cashPence >= amount && (
+        <p className="rm-cash-change">
+          Your driver will bring <strong>{formatGBP(changeDue)}</strong> change.
+        </p>
+      )}
+
+      {error && (
+        <p className="rm-pay-error" role="alert">
+          {error}
+        </p>
+      )}
+
+      <button type="submit" className="rm-pay-button" disabled={submitting}>
+        {submitting ? (
+          <>
+            <span className="rm-spinner" aria-hidden="true" /> Placing order…
+          </>
+        ) : (
+          `Place Order — ${formatGBP(amount)} on delivery`
+        )}
+      </button>
+      <p className="rm-pay-note">Pay the driver in cash when your order arrives. Nothing is charged online.</p>
+    </form>
+  );
+}
+
 export default function CheckoutClient() {
   const { lines, totalPence, productFor } = useCart();
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "cash">("card");
   const [clientSecret, setClientSecret] = useState("");
   const [amount, setAmount] = useState(0);
   const [discount, setDiscount] = useState(0);
@@ -236,20 +416,22 @@ export default function CheckoutClient() {
   const [promoError, setPromoError] = useState("");
   const [loadError, setLoadError] = useState("");
   const [hydrated, setHydrated] = useState(false);
-  const requested = useRef(false);
+  const requestedFor = useRef<string>("");
 
   useEffect(() => setHydrated(true), []);
 
-  // Creates (or re-creates, when a promo is applied) the PaymentIntent.
-  async function createIntent(promoCode?: string) {
-    const res = await fetch("/api/stripe/payment-intent", {
+  // Card: creates a real PaymentIntent. Cash: pure price preview, no Stripe
+  // object created since nothing gets charged online.
+  async function fetchPricing(method: "card" | "cash", promoCode?: string) {
+    const url = method === "card" ? "/api/stripe/payment-intent" : "/api/orders/price";
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: lines, ...(promoCode ? { promoCode } : {}) }),
     });
     const data = await res.json().catch(() => ({}));
-    if (res.ok && data.clientSecret) {
-      setClientSecret(data.clientSecret);
+    if (res.ok && (method === "cash" || data.clientSecret)) {
+      setClientSecret(method === "card" ? data.clientSecret : "");
       setAmount(data.amount);
       setDiscount(data.discount || 0);
       setPromoLabel(data.promoLabel || "");
@@ -258,22 +440,27 @@ export default function CheckoutClient() {
     return { ok: false as const, error: data.error || "Sorry, we couldn't start checkout. Please try again." };
   }
 
-  // Create the PaymentIntent once the (localStorage-hydrated) cart is known.
+  // (Re)fetch pricing whenever the hydrated cart or the payment method
+  // changes — switching methods needs its own PaymentIntent, or none at all.
   useEffect(() => {
-    if (!hydrated || lines.length === 0 || requested.current) return;
-    requested.current = true;
-    createIntent().then((r) => {
+    if (!hydrated || lines.length === 0) return;
+    const key = `${paymentMethod}`;
+    if (requestedFor.current === key) return;
+    requestedFor.current = key;
+    setLoadError("");
+    setClientSecret("");
+    fetchPricing(paymentMethod, appliedPromo || undefined).then((r) => {
       if (!r.ok) setLoadError(r.error);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hydrated, lines]);
+  }, [hydrated, lines, paymentMethod]);
 
   async function applyPromo() {
     const code = promoInput.trim();
     if (!code || promoBusy) return;
     setPromoBusy(true);
     setPromoError("");
-    const r = await createIntent(code);
+    const r = await fetchPricing(paymentMethod, code);
     if (r.ok) {
       setAppliedPromo(code.toUpperCase());
       setPromoInput("");
@@ -287,7 +474,7 @@ export default function CheckoutClient() {
     if (promoBusy) return;
     setPromoBusy(true);
     setPromoError("");
-    const r = await createIntent();
+    const r = await fetchPricing(paymentMethod);
     if (r.ok) setAppliedPromo("");
     setPromoBusy(false);
   }
@@ -388,7 +575,7 @@ export default function CheckoutClient() {
         <div className="rm-checkout-summary-total">
           <span>Total</span>
           {/* Server-computed amount (it owns the discount + delivery maths). */}
-          <span>{formatGBP(clientSecret ? amount : totalPence + DELIVERY_FEE_PENCE)}</span>
+          <span>{formatGBP(amount || totalPence + DELIVERY_FEE_PENCE)}</span>
         </div>
         <Link href="/products" className="rm-checkout-edit">
           Edit cart
@@ -397,17 +584,48 @@ export default function CheckoutClient() {
 
       {/* Payment */}
       <section className="rm-checkout-payment">
+        <div className="rm-pay-method-tabs" role="tablist" aria-label="Payment method">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={paymentMethod === "card"}
+            className={`rm-pay-method-tab${paymentMethod === "card" ? " is-active" : ""}`}
+            onClick={() => setPaymentMethod("card")}
+          >
+            Pay Online
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={paymentMethod === "cash"}
+            className={`rm-pay-method-tab${paymentMethod === "cash" ? " is-active" : ""}`}
+            onClick={() => setPaymentMethod("cash")}
+          >
+            Cash on Delivery
+          </button>
+        </div>
+
         {loadError ? (
           <p className="rm-pay-error" role="alert">
             {loadError}
           </p>
-        ) : options ? (
-          <Elements key={clientSecret} stripe={stripePromise} options={options}>
-            <PayForm amount={amount} />
+        ) : paymentMethod === "card" ? (
+          options ? (
+            <Elements key={clientSecret} stripe={stripePromise} options={options}>
+              <PayForm amount={amount} />
+            </Elements>
+          ) : (
+            <p className="rm-pay-loading">
+              <span className="rm-spinner" aria-hidden="true" /> Preparing secure payment…
+            </p>
+          )
+        ) : amount > 0 ? (
+          <Elements stripe={stripePromise} options={{ appearance }}>
+            <CashForm amount={amount} lines={lines} promoCode={appliedPromo} />
           </Elements>
         ) : (
           <p className="rm-pay-loading">
-            <span className="rm-spinner" aria-hidden="true" /> Preparing secure payment…
+            <span className="rm-spinner" aria-hidden="true" /> Preparing your order…
           </p>
         )}
       </section>

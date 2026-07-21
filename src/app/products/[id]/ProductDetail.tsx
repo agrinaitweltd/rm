@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ProductImg from "@/components/cart/ProductImg";
 import { useCart, formatGBP } from "@/components/cart/CartProvider";
-import { categories, site, type Product } from "@/lib/site";
+import { categories, type Product } from "@/lib/site";
 
 export default function ProductDetail({
   product,
@@ -106,9 +106,6 @@ export default function ProductDetail({
             </>
           )}
 
-          <a className="rm-card-whatsapp rm-pdp-whatsapp" href={site.whatsappOrder(product.order)} target="_blank" rel="noopener">
-            or order on WhatsApp
-          </a>
         </div>
       </div>
     </div>

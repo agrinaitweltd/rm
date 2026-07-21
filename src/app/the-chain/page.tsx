@@ -63,18 +63,28 @@ const varieties = [
   { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/assortiment-anwar-ratol.png", name: "anwar ratol" },
   { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/assortiment-langra.png", name: "langra" },
   { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/assortiment-dusehri.png", name: "dusehri" },
-  // Fresh-fruit range (flat SVG marks, reusing the carousel card styles).
-  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/icon-guava.svg", name: "guava" },
-  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/icon-apricot.svg", name: "apricots" },
-  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/icon-cherries.svg", name: "cherries" },
-  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/icon-karela.svg", name: "karela" },
-  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/icon-jamun.svg", name: "jamun" },
-  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/icon-watermelon.svg", name: "watermelon" },
-  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/khubani-large-apricot.png", name: "khubani" },
-  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/kishmish-small-grapes.png", name: "kishmish" },
-  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/lychee-large-box.png", name: "lychee" },
-  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/jackfruit-peeled-200g.png", name: "jackfruit" },
+  // Fresh fruit range, kept in step with the live catalogue.
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/guava-large.png", name: "guava" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/cherries-large.png", name: "cherries" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/watermelon-large.png", name: "watermelon" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/kishmish-small-grapes.png", name: "red grapes" },
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/grapes-xl-bunch.png", name: "black grapes" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/lychee-large-box.png", name: "lychee" },
   { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/dragon-fruit.png", name: "dragon fruit" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/pomegranate.png", name: "pomegranate" },
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/bananas-bunch.png", name: "bananas" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/melon-yellow.png", name: "yellow melon" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/pineapple-large.png", name: "honey glow pineapple" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/golden-pear.png", name: "golden pear" },
+  // Vegetables.
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/karela-large.png", name: "karela" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/tomato-box.png", name: "tomato" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/mushrooms-3kg.png", name: "mushrooms" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/lauki-bottle-gourd.png", name: "lauki" },
+  { id: "6667e8e", imageId: "2080a40", headingId: "158858a", boxed: true, icon: "/icon-veg-generic.svg", name: "aubergine" },
+  { id: "fe3d799", imageId: "ea6f660", headingId: "cc7ef5b", boxed: true, icon: "/icon-veg-generic.svg", name: "spinach" },
+  { id: "4f5f6ed", imageId: "177d812", headingId: "a76ffdf", boxed: true, icon: "/icon-veg-generic.svg", name: "ginger" },
+  { id: "50d3ad2", imageId: "9f10b52", headingId: "b52ac21", boxed: true, icon: "/icon-veg-generic.svg", name: "white mooli" },
 ];
 
 const stats = [
@@ -333,8 +343,10 @@ export default function TheChainPage() {
                         >
                           <div className="elementor-widget-container">
                             <div className="uael-hotspot uael-hotspot-tooltip-yes">
-                              <img loading="lazy" decoding="async" width={1500} height={901} src="/sourcing-map.png" alt="World map showing where our mangoes come from" />
-                              <MapPin left="66.5%" top="42%" label="Sindh & Punjab, Pakistan — where our mangoes grow" />
+                              <img loading="lazy" decoding="async" width={1500} height={901} src="/sourcing-map.png" alt="World map showing where our produce comes from" />
+                              <MapPin left="66.5%" top="42%" label="Sindh & Punjab, Pakistan — mangoes, cherries & lychee" />
+                              <MapPin left="63%" top="38%" label="Northern Punjab — apricots, peaches & pomegranate" />
+                              <MapPin left="69%" top="46%" label="Sindh — guava, watermelon & fresh vegetables" />
                             </div>
                           </div>
                         </div>

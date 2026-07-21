@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { productById, site, DELIVERY_FEE_PENCE } from "@/lib/site";
+import { sendOrderConfirmationEmails, esc } from "@/lib/order-emails";
 
 // Stripe needs the raw, unparsed body to verify the signature, so this route
 // must run on the Node.js runtime and read the body as text.
@@ -192,13 +193,19 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
   // Order emails are best-effort: a mail hiccup must not 500 the webhook,
   // or Stripe would retry and we'd re-check idempotency for nothing.
   try {
-    await sendOrderEmails(intent, items, {
-      name: deliveryName,
-      email: resolvedEmail,
-      phone,
-      address: [addr?.line1, addr?.line2, addr?.city, addr?.state, addr?.postal_code, addr?.country]
-        .filter(Boolean)
-        .join(", "),
+    await sendOrderConfirmationEmails({
+      items,
+      total: intent.amount_received || intent.amount,
+      customer: {
+        name: deliveryName,
+        email: resolvedEmail,
+        phone,
+        address: [addr?.line1, addr?.line2, addr?.city, addr?.state, addr?.postal_code, addr?.country]
+          .filter(Boolean)
+          .join(", "),
+      },
+      reference: intent.id,
+      paymentMethod: "card",
     });
   } catch (err) {
     console.error("[stripe/webhook] order emails failed:", err);
@@ -256,71 +263,3 @@ async function sendPaymentFailedEmail(intent: Stripe.PaymentIntent) {
   });
 }
 
-const esc = (s: string) =>
-  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-const gbp = (pence: number) => `£${(pence / 100).toFixed(2)}`;
-
-async function sendOrderEmails(
-  intent: Stripe.PaymentIntent,
-  items: { product_name: string; quantity: number; total_price: number }[],
-  customer: { name: string; email: string; phone: string; address: string }
-) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return;
-  const resend = new Resend(apiKey);
-  const from = process.env.WHOLESALE_FROM_EMAIL || `RM Mangoes <no-reply@rmmangoes.co.uk>`;
-  const adminTo = process.env.WHOLESALE_TO_EMAIL || site.email;
-  const total = intent.amount_received || intent.amount;
-
-  const rows = items
-    .map(
-      (i) =>
-        `<tr><td style="padding:6px 12px 6px 0">${esc(i.product_name)}</td><td style="padding:6px 12px">×${i.quantity}</td><td style="padding:6px 0" align="right">${gbp(i.total_price)}</td></tr>`
-    )
-    .join("");
-  const itemsTable = `
-    <table style="border-collapse:collapse;width:100%;max-width:420px;font-size:15px">${rows}
-      <tr><td colspan="2" style="padding:10px 12px 0 0;border-top:1px solid #ddd"><strong>Total</strong></td>
-      <td style="padding:10px 0 0;border-top:1px solid #ddd" align="right"><strong>${gbp(total)}</strong></td></tr>
-    </table>`;
-
-  // Admin notification.
-  await resend.emails.send({
-    from,
-    to: adminTo,
-    replyTo: customer.email,
-    subject: `New order ${gbp(total)} — ${customer.name || customer.email}`,
-    html: `
-      <div style="font-family:Helvetica,Arial,sans-serif;color:#1e1e1e">
-        <h2 style="color:#4f8d36">New order — RM Mangoes</h2>
-        ${itemsTable}
-        <h3 style="margin-top:20px">Delivery</h3>
-        <p>${esc(customer.name) || "—"}<br/>${esc(customer.address) || "—"}<br/>${esc(customer.phone) || "—"}<br/>${esc(customer.email)}</p>
-        <p style="color:#8b8b8b;font-size:13px">Stripe payment: ${esc(intent.id)}</p>
-      </div>`,
-  });
-
-  // Customer confirmation (skip if we never got a usable email).
-  if (!customer.email || customer.email.startsWith("unknown@")) return;
-  await resend.emails.send({
-    from,
-    to: customer.email,
-    subject: "Your order is confirmed — RM Mangoes",
-    html: `
-      <div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;color:#1e1e1e">
-        <h2 style="color:#4f8d36">Thank you for your order${customer.name ? `, ${esc(customer.name.split(" ")[0])}` : ""}!</h2>
-        <p>Your payment was successful and your order is being prepared.</p>
-        ${itemsTable}
-        <h3 style="margin-top:20px">Delivering to</h3>
-        <p>${esc(customer.name)}<br/>${esc(customer.address)}</p>
-        <p>Questions? Reach us any time:</p>
-        <p>
-          Phone: <a href="tel:${site.phoneTel}">${site.phoneDisplay}</a><br/>
-          WhatsApp: <a href="${site.whatsapp}">message us</a><br/>
-          Email: <a href="mailto:${site.email}">${site.email}</a>
-        </p>
-        <p style="color:#f6a200;font-weight:bold">RM Mangoes — Fresh Pakistani Produce</p>
-      </div>`,
-  });
-}

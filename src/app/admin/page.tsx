@@ -29,7 +29,7 @@ export default async function AdminPage() {
       `id, created_at, total, currency, payment_status, order_status,
        delivery_name, delivery_phone, delivery_address, delivery_city,
        delivery_county, delivery_postcode, delivery_country,
-       stripe_session_id, stripe_payment_intent,
+       stripe_session_id, stripe_payment_intent, payment_method, cash_tendered, change_due,
        customer:customers ( full_name, email, phone ),
        items:order_items ( product_name, quantity, unit_price, total_price )`
     )

@@ -8,20 +8,32 @@ type Consent = {
   marketing: boolean;
 };
 
+const STORAGE_KEY = "rm-cookie-consent";
+
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [showPrefs, setShowPrefs] = useState(false);
   const [analytics, setAnalytics] = useState(true);
   const [marketing, setMarketing] = useState(true);
 
+  // Only show the banner if the visitor has never made a choice — previously
+  // this wasn't persisted at all, so it reappeared on every page.
   useEffect(() => {
-    setVisible(true);
+    try {
+      if (!window.localStorage.getItem(STORAGE_KEY)) setVisible(true);
+    } catch {
+      setVisible(true);
+    }
   }, []);
 
   if (!visible) return null;
 
   const close = (consent: Consent) => {
-    void consent;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...consent, decidedAt: Date.now() }));
+    } catch {
+      /* storage blocked — banner will just reappear next visit */
+    }
     setVisible(false);
   };
 

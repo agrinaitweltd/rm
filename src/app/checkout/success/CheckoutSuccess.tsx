@@ -12,13 +12,20 @@ import RatingPrompt from "./RatingPrompt";
 export default function CheckoutSuccess() {
   const { clear } = useCart();
   const [failed, setFailed] = useState(false);
+  const [cashInfo, setCashInfo] = useState<{ change: number; tendered: number } | null>(null);
 
   useEffect(() => {
-    const status = new URLSearchParams(window.location.search).get("redirect_status");
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("redirect_status");
     if (status && status !== "succeeded") {
       setFailed(true);
       return;
     }
+    if (params.get("method") === "cash") {
+      setCashInfo({ change: Number(params.get("change")) || 0, tendered: Number(params.get("tendered")) || 0 });
+    }
+    // Cash orders already clear the cart before navigating here; calling
+    // clear() again is harmless (it's idempotent).
     clear();
   }, [clear]);
 
@@ -42,10 +49,20 @@ export default function CheckoutSuccess() {
       <div className="rm-checkout-card">
         <img className="rm-status-mark" src="/icon-mango.svg" alt="" width={120} height={120} />
         <h1>Thank you for your order!</h1>
-        <p>
-          Your payment was successful and your order is confirmed. We&rsquo;ve emailed your receipt, and we&rsquo;ll be
-          in touch about delivery.
-        </p>
+        {cashInfo ? (
+          <>
+            <p>Your order is confirmed — pay the driver in cash on delivery. We&rsquo;ve emailed your receipt.</p>
+            <p className="rm-cash-change">
+              Have <strong>£{(cashInfo.tendered / 100).toFixed(2)}</strong> ready — your driver will bring{" "}
+              <strong>£{(cashInfo.change / 100).toFixed(2)}</strong> change.
+            </p>
+          </>
+        ) : (
+          <p>
+            Your payment was successful and your order is confirmed. We&rsquo;ve emailed your receipt, and we&rsquo;ll be
+            in touch about delivery.
+          </p>
+        )}
         <p>Fresh Pakistani produce is on its way to your door.</p>
         <RatingPrompt />
         <Link href="/products" className="rm-checkout-cta">
