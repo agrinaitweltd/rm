@@ -59,7 +59,6 @@ export const products: Product[] = [
   { id: "cherries-large", title: "Cherries — 2kg Box", price: "£12", amount: 1200, image: "/cherries-large.png", icon: "/icon-cherries.svg", category: "fruit", order: "Cherries 2kg Box (£12)" },
   { id: "karela-large", title: "Large Box of Karela", price: "£9", amount: 900, image: "/karela-large.png", icon: "/icon-karela.svg", category: "veg", order: "a Large Box of Karela (£9)" },
   { id: "watermelon-large", title: "Watermelon", price: "£6", amount: 600, image: "/watermelon-large.png", icon: "/icon-watermelon.svg", category: "fruit", order: "a Watermelon (£6)" },
-  { id: "khubani-large-apricot", title: "Khubani - Pakistani Large Box Apricot", price: "£10", amount: 1000, image: "/khubani-large-apricot.png", category: "fruit", order: "Khubani - Pakistani Large Box Apricot (£10)" },
   { id: "kishmish-small-grapes", title: "Red Grapes", price: "£3.50", amount: 350, image: "/kishmish-small-grapes.png", category: "fruit", order: "Red Grapes (£3.50)" },
   { id: "lychee-large-box", title: "Lychee Large Box", price: "£13", amount: 1300, image: "/lychee-large-box.png", category: "fruit", order: "a Large Box of Lychee (£13)" },
   { id: "jackfruit-peeled-200g", title: "Jackfruit Cut and Peeled 200g", price: "£3.50", amount: 350, image: "/jackfruit-peeled-200g.png", category: "fruit", order: "Jackfruit Cut and Peeled 200g (£3.50)" },
