@@ -61,14 +61,13 @@ export const products: Product[] = [
   { id: "watermelon-large", title: "Watermelon", price: "£6", amount: 600, image: "/watermelon-large.png", icon: "/icon-watermelon.svg", category: "fruit", order: "a Watermelon (£6)" },
   { id: "kishmish-small-grapes", title: "Red Grapes", price: "£3.50", amount: 350, image: "/kishmish-small-grapes.png", category: "fruit", order: "Red Grapes (£3.50)" },
   { id: "lychee-large-box", title: "Lychee Large Box", price: "£13", amount: 1300, image: "/lychee-large-box.png", category: "fruit", order: "a Large Box of Lychee (£13)" },
-  { id: "jackfruit-peeled-200g", title: "Jackfruit Cut and Peeled 200g", price: "£3.50", amount: 350, image: "/jackfruit-peeled-200g.png", category: "fruit", order: "Jackfruit Cut and Peeled 200g (£3.50)" },
   { id: "dragon-fruit", title: "Dragon Fruit", price: "£3.50", amount: 350, image: "/dragon-fruit.png", category: "fruit", order: "Dragon Fruit (£3.50)" },
 
   // Added per the extended fruit & veg price list.
   { id: "peach-flat-250g", title: "Flat Peaches — 250g Pack", price: "£2", amount: 200, image: "/peach-flat-250g.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "Flat Peaches 250g Pack (£2)" },
   { id: "melon-yellow", title: "Yellow Melon", price: "£3", amount: 300, image: "/melon-yellow.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Yellow Melon (£3)" },
   { id: "melon-galia", title: "Galia Melon", price: "£2.50", amount: 250, image: "/melon-galia.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Galia Melon (£2.50)" },
-  { id: "grapes-xl-bunch", title: "Black Grapes", price: "£7.50", amount: 750, image: "/grapes-xl-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "Black Grapes (£7.50)" },
+  { id: "grapes-xl-bunch", title: "Black Grapes", price: "£3.50", amount: 350, image: "/grapes-xl-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "Black Grapes (£3.50)" },
   { id: "pomegranate", title: "Pomegranate", price: "£1.50", amount: 150, image: "/pomegranate.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Pomegranate (£1.50)" },
   { id: "large-1-20off", title: "Large Box — 20% Off", price: "£24", amount: 2400, image: "/mango-box-large.png", category: "mangoes", order: "a Large Box of mangoes at 20% off (£24)" },
   { id: "bananas-bunch", title: "Bananas Bunch", price: "£1.50", amount: 150, image: "/bananas-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Bananas Bunch (£1.50)" },
@@ -87,6 +86,11 @@ export const products: Product[] = [
   { id: "spring-onion-bunch", title: "Spring Onion Bunch", price: "£1", amount: 100, image: "/spring-onion-bunch.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Spring Onion Bunch (£1)" },
   { id: "chilli-bird-eye", title: "Bird's Eye Chilli", price: "£16", amount: 1600, image: "/chilli-bird-eye.png", icon: "/icon-veg-generic.svg", category: "veg", order: "Bird's Eye Chilli (£16)" },
   { id: "chilli-bullet-box", title: "Bullet Chilli Box", price: "£8", amount: 800, image: "/chilli-bullet-box.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Bullet Chilli Box (£8)" },
+  { id: "mooli-white", title: "White Mooli", price: "£1.50", amount: 150, image: "/mooli-white.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a White Mooli (£1.50)" },
+  { id: "aubergine-large-box", title: "Large Box of Aubergine", price: "£9", amount: 900, image: "/aubergine-large-box.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Large Box of Aubergine (£9)" },
+  // Price TBC — being confirmed; kept at £0 and marked out of stock so it can't be bought until then.
+  { id: "spinach", title: "Spinach", price: "£0", amount: 0, image: "/spinach.png", icon: "/icon-veg-generic.svg", category: "veg", order: "Spinach (price TBC)" },
+  { id: "ginger-large-box", title: "Large Box of Ginger", subtitle: "5kg", price: "£0", amount: 0, image: "/ginger-large-box.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Large Box of Ginger, 5kg (price TBC)" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).
