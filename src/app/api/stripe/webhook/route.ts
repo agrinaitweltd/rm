@@ -72,7 +72,7 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
   // Contact details: receipt_email is set at confirmation time by the checkout
   // page; shipping comes from the Address Element.
   const ship = intent.shipping;
-  const resolvedEmail = intent.receipt_email || "unknown@rmmangoes.co.uk";
+  const resolvedEmail = (intent.receipt_email || "unknown@rmmangoes.co.uk").trim().toLowerCase();
   const deliveryName = ship?.name || "";
   const phone = ship?.phone || "";
 

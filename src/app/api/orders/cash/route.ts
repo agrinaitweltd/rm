@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const email = String(body.email || "").trim().slice(0, 200);
+  const email = String(body.email || "").trim().toLowerCase().slice(0, 200);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }

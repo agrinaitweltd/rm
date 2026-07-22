@@ -13,6 +13,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useCart, formatGBP } from "@/components/cart/CartProvider";
 import ProductImg from "@/components/cart/ProductImg";
+import PostcodeLookup, { type LookedUpAddress } from "./PostcodeLookup";
 import { DELIVERY_FEE_PENCE } from "@/lib/site";
 
 // Publishable key is public by design; the secret key never leaves the server.
@@ -86,6 +87,8 @@ function PayForm({ amount }: { amount: number }) {
   const [postcode, setPostcode] = useState("");
   const [addressComplete, setAddressComplete] = useState(false);
   const [shippingDetails, setShippingDetails] = useState<ShippingDetails | null>(null);
+  const [addressDefaults, setAddressDefaults] = useState<LookedUpAddress | null>(null);
+  const [addressKey, setAddressKey] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const postcodeError =
@@ -151,13 +154,36 @@ function PayForm({ amount }: { amount: number }) {
       </label>
 
       <h3 className="rm-pay-section-title">Delivery address</h3>
+      {/* Type a postcode to pick a real address, or skip straight to typing
+          it manually below — either way ends at the same fields. */}
+      <PostcodeLookup
+        onSelect={(addr) => {
+          setAddressDefaults(addr);
+          setAddressKey((k) => k + 1);
+        }}
+      />
       {/* Scotland-only delivery: UK addresses only. */}
       <AddressElement
+        key={addressKey}
         options={{
           mode: "shipping",
           allowedCountries: ["GB"],
           fields: { phone: "always" },
           validation: { phone: { required: "always" } },
+          ...(addressDefaults
+            ? {
+                defaultValues: {
+                  address: {
+                    line1: addressDefaults.line1,
+                    line2: addressDefaults.line2,
+                    city: addressDefaults.city,
+                    state: addressDefaults.county,
+                    postal_code: addressDefaults.postcode,
+                    country: "GB",
+                  },
+                },
+              }
+            : {}),
         }}
         onChange={(event) => {
           const line1 = event.value.address.line1 || "";
@@ -242,6 +268,8 @@ function CashForm({
   const [postcode, setPostcode] = useState("");
   const [addressComplete, setAddressComplete] = useState(false);
   const [shippingDetails, setShippingDetails] = useState<ShippingDetails | null>(null);
+  const [addressDefaults, setAddressDefaults] = useState<LookedUpAddress | null>(null);
+  const [addressKey, setAddressKey] = useState(0);
   const [cashAmount, setCashAmount] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -327,12 +355,33 @@ function CashForm({
       </label>
 
       <h3 className="rm-pay-section-title">Delivery address</h3>
+      <PostcodeLookup
+        onSelect={(addr) => {
+          setAddressDefaults(addr);
+          setAddressKey((k) => k + 1);
+        }}
+      />
       <AddressElement
+        key={addressKey}
         options={{
           mode: "shipping",
           allowedCountries: ["GB"],
           fields: { phone: "always" },
           validation: { phone: { required: "always" } },
+          ...(addressDefaults
+            ? {
+                defaultValues: {
+                  address: {
+                    line1: addressDefaults.line1,
+                    line2: addressDefaults.line2,
+                    city: addressDefaults.city,
+                    state: addressDefaults.county,
+                    postal_code: addressDefaults.postcode,
+                    country: "GB",
+                  },
+                },
+              }
+            : {}),
         }}
         onChange={(event) => {
           const line1 = event.value.address.line1 || "";
