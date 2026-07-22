@@ -206,6 +206,7 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
       },
       reference: intent.id,
       paymentMethod: "card",
+      orderId: order.id,
     });
   } catch (err) {
     console.error("[stripe/webhook] order emails failed:", err);

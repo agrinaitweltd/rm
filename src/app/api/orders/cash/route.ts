@@ -179,6 +179,7 @@ export async function POST(request: Request) {
       paymentMethod: "cash",
       cashTendered,
       changeDue,
+      orderId: order.id,
     });
   } catch (err) {
     console.error("[orders/cash] order emails failed:", err);

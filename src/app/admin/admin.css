@@ -366,9 +366,40 @@
   background: #7a2222;
   color: #fff;
 }
-.rm-admin-orders {
+.rm-admin-orders-wrap {
   max-width: 1100px;
   margin: 0 auto;
+}
+.rm-admin-orders-toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.rm-admin-orders-search {
+  flex: 1;
+  min-width: 220px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  padding: 9px 12px;
+}
+.rm-admin-orders-search:focus {
+  outline: none;
+  border-color: #7aa82d;
+}
+.rm-admin-orders-toolbar select {
+  background: #000;
+  color: #fff;
+  border: 1px solid rgba(122, 168, 45, 0.5);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.rm-admin-orders {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -416,6 +447,26 @@
 .rm-admin-saved {
   color: #7aa82d;
   font-size: 16px;
+}
+.rm-admin-order-head-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rm-admin-receipt-btn {
+  display: inline-block;
+  border: 1px solid rgba(246, 162, 0, 0.5);
+  color: #f6a200;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.rm-admin-receipt-btn:hover {
+  background: #f6a200;
+  color: #1e1e1e;
 }
 .rm-admin-order-grid {
   display: grid;

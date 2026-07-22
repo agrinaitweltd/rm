@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { site } from "@/lib/site";
+import { renderReceiptPng } from "@/lib/receipt";
 
 export const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -20,6 +21,7 @@ export async function sendOrderConfirmationEmails({
   paymentMethod,
   cashTendered,
   changeDue,
+  orderId,
 }: {
   items: OrderItem[];
   total: number;
@@ -28,6 +30,9 @@ export async function sendOrderConfirmationEmails({
   paymentMethod: "card" | "cash";
   cashTendered?: number | null;
   changeDue?: number | null;
+  // Order row id — used to render the printable PNG receipt attached to the
+  // admin notification. Optional only so older/edge callers don't break.
+  orderId?: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return;
@@ -54,6 +59,30 @@ export async function sendOrderConfirmationEmails({
          Driver should bring <strong>${gbp(changeDue || 0)}</strong> change.</p>`
       : "";
 
+  // Best-effort printable receipt PNG attached to the admin email. Never lets
+  // a rendering hiccup block the actual order notification going out.
+  let receiptAttachment: { filename: string; content: string }[] | undefined;
+  if (orderId) {
+    try {
+      const png = await renderReceiptPng({
+        orderId,
+        createdAt: new Date().toISOString(),
+        items,
+        total,
+        customer: { name: customer.name, phone: customer.phone, address: customer.address },
+        paymentMethod,
+        cashTendered,
+        changeDue,
+      });
+      const buf = Buffer.from(await png.arrayBuffer());
+      receiptAttachment = [
+        { filename: `rm-mangoes-order-${orderId.slice(0, 8)}.png`, content: buf.toString("base64") },
+      ];
+    } catch (err) {
+      console.error("[order-emails] receipt render failed:", err);
+    }
+  }
+
   // Admin notification.
   await resend.emails.send({
     from,
@@ -68,7 +97,9 @@ export async function sendOrderConfirmationEmails({
         <h3 style="margin-top:20px">Delivery</h3>
         <p>${esc(customer.name) || "—"}<br/>${esc(customer.address) || "—"}<br/>${esc(customer.phone) || "—"}<br/>${esc(customer.email)}</p>
         <p style="color:#8b8b8b;font-size:13px">Reference: ${esc(reference)} · Payment: ${paymentMethod === "cash" ? "Cash on delivery" : "Card"}</p>
+        ${receiptAttachment ? `<p style="color:#8b8b8b;font-size:13px">A printable receipt is attached (PNG).</p>` : ""}
       </div>`,
+    attachments: receiptAttachment,
   });
 
   // Customer confirmation (skip if we never got a usable email).

@@ -80,13 +80,63 @@ function StatusSelect({ order }: { order: AdminOrder }) {
 }
 
 export default function OrdersTable({ orders }: { orders: AdminOrder[] }) {
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+
   if (orders.length === 0) {
     return <p className="rm-admin-empty">No orders yet.</p>;
   }
 
+  const counts = orders.reduce<Record<string, number>>((acc, o) => {
+    acc[o.order_status] = (acc[o.order_status] || 0) + 1;
+    return acc;
+  }, {});
+
+  const q = search.trim().toLowerCase();
+  const filtered = orders.filter((o) => {
+    if (statusFilter !== "All" && o.order_status !== statusFilter) return false;
+    if (!q) return true;
+    const haystack = [
+      o.customer?.full_name,
+      o.delivery_name,
+      o.customer?.email,
+      o.customer?.phone,
+      o.delivery_phone,
+      o.delivery_address,
+      o.delivery_postcode,
+      o.id,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    return haystack.includes(q);
+  });
+
   return (
-    <div className="rm-admin-orders">
-      {orders.map((o) => {
+    <div className="rm-admin-orders-wrap">
+      <div className="rm-admin-orders-toolbar">
+        <input
+          type="text"
+          placeholder="Search name, email, phone, postcode…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="rm-admin-orders-search"
+        />
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="All">All statuses ({orders.length})</option>
+          {STATUSES.map((s) => (
+            <option key={s} value={s}>
+              {s} ({counts[s] || 0})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {filtered.length === 0 ? (
+        <p className="rm-admin-empty">No orders match.</p>
+      ) : (
+        <div className="rm-admin-orders">
+          {filtered.map((o) => {
         const addr = [
           o.delivery_address,
           o.delivery_city,
@@ -103,7 +153,17 @@ export default function OrdersTable({ orders }: { orders: AdminOrder[] }) {
                 <span className="rm-admin-order-date">{when(o.created_at)}</span>
                 <span className="rm-admin-order-total">{gbp(o.total, o.currency)}</span>
               </div>
-              <StatusSelect order={o} />
+              <div className="rm-admin-order-head-right">
+                <a
+                  className="rm-admin-receipt-btn"
+                  href={`/api/admin/receipt/${o.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Receipt (PNG)
+                </a>
+                <StatusSelect order={o} />
+              </div>
             </header>
 
             <div className="rm-admin-order-grid">
@@ -161,7 +221,9 @@ export default function OrdersTable({ orders }: { orders: AdminOrder[] }) {
             </div>
           </article>
         );
-      })}
+          })}
+        </div>
+      )}
     </div>
   );
 }
