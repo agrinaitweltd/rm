@@ -148,6 +148,63 @@
   border-radius: 6px;
   padding: 2px 6px;
 }
+.rm-admin-barcode {
+  display: inline-block;
+  margin-left: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: #6a6a6a;
+  letter-spacing: 0.03em;
+}
+.rm-admin-scan-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  max-width: 420px;
+}
+.rm-admin-scan-row input {
+  flex: 1;
+  background: #000;
+  border: 1px solid rgba(122, 168, 45, 0.5);
+  border-radius: 8px;
+  color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.rm-admin-scan-row input:focus {
+  outline: none;
+  border-color: #7aa82d;
+}
+.rm-admin-scan-row button {
+  background: #4f8d36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.rm-admin-scan-row button:hover {
+  background: #f6a200;
+  color: #1e1e1e;
+}
+.rm-admin-scan-error {
+  color: #ff8d8d;
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+.rm-admin-row-highlight {
+  animation: rmAdminHighlight 2.2s ease;
+}
+@keyframes rmAdminHighlight {
+  0%, 100% {
+    background: transparent;
+  }
+  20% {
+    background: rgba(246, 162, 0, 0.28);
+  }
+}
 .rm-admin-stock input {
   width: 90px;
   background: #000;
