@@ -126,6 +126,7 @@ export const products: Product[] = [
   { id: "cups-50", title: "Cups", subtitle: "Pack of 50", price: "£5", amount: 500, image: "/cups-50.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Cups, Pack of 50 (£5)", barcode: "200000000554" },
   { id: "lids-50", title: "Lids", subtitle: "Pack of 50", price: "£5", amount: 500, image: "/lids-50.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Lids, Pack of 50 (£5)", barcode: "200000000561" },
   { id: "mango-sauce", title: "Mango Sauce", price: "£10", amount: 1000, image: "/mango-sauce.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Mango Sauce (£10)", barcode: "200000000578" },
+  { id: "blender", title: "Blender", price: "£80", amount: 8000, image: "/blender.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Blender (£80)", barcode: "200000000585" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).
