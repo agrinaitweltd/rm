@@ -21,6 +21,12 @@ function Card({ product, index, filter, soldOut }: { product: Product; index: nu
     >
       {soldOut && <span className="rm-shop-card-soldout">Sold Out</span>}
       <div className="rm-shop-card-img">
+        {product.promotion && (
+          <span className="rm-sale-badge" aria-label={product.promotion}>
+            <strong>20%</strong>
+            <span>OFF</span>
+          </span>
+        )}
         <ProductImg
           src={product.image}
           fallback={product.icon}
@@ -32,7 +38,10 @@ function Card({ product, index, filter, soldOut }: { product: Product; index: nu
       <div className="rm-shop-card-body">
         <h3 className="rm-shop-card-title">{product.title}</h3>
         {product.subtitle && <p className="rm-shop-card-subtitle">{product.subtitle}</p>}
-        <p className="rm-shop-card-price">{product.price}</p>
+        <p className="rm-shop-card-price">
+          {product.oldPrice && <del>{product.oldPrice}</del>}
+          <strong>{product.price}</strong>
+        </p>
         <AddToCartButton id={product.id} soldOut={soldOut} />
       </div>
     </Link>

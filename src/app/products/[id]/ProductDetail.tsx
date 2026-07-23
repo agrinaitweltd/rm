@@ -55,7 +55,11 @@ export default function ProductDetail({
               <span className="rm-pdp-category">{categoryLabel}</span>
               <h1>{product.title}</h1>
               {product.subtitle && <p className="rm-pdp-subtitle">{product.subtitle}</p>}
-              <p className="rm-pdp-price">{product.price}</p>
+              <p className="rm-pdp-price">
+                {product.oldPrice && <del>{product.oldPrice}</del>}
+                <strong>{product.price}</strong>
+                {product.promotion && <span className="rm-pdp-sale-label">{product.promotion}</span>}
+              </p>
             </div>
             <div className="rm-pdp-arrows">
               <Link href={`/products/${prevId}`} aria-label="Previous product">

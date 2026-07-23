@@ -617,6 +617,7 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   border-color: rgba(122, 168, 45, 0.4);
 }
 .rm-shop-card-img {
+  position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;
   background: #f7f6f2;
@@ -664,6 +665,39 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   color: #f6a200 !important;
   margin: 0 0 0.6rem;
 }
+.rm-shop-card-price del,
+.rm-pdp-price del {
+  color: #a6a6a6;
+  font-weight: 400;
+  margin-right: 0.5rem;
+  text-decoration-thickness: 2px;
+}
+.rm-shop-card-price strong,
+.rm-pdp-price strong {
+  color: #f6a200;
+}
+.rm-sale-badge {
+  position: absolute;
+  z-index: 1;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #d70c0c;
+  box-shadow: 0 0 0 2px #9c0000, 0 4px 10px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: "Filson Pro black", Helvetica, Arial, sans-serif;
+  line-height: 0.8;
+  transform: rotate(-8deg);
+}
+.rm-sale-badge strong { font-size: 1.55rem; }
+.rm-sale-badge span { font-size: 1.15rem; letter-spacing: 0.03em; }
 .rm-shop-card .rm-add-to-cart {
   width: 100%;
   margin-top: auto;
@@ -939,6 +973,19 @@ body:has(.grecaptcha-badge) .rm-cart-fab {
   color: #f6a200 !important;
   font-size: 2rem !important;
   margin: 0 0 2rem !important;
+}
+.rm-pdp-sale-label {
+  display: inline-block;
+  margin-left: 0.8rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: #d70c0c;
+  color: #fff;
+  font-family: "Avenir-Medium", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 .rm-pdp-arrows {
   display: flex;
