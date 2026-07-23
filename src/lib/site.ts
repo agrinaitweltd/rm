@@ -25,12 +25,13 @@ export const site = {
 // pence and is the single source of truth the server uses to build Stripe line
 // items (client-sent prices are never trusted). `price` stays the display
 // string so the existing UI is untouched.
-export type ProductCategory = "mangoes" | "fruit" | "veg";
+export type ProductCategory = "mangoes" | "fruit" | "veg" | "others";
 
 export const categories: { key: ProductCategory; label: string }[] = [
   { key: "mangoes", label: "Packed Mangoes" },
   { key: "fruit", label: "Fresh Fruit" },
   { key: "veg", label: "Vegetables" },
+  { key: "others", label: "Others" },
 ];
 
 export type Product = {
@@ -75,7 +76,7 @@ export const products: Product[] = [
   { id: "melon-galia", title: "Galia Melon", price: "£2.50", amount: 250, image: "/melon-galia.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Galia Melon (£2.50)", barcode: "200000000165" },
   { id: "grapes-xl-bunch", title: "Black Grapes", price: "£3.50", amount: 350, image: "/grapes-xl-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "Black Grapes (£3.50)", barcode: "200000000172" },
   { id: "pomegranate", title: "Pomegranate", price: "£1.50", amount: 150, image: "/pomegranate.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Pomegranate (£1.50)", barcode: "200000000189" },
-  { id: "premium-punjabi-gur", title: "Premium Punjabi Gur", price: "£3", amount: 300, image: "/gur.png", category: "fruit", order: "Premium Punjabi Gur (£3)", barcode: "200000000394" },
+  { id: "premium-punjabi-gur", title: "Premium Punjabi Gur", price: "£3", amount: 300, image: "/gur.png", category: "others", order: "Premium Punjabi Gur (£3)", barcode: "200000000394" },
   { id: "bananas-bunch", title: "Bananas Bunch", price: "£1.50", amount: 150, image: "/bananas-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Bananas Bunch (£1.50)", barcode: "200000000202" },
 
   { id: "tomato-box", title: "Tomato Box", price: "£6", amount: 600, image: "/tomato-box.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Tomato Box (£6)", barcode: "200000000219" },
