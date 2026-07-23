@@ -25,13 +25,14 @@ export const site = {
 // pence and is the single source of truth the server uses to build Stripe line
 // items (client-sent prices are never trusted). `price` stays the display
 // string so the existing UI is untouched.
-export type ProductCategory = "mangoes" | "fruit" | "veg" | "others";
+export type ProductCategory = "mangoes" | "fruit" | "veg" | "others" | "franchise";
 
 export const categories: { key: ProductCategory; label: string }[] = [
   { key: "mangoes", label: "Packed Mangoes" },
   { key: "fruit", label: "Fresh Fruit" },
   { key: "veg", label: "Vegetables" },
   { key: "others", label: "Others" },
+  { key: "franchise", label: "Mango Shakes Franchise" },
 ];
 
 export type Product = {
@@ -114,6 +115,17 @@ export const products: Product[] = [
   { id: "kitchen-towel-xl-case50", title: "XL Kitchen Towel Roll", subtitle: "50 Packs of 6", price: "£250", amount: 25000, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll, 50 Packs of 6 (£250)", barcode: "200000000462" },
   { id: "garlic-paste-1kg", title: "Garlic Paste", subtitle: "1kg Tub", price: "£3", amount: 300, image: "/garlic-paste-1kg.png", icon: "/icon-veg-generic.svg", category: "others", order: "Garlic Paste, 1kg Tub (£3)", barcode: "200000000479" },
   { id: "ginger-paste-1kg", title: "Ginger Paste", subtitle: "1kg Tub", price: "£3", amount: 300, image: "/ginger-paste-1kg.png", icon: "/icon-veg-generic.svg", category: "others", order: "Ginger Paste, 1kg Tub (£3)", barcode: "200000000486" },
+
+  // Mango Shakes Franchise kit — equipment and supplies sold to franchisees.
+  { id: "mixing-bowls-lids", title: "Mixing Bowls with Lids", price: "£26", amount: 2600, image: "/mixing-bowls-lids.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Mixing Bowls with Lids (£26)", barcode: "200000000493" },
+  { id: "collapsible-colander", title: "Collapsible Colander", price: "£19", amount: 1900, image: "/collapsible-colander.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Collapsible Colander (£19)", barcode: "200000000509" },
+  { id: "knife-set-ceramic", title: "Ceramic-Coated Knife Set", price: "£20", amount: 2000, image: "/knife-set-ceramic.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Ceramic-Coated Knife Set (£20)", barcode: "200000000516" },
+  { id: "straws-pack", title: "Straws", price: "£8", amount: 800, image: "/straws-pack.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Straws (£8)", barcode: "200000000523" },
+  { id: "whipped-cream", title: "Whipped Cream", price: "£6", amount: 600, image: "/whipped-cream.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Whipped Cream (£6)", barcode: "200000000530" },
+  { id: "franchise-sugar", title: "Sugar", subtitle: "5kg", price: "£6", amount: 600, image: "/granulated-sugar.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Sugar, 5kg (£6)", barcode: "200000000547" },
+  { id: "cups-50", title: "Cups", subtitle: "Pack of 50", price: "£5", amount: 500, image: "/cups-50.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Cups, Pack of 50 (£5)", barcode: "200000000554" },
+  { id: "lids-50", title: "Lids", subtitle: "Pack of 50", price: "£5", amount: 500, image: "/lids-50.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Lids, Pack of 50 (£5)", barcode: "200000000561" },
+  { id: "mango-sauce", title: "Mango Sauce", price: "£10", amount: 1000, image: "/mango-sauce.png", icon: "/icon-veg-generic.svg", category: "franchise", order: "Mango Sauce (£10)", barcode: "200000000578" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).
