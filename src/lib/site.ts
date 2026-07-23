@@ -48,6 +48,10 @@ export type Product = {
   // wherever the photo (image) hasn't been uploaded yet.
   icon?: string;
   category: ProductCategory;
+  // Groups multiple size/pack SKUs (each with its own price, stock and
+  // barcode) into a single card with a size selector, instead of showing
+  // each tier as its own separate product tile.
+  variantGroup?: string;
   order: string;
   // 12-digit UPC-A barcode printed on the physical box label. Uses the
   // GS1 "20"-prefix reserved for in-store/private use, so it's guaranteed
@@ -102,12 +106,12 @@ export const products: Product[] = [
   // Household/pantry items — no photos uploaded yet, so these fall back to
   // the generic icon until real product shots are added.
   { id: "granulated-sugar", title: "Granulated Sugar", subtitle: "5kg", price: "£6", amount: 600, image: "/granulated-sugar.png", icon: "/icon-veg-generic.svg", category: "others", order: "Granulated Sugar, 5kg (£6)", barcode: "200000000400" },
-  { id: "blue-roll", title: "Blue Roll", subtitle: "Each", price: "£2", amount: 200, image: "/blue-roll.png", icon: "/icon-veg-generic.svg", category: "others", order: "Blue Roll (£2 each)", barcode: "200000000417" },
-  { id: "blue-roll-pack6", title: "Blue Roll", subtitle: "Pack of 6", price: "£6.50", amount: 650, image: "/blue-roll.png", icon: "/icon-veg-generic.svg", category: "others", order: "Blue Roll, Pack of 6 (£6.50)", barcode: "200000000424" },
-  { id: "blue-roll-case50", title: "Blue Roll", subtitle: "50 Packs of 6", price: "£300", amount: 30000, image: "/blue-roll.png", icon: "/icon-veg-generic.svg", category: "others", order: "Blue Roll, 50 Packs of 6 (£300)", barcode: "200000000431" },
-  { id: "kitchen-towel-xl", title: "XL Kitchen Towel Roll", subtitle: "Each", price: "£1", amount: 100, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", order: "XL Kitchen Towel Roll (£1 each)", barcode: "200000000448" },
-  { id: "kitchen-towel-xl-pack6", title: "XL Kitchen Towel Roll", subtitle: "Pack of 6", price: "£5.50", amount: 550, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", order: "XL Kitchen Towel Roll, Pack of 6 (£5.50)", barcode: "200000000455" },
-  { id: "kitchen-towel-xl-case50", title: "XL Kitchen Towel Roll", subtitle: "50 Packs of 6", price: "£250", amount: 25000, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", order: "XL Kitchen Towel Roll, 50 Packs of 6 (£250)", barcode: "200000000462" },
+  { id: "blue-roll", title: "Blue Roll", subtitle: "Each", price: "£2", amount: 200, image: "/blue-roll.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "blue-roll", order: "Blue Roll (£2 each)", barcode: "200000000417" },
+  { id: "blue-roll-pack6", title: "Blue Roll", subtitle: "Pack of 6", price: "£6.50", amount: 650, image: "/blue-roll.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "blue-roll", order: "Blue Roll, Pack of 6 (£6.50)", barcode: "200000000424" },
+  { id: "blue-roll-case50", title: "Blue Roll", subtitle: "50 Packs of 6", price: "£300", amount: 30000, image: "/blue-roll.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "blue-roll", order: "Blue Roll, 50 Packs of 6 (£300)", barcode: "200000000431" },
+  { id: "kitchen-towel-xl", title: "XL Kitchen Towel Roll", subtitle: "Each", price: "£1", amount: 100, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll (£1 each)", barcode: "200000000448" },
+  { id: "kitchen-towel-xl-pack6", title: "XL Kitchen Towel Roll", subtitle: "Pack of 6", price: "£5.50", amount: 550, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll, Pack of 6 (£5.50)", barcode: "200000000455" },
+  { id: "kitchen-towel-xl-case50", title: "XL Kitchen Towel Roll", subtitle: "50 Packs of 6", price: "£250", amount: 25000, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll, 50 Packs of 6 (£250)", barcode: "200000000462" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).
