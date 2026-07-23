@@ -112,6 +112,8 @@ export const products: Product[] = [
   { id: "kitchen-towel-xl", title: "XL Kitchen Towel Roll", subtitle: "Each", price: "£1", amount: 100, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll (£1 each)", barcode: "200000000448" },
   { id: "kitchen-towel-xl-pack6", title: "XL Kitchen Towel Roll", subtitle: "Pack of 6", price: "£5.50", amount: 550, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll, Pack of 6 (£5.50)", barcode: "200000000455" },
   { id: "kitchen-towel-xl-case50", title: "XL Kitchen Towel Roll", subtitle: "50 Packs of 6", price: "£250", amount: 25000, image: "/kitchen-towel-xl.png", icon: "/icon-veg-generic.svg", category: "others", variantGroup: "kitchen-towel-xl", order: "XL Kitchen Towel Roll, 50 Packs of 6 (£250)", barcode: "200000000462" },
+  { id: "garlic-paste-1kg", title: "Garlic Paste", subtitle: "1kg Tub", price: "£3", amount: 300, image: "/garlic-paste-1kg.png", icon: "/icon-veg-generic.svg", category: "others", order: "Garlic Paste, 1kg Tub (£3)", barcode: "200000000479" },
+  { id: "ginger-paste-1kg", title: "Ginger Paste", subtitle: "1kg Tub", price: "£3", amount: 300, image: "/ginger-paste-1kg.png", icon: "/icon-veg-generic.svg", category: "others", order: "Ginger Paste, 1kg Tub (£3)", barcode: "200000000486" },
 ];
 
 // Server-side lookup for authoritative pricing (used by the checkout API).
