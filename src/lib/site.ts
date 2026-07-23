@@ -58,7 +58,7 @@ export const products: Product[] = [
   { id: "small-3", title: "3 Small Boxes", price: "£20", amount: 2000, image: "/mango-box-3-small.png", category: "mangoes", order: "3 Small Boxes of mangoes (£20)", barcode: "200000000035" },
   { id: "medium-1", title: "Medium Box", price: "£18", amount: 1800, image: "/mango-box-medium.png", category: "mangoes", order: "a Medium Box of mangoes (£18)", barcode: "200000000042" },
   { id: "medium-2", title: "2 Medium Boxes", price: "£35", amount: 3500, image: "/mango-box-2-medium.png", category: "mangoes", order: "2 Medium Boxes of mangoes (£35)", barcode: "200000000059" },
-  { id: "large-1", title: "Large Box", price: "£30", amount: 3000, image: "/mango-box-large.png", category: "mangoes", order: "a Large Box of mangoes (£30)", barcode: "200000000066" },
+  { id: "large-1", title: "Large Box — 20% Off Today", price: "£24", amount: 2400, image: "/mango-box-large.png", category: "mangoes", order: "a Large Box of mangoes at 20% off (£24)", barcode: "200000000066" },
   { id: "guava-large", title: "Large Guava", price: "£1", amount: 100, image: "/guava-large.png", icon: "/icon-guava.svg", category: "fruit", order: "a Large Guava (£1)", barcode: "200000000073" },
   { id: "cherries-large", title: "Cherries — 2kg Box", price: "£12", amount: 1200, image: "/cherries-large.png", icon: "/icon-cherries.svg", category: "fruit", order: "Cherries 2kg Box (£12)", barcode: "200000000080" },
   { id: "karela-large", title: "Large Box of Karela", price: "£9", amount: 900, image: "/karela-large.png", icon: "/icon-karela.svg", category: "veg", order: "a Large Box of Karela (£9)", barcode: "200000000097" },
@@ -73,7 +73,6 @@ export const products: Product[] = [
   { id: "melon-galia", title: "Galia Melon", price: "£2.50", amount: 250, image: "/melon-galia.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Galia Melon (£2.50)", barcode: "200000000165" },
   { id: "grapes-xl-bunch", title: "Black Grapes", price: "£3.50", amount: 350, image: "/grapes-xl-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "Black Grapes (£3.50)", barcode: "200000000172" },
   { id: "pomegranate", title: "Pomegranate", price: "£1.50", amount: 150, image: "/pomegranate.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Pomegranate (£1.50)", barcode: "200000000189" },
-  { id: "large-1-20off", title: "Large Box — 20% Off", price: "£24", amount: 2400, image: "/mango-box-large.png", category: "mangoes", order: "a Large Box of mangoes at 20% off (£24)", barcode: "200000000196" },
   { id: "bananas-bunch", title: "Bananas Bunch", price: "£1.50", amount: 150, image: "/bananas-bunch.png", icon: "/icon-fruit-generic.svg", category: "fruit", order: "a Bananas Bunch (£1.50)", barcode: "200000000202" },
 
   { id: "tomato-box", title: "Tomato Box", price: "£6", amount: 600, image: "/tomato-box.png", icon: "/icon-veg-generic.svg", category: "veg", order: "a Tomato Box (£6)", barcode: "200000000219" },
