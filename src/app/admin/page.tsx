@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { isAdminAuthed } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import AdminLogin from "./AdminLogin";
@@ -67,6 +68,9 @@ export default async function AdminPage() {
               ★ {avgRating}/10 ({ratings.length})
             </span>
           )}
+          <Link href="/admin/settings/store-connection" className="rm-admin-settings-link">
+            Settings
+          </Link>
           <LogoutButton />
         </div>
       </header>

@@ -529,3 +529,119 @@
 .rm-admin-items td {
   color: #e8e8e8;
 }
+
+/* ---- Breadcrumb (topbar h1 on nested admin pages) ---- */
+.rm-admin-breadcrumb-link {
+  color: #f6a200;
+  text-decoration: none;
+}
+.rm-admin-breadcrumb-link:hover {
+  text-decoration: underline;
+}
+.rm-admin-breadcrumb-sep {
+  color: #7aa82d;
+  margin: 0 8px;
+  font-weight: 400;
+}
+.rm-admin-settings-link {
+  color: #7aa82d;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(122, 168, 45, 0.4);
+  border-radius: 8px;
+  padding: 8px 14px;
+}
+.rm-admin-settings-link:hover {
+  background: rgba(122, 168, 45, 0.12);
+}
+
+/* ---- Store Connection ---- */
+.rm-admin-key-reveal {
+  background: rgba(246, 162, 0, 0.1);
+  border: 1px solid rgba(246, 162, 0, 0.4);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.rm-admin-key-reveal p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #f6a200;
+}
+.rm-admin-key-reveal-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.rm-admin-key-reveal-row code {
+  flex: 1;
+  min-width: 220px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  color: #fff;
+  word-break: break-all;
+}
+.rm-admin-key-reveal-row button {
+  background: #4f8d36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.rm-admin-key-reveal-row button:hover {
+  background: #f6a200;
+  color: #1e1e1e;
+}
+.rm-admin-key-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.rm-admin-key-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7aa82d;
+  margin-bottom: 4px;
+}
+.rm-admin-key-value {
+  display: block;
+  font-size: 14px;
+  color: #e8e8e8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.rm-admin-key-actions {
+  display: flex;
+  gap: 10px;
+}
+.rm-admin-key-actions button {
+  background: #4f8d36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.rm-admin-key-actions button:hover:not(:disabled) {
+  background: #f6a200;
+  color: #1e1e1e;
+}
+.rm-admin-key-actions button.rm-admin-promo-delete {
+  background: transparent;
+  border: 1px solid rgba(255, 141, 141, 0.4);
+  color: #ff8d8d;
+}
+.rm-admin-key-actions button.rm-admin-promo-delete:hover:not(:disabled) {
+  background: #7a2222;
+  color: #fff;
+}
