@@ -4,6 +4,7 @@ import { productById, DELIVERY_FEE_PENCE } from "@/lib/site";
 import { priceCart, assertStock, OrderError, type CheckoutItem } from "@/lib/order-pricing";
 import { sendOrderConfirmationEmails } from "@/lib/order-emails";
 import { stripe } from "@/lib/stripe";
+import { findOrCreateStripeCustomer } from "@/lib/stripe-customers";
 import { requireStoreKey, isGuardResponse } from "@/lib/mobile/guard";
 
 export const runtime = "nodejs";
@@ -123,10 +124,16 @@ export async function POST(request: Request) {
     if (!process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json({ error: "Card payments aren't configured yet." }, { status: 503 });
     }
+    const cardEmail = String(body.email || "").trim().toLowerCase().slice(0, 200);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cardEmail)) {
+      return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });
+    }
     try {
+      const customer = await findOrCreateStripeCustomer(cardEmail);
       const intent = await stripe.paymentIntents.create({
         amount: total,
         currency: "gbp",
+        customer: customer.id,
         automatic_payment_methods: { enabled: true },
         description: `RM Mangoes order (app) — ${summary.join(", ")}`,
         metadata: {
