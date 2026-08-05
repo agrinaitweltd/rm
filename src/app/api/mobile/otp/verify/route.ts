@@ -61,35 +61,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Incorrect code." }, { status: 400 });
   }
 
-  if (!row.user_id) {
-    console.error("[mobile/otp/verify] matched OTP row has no user_id:", row.id);
-    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
-  }
-
   await supabase.from("otp_codes").update({ consumed_at: new Date().toISOString() }).eq("id", row.id);
 
   if (purpose === "signup") {
-    const { data: userData, error: userErr } = await supabase.auth.admin.updateUserById(row.user_id, {
-      email_confirm: true,
-    });
-    if (userErr) {
-      console.error("[mobile/otp/verify] failed to confirm signup user:", userErr);
-      return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
-    }
-    const { error: profileErr } = await supabase.from("profiles").upsert({
-      id: row.user_id,
-      full_name: userData.user?.user_metadata?.full_name ?? null,
-      role: "customer",
-    });
-    if (profileErr) console.error("[mobile/otp/verify] failed to upsert profile:", profileErr);
-  } else {
-    const { error: pwErr } = await supabase.auth.admin.updateUserById(row.user_id, {
-      password: body.newPassword,
-    });
-    if (pwErr) {
-      console.error("[mobile/otp/verify] failed to update password:", pwErr);
-      return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
-    }
+    // No auth.users row yet — this consumed row is the proof of verification
+    // that /api/mobile/signup/complete checks for when it creates the account.
+    return NextResponse.json({ ok: true });
+  }
+
+  if (!row.user_id) {
+    console.error("[mobile/otp/verify] matched reset OTP row has no user_id:", row.id);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+  }
+  const { error: pwErr } = await supabase.auth.admin.updateUserById(row.user_id, {
+    password: body.newPassword,
+  });
+  if (pwErr) {
+    console.error("[mobile/otp/verify] failed to update password:", pwErr);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true });
