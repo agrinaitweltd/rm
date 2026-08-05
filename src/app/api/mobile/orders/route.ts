@@ -134,7 +134,7 @@ export async function POST(request: Request) {
         amount: total,
         currency: "gbp",
         customer: customer.id,
-        automatic_payment_methods: { enabled: true },
+        payment_method_types: ["card"],
         description: `RM Mangoes order (app) — ${summary.join(", ")}`,
         metadata: {
           cart: JSON.stringify(cart),
