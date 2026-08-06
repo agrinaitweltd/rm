@@ -3,6 +3,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { productById, DELIVERY_FEE_PENCE } from "@/lib/site";
 import { priceCart, assertStock, OrderError, type CheckoutItem } from "@/lib/order-pricing";
 import { sendOrderConfirmationEmails } from "@/lib/order-emails";
+import { dispatchWebhookEvent } from "@/lib/mobile/webhooks";
+import { decrementStockAndNotify, incrementPromoUseAndNotify } from "@/lib/mobile/fulfillment";
 
 export const runtime = "nodejs";
 
@@ -117,6 +119,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Sorry, we couldn't place your order. Please try again." }, { status: 500 });
   }
 
+  await dispatchWebhookEvent("order.created", {
+    orderId: order.id,
+    total,
+    paymentMethod: "cash",
+    customerEmail: email,
+  });
+
   // ── order items ───────────────────────────────────────────────────────────
   const items = cart
     .map((line) => {
@@ -148,17 +157,20 @@ export async function POST(request: Request) {
       unit_price: -discount,
       total_price: -discount,
     });
-    const { error: promoErr } = await supabase.rpc("increment_promo_use", { promo_code: promoCode });
+    const { error: promoErr } = await incrementPromoUseAndNotify(supabase, promoCode, {
+      orderId: order.id,
+      discount,
+    });
     if (promoErr) console.error("[orders/cash] promo use increment failed:", promoErr.message);
   }
 
   const { error: itemsErr } = await supabase.from("order_items").insert(items);
   if (itemsErr) console.error("[orders/cash] failed to insert order items:", itemsErr);
 
-  // Sync stock immediately — there's no webhook for a cash order.
+  // Sync stock immediately — there's no Stripe webhook for a cash order.
   for (const line of cart) {
-    const { data: ok, error: stockErr } = await supabase.rpc("decrement_stock", { pid: line.id, qty: line.q });
-    if (stockErr || ok === false) {
+    const { ok, error: stockErr } = await decrementStockAndNotify(supabase, line.id, line.q);
+    if (!ok) {
       console.error(`[orders/cash] stock decrement failed for ${line.id} x${line.q}:`, stockErr?.message || "insufficient stock");
     }
   }

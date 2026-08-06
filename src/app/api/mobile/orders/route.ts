@@ -6,6 +6,8 @@ import { sendOrderConfirmationEmails } from "@/lib/order-emails";
 import { stripe } from "@/lib/stripe";
 import { findOrCreateStripeCustomer } from "@/lib/stripe-customers";
 import { requireStoreKey, isGuardResponse } from "@/lib/mobile/guard";
+import { dispatchWebhookEvent } from "@/lib/mobile/webhooks";
+import { decrementStockAndNotify, incrementPromoUseAndNotify } from "@/lib/mobile/fulfillment";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -222,6 +224,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Sorry, we couldn't place your order. Please try again." }, { status: 500 });
   }
 
+  await dispatchWebhookEvent("order.created", {
+    orderId: order.id,
+    total,
+    paymentMethod: "cash",
+    customerEmail: email,
+  });
+
   const items = cart
     .map((line) => {
       const product = productById(line.id);
@@ -252,7 +261,10 @@ export async function POST(request: Request) {
       unit_price: -discount,
       total_price: -discount,
     });
-    const { error: promoErr } = await supabase.rpc("increment_promo_use", { promo_code: promoCode });
+    const { error: promoErr } = await incrementPromoUseAndNotify(supabase, promoCode, {
+      orderId: order.id,
+      discount,
+    });
     if (promoErr) console.error("[mobile/orders] promo use increment failed:", promoErr.message);
   }
 
@@ -260,8 +272,8 @@ export async function POST(request: Request) {
   if (itemsErr) console.error("[mobile/orders] failed to insert order items:", itemsErr);
 
   for (const line of cart) {
-    const { data: ok, error: stockErr } = await supabase.rpc("decrement_stock", { pid: line.id, qty: line.q });
-    if (stockErr || ok === false) {
+    const { ok, error: stockErr } = await decrementStockAndNotify(supabase, line.id, line.q);
+    if (!ok) {
       console.error(`[mobile/orders] stock decrement failed for ${line.id} x${line.q}:`, stockErr?.message || "insufficient stock");
     }
   }

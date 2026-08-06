@@ -5,6 +5,8 @@ import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { productById, site, DELIVERY_FEE_PENCE } from "@/lib/site";
 import { sendOrderConfirmationEmails, esc } from "@/lib/order-emails";
+import { dispatchWebhookEvent } from "@/lib/mobile/webhooks";
+import { decrementStockAndNotify, incrementPromoUseAndNotify } from "@/lib/mobile/fulfillment";
 
 // Stripe needs the raw, unparsed body to verify the signature, so this route
 // must run on the Node.js runtime and read the body as text.
@@ -123,6 +125,13 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
 
   if (orderErr || !order) throw orderErr || new Error("Could not create order");
 
+  await dispatchWebhookEvent("order.created", {
+    orderId: order.id,
+    total: intent.amount_received || intent.amount,
+    paymentMethod: "card",
+    customerEmail: resolvedEmail,
+  });
+
   // ── order items (from PI metadata, priced by the server catalogue) ────────
   let cart: { id: string; q: number }[] = [];
   try {
@@ -166,8 +175,9 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
       unit_price: -promoDiscount,
       total_price: -promoDiscount,
     });
-    const { error: promoErr } = await supabase.rpc("increment_promo_use", {
-      promo_code: promoCode,
+    const { error: promoErr } = await incrementPromoUseAndNotify(supabase, promoCode, {
+      orderId: order.id,
+      discount: promoDiscount,
     });
     if (promoErr) console.error("[stripe/webhook] promo use increment failed:", promoErr.message);
   }
@@ -181,11 +191,8 @@ async function handlePaymentSucceeded(intent: Stripe.PaymentIntent) {
   // logged but doesn't fail the webhook — the order itself is already stored.
   for (const line of cart) {
     const qty = Math.max(1, Math.floor(line.q) || 1);
-    const { data: ok, error: stockErr } = await supabase.rpc("decrement_stock", {
-      pid: line.id,
-      qty,
-    });
-    if (stockErr || ok === false) {
+    const { ok, error: stockErr } = await decrementStockAndNotify(supabase, line.id, qty);
+    if (!ok) {
       console.error(`[stripe/webhook] stock decrement failed for ${line.id} x${qty}:`, stockErr?.message || "insufficient stock");
     }
   }

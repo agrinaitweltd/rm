@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requireStoreKey, isGuardResponse } from "@/lib/mobile/guard";
+import { dispatchWebhookEvent } from "@/lib/mobile/webhooks";
 
 export const runtime = "nodejs";
 
@@ -24,6 +25,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 
   const supabase = createAdminClient();
+  const { data: previous } = await supabase.from("orders").select("order_status").eq("id", id).maybeSingle();
+
   const { data, error } = await supabase
     .from("orders")
     .update({ order_status: status })
@@ -37,6 +40,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   if (!data) {
     return NextResponse.json({ error: "Order not found." }, { status: 404 });
   }
+
+  await dispatchWebhookEvent("order.status_changed", {
+    orderId: id,
+    previousStatus: previous?.order_status ?? null,
+    status,
+  });
 
   return NextResponse.json({ ok: true });
 }

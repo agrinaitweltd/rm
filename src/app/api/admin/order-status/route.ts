@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthed } from "@/lib/admin-auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { dispatchWebhookEvent } from "@/lib/mobile/webhooks";
 
 export const runtime = "nodejs";
 
@@ -24,9 +25,18 @@ export async function POST(request: Request) {
   }
 
   const supabase = createAdminClient();
+  const { data: previous } = await supabase.from("orders").select("order_status").eq("id", orderId).maybeSingle();
+
   const { error } = await supabase.from("orders").update({ order_status: status }).eq("id", orderId);
   if (error) {
     return NextResponse.json({ error: "Update failed." }, { status: 500 });
   }
+
+  await dispatchWebhookEvent("order.status_changed", {
+    orderId,
+    previousStatus: previous?.order_status ?? null,
+    status,
+  });
+
   return NextResponse.json({ ok: true });
 }
