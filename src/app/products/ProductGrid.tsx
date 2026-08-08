@@ -99,6 +99,9 @@ function VariantCard({
         <Link href={`/products/${selected.id}`} className="rm-shop-card-title-link">
           <h3 className="rm-shop-card-title">{selected.title}</h3>
         </Link>
+        <p className="rm-shop-card-variant-label">
+          Option: <strong>{selected.subtitle || selected.title}</strong>
+        </p>
         <select
           className="rm-shop-card-variant-select"
           value={selectedId}
@@ -107,7 +110,7 @@ function VariantCard({
         >
           {sorted.map((v) => (
             <option key={v.id} value={v.id}>
-              {v.subtitle || v.title}
+              {v.subtitle || v.title} — {v.price}
             </option>
           ))}
         </select>
